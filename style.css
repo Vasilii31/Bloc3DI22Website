@@ -1,0 +1,74 @@
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+    font-family: 'system-ui', sans-serif;
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+.container {
+    position : relative;
+    height : 100vh;
+    width: 100%;
+    padding: 0 8%;
+    background: linear-gradient(rgba(0,0,0, .4), transparent), url(./img/Background_organisateurs_entraineurs.jpg) center center no-repeat;
+    background-size: cover;
+
+}
+
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 5px 0;
+}
+
+#navbar .logo{
+    width: 120px;
+    cursor: pointer;
+    font-size: 2.5rem;
+    font-style: oblique;
+    font-weight: bold;
+    text-decoration: none;
+    color: #C0A33D;
+}
+
+#navbar ul{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
+    padding-right: 40px;
+    text-align: right;
+    list-style-type: none;
+}
+
+#navbar ul li{
+    margin-right: 10px;
+}
+
+#navbar ul li a{
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #C0A33D;
+    font-size: 16px;
+}
+
+button.btn{
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 0;
+    background-color: transparent;
+    color: #C0A33D;
+    border: 1px solid transparent;
+    transition: border-color .3s;
+}
+
+button.btn:hover{
+    border-color: #C0A33D;
+}
