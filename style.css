@@ -90,7 +90,15 @@ section{
 .form-wrapper .card{
     width:360px;
     padding: 20px;
-    background-color: rgb(0,0,0 /35%);
+    background-color: rgb(214 198 141 /15%);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.card.show{
+    visibility: visible;
+    opacity: 1;
 }
 
 .card-header{
@@ -102,4 +110,69 @@ section{
     color: #C0A33D;
     box-shadow: 2px 3px 8px #d3f7ff71;
     border-radius: 50px;
+}
+
+.card-header .form-header{
+    flex: 50%;
+    text-align: center;
+    padding: 10px 0;
+    border: 1px solid transparent;
+    border-radius: 50px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.card-header .form-header.active{
+    box-shadow: inset 1px 1px 2px rgb(236 196 54 / 55%), inset -1px 1px 2px rgb(236 196 54 / 55%), 
+    inset -1px -1px 2px rgb(236 196 54/55%), inset 1px -1px 2px rgb(236 196 54/55%);
+    border-color: #C0A33D;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.card-body{
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 40px 0;
+    text-align: center;
+}
+
+form{
+    flex: 0 0 100%;
+}
+
+.toggleForm{
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.form-control{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgb(236 196 54 / 65%);
+    background: none;
+    outline: none;
+    padding: 10px 5px;
+    margin-bottom: 20px;
+    color: #ffff;
+}
+
+.form-control::placeholder{
+    color: rgb(236 196 54 / 65%);
+}
+
+.formButton{
+    border: 1px solid transparent;
+    padding: 1rem 3rem;
+    background-color: #C0A33D;
+    border-radius: 50px;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.formButton:hover{
+    box-shadow: 3px 5px 15px #C0A33D;
+    transform: translateY(-5px);
 }
