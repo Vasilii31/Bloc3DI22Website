@@ -34,15 +34,15 @@
                                 
                             </form>
 
-                            <form id="registerForm" class="toggleForm">
-                                <input type="text" class="form-control" placeholder="Nom">
-                                <input type="text" class="form-control" placeholder="Prénom">
-                                <input type="text" class="form-control" placeholder="Identifiant">
-                                <input type="text" class="form-control" placeholder="Adresse mail">
-                                <input type="text" class="form-control" placeholder="Numéro de téléphone">
-                                <input type="password" class="form-control" placeholder="@Mot de Passe">
-                                <input type="password" class="form-control" placeholder="@Confirmer Mot de Passe">
-                                <button class="formButton">Inscription</button>
+                            <form onsubmit="event.preventDefault();" id="registerForm" class="toggleForm">
+                                <input type="text" class="form-control" placeholder="Nom" required>
+                                <input type="text" class="form-control" placeholder="Prénom" required>
+                                <input type="text" class="form-control" placeholder="Identifiant" required>
+                                <input type="text" class="form-control" placeholder="Adresse mail" required>
+                                <input type="text" class="form-control" placeholder="Numéro de téléphone" required>
+                                <input type="password" class="form-control" id="mdp" placeholder="@Mot de Passe" required>
+                                <input type="password" class="form-control" id="cmdp" placeholder="@Confirmer Mot de Passe" required>
+                                <button class="formButton" id="registerButton">Inscription</button>
                             </form>       
                         </div>
                     </div>
