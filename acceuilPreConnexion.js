@@ -1,4 +1,4 @@
-const displayform = pE('displayForm');
+/*const displayform = pE('displayForm');
 const forLogin = pE('forLogin');
 const loginForm = pE('loginForm');
 const forRegister = pE('forRegister');
@@ -7,9 +7,36 @@ const formContainer = pE('formContainer');
 const registerButton = pE('registerButton');
 displayform.addEventListener('click', showForm);
 
-registerButton.addEventListener('click', GlobalVerif);
+registerButton.addEventListener('click', GlobalVerif);*/
 
-forLogin.addEventListener('click', () => {
+//TEST
+const testDate = pE('inputDate');
+
+function dateHandler(date)
+{
+    const equip1 = pE('equipe1');
+    equip1.classList.remove('hidden');
+    console.log("Vous avez inséré la date : " + date);
+}
+
+function equip1Handler(equipe)
+{
+    const equip2 = pE('equipe2');
+    equip2.classList.remove('hidden');
+    console.log("Vous avez selectionné l'équipe : " + equipe);
+}
+/*testDate.addEventListener('oninput', () => {
+    console.log("La date a changé");
+})*/
+
+
+//TEST
+
+
+
+
+
+/*forLogin.addEventListener('click', () => {
     forLogin.classList.add('active');
     forRegister.classList.remove('active');
     if(loginForm.classList.contains('toggleForm'))
@@ -33,12 +60,14 @@ forRegister.addEventListener('click', () => {
     }
 })
 
+*/
+
 function pE(e)
 {
     return document.getElementById(e);
 }
 
-function showForm()
+/*function showForm()
 {
     document.querySelector('.form-wrapper .card').classList.toggle('show');
 }
@@ -77,5 +106,4 @@ function Register()
     else{
         //on tente de créer le profil. Si erreur, ramener sur la page de connexion avec un message d'erreur
         //exemple : ce nom d'utilisateur existe déjà
-    }
-}
+    }*/
