@@ -38,13 +38,15 @@
 
         <input type="date" name="DateRencontre" onchange="dateHandler(value);" id="inputDate" required>
         <div id="equipe1" class="hidden">
-            <select name="equipe1" onchange="equip1Handler(value);"><option value="">Equipe N°1</option>
+            <select id="equip1selector" name="equipe1" onchange="equip1Handler(value);" required><option value="">Equipe N°1</option>
                 <?php 
                     if(isset($clubs))
                     {
+                        $index = 1;
                         foreach($clubs as $club)
                         {
-                            echo "<option value=".$club['IdClub'].">".$club['NomClub']."</option>";
+                            echo "<option id='equip1opt".$index."' value=".$club['IdClub'].">".$club['NomClub']."</option>";
+                            $index++;
                         }
                     }
                 ?>
@@ -52,11 +54,21 @@
         </div>
         <div id="equipe2" class="hidden">
             
-            <select name="equipe2" onchange="equip2Handler(value);" id=""><option value="">Equipe N°2</option></select>
+            <select id="equip2selector" name="equipe2" onchange="equip2Handler(value);" required><option value="">Equipe N°2</option>
+            <?php 
+                    if(isset($clubs))
+                    {
+                        $index = 1;
+                        foreach($clubs as $club)
+                        {                           
+                            echo "<option id='equip2opt".$index."' value=".$club['IdClub'].">".$club['NomClub']."</option>";
+                            $index++;
+                        }
+                    }
+                ?>
+            </select>
         </div>
-            <select name="Lieu" required></select>
 
-        <select name="Stade">
         <input type="submit" value="Valider la feuille de Match">
         </form>
     </div>

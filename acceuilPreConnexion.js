@@ -10,7 +10,11 @@ displayform.addEventListener('click', showForm);
 registerButton.addEventListener('click', GlobalVerif);*/
 
 //TEST
+const equip2s = pE("equip2selector");
+const equip1s = pE("equip1selector");
 const testDate = pE('inputDate');
+var reliquatEquipe2;
+var reliquatEquipe1;
 
 function dateHandler(date)
 {
@@ -21,20 +25,62 @@ function dateHandler(date)
 
 function equip1Handler(equipe)
 {
-    const equip2 = pE('equipe2');
-    equip2.classList.remove('hidden');
-    console.log("Vous avez selectionné l'équipe : " + equipe);
+    if(equipe == "")
+    {
+        console.log("remise à zéro");
+        if(reliquatEquipe2 != null)
+        {
+            equip2s.add(reliquatEquipe2, equip2s[reliquatEquipe2.value]);
+            reliquatEquipe2 = null;
+        }
+    }
+    else
+    {
+        if(reliquatEquipe2 != null)
+        {
+            equip2s.add(reliquatEquipe2, equip2s[reliquatEquipe2.value]);
+        }
+        reliquatEquipe2 = pE("equip2opt"+equipe);
+        console.log(reliquatEquipe2);
+        equip2s.remove(equipe);
+        const equip2 = pE('equipe2');
+        equip2.classList.remove('hidden');
+        console.log("Vous avez selectionné l'équipe : " + equipe);
+    }    
 }
 /*testDate.addEventListener('oninput', () => {
     console.log("La date a changé");
 })*/
 
+function equip2Handler(equipe)
+{
+    if(equipe == "")
+    {
+        console.log("remise à zéro");
+        if(reliquatEquipe1 != null)
+        {
+            equip1s.add(reliquatEquipe1, equip1s[reliquatEquipe1.value]);
+            reliquatEquipe1 = null;
+        }
+    }
+    else
+    {
+        if(reliquatEquipe1 != null)
+        {
+            equip1s.add(reliquatEquipe1, equip1s[reliquatEquipe1.value]);
+        }
+        reliquatEquipe1 = pE("equip1opt"+equipe);
+        console.log(reliquatEquipe1);
+        equip1s.remove(equipe);
 
+    }
+}
 //TEST
 
 
 
-
+const equip1 = pE("equip1selector");
+    console.log(equip1);
 
 /*forLogin.addEventListener('click', () => {
     forLogin.classList.add('active');
