@@ -4,7 +4,7 @@
     $db = connect();
     
     $clubs = GetClubs($db);
-
+    $arbitres = GetArbitres($db);
     /*if(!isset($db))
     {
         var_dump($db);
@@ -34,7 +34,7 @@
     }  ?>
 
     <div class="rencontre">
-        <form action="" method="GET">
+        <form action="CreateFeuilleMatch.php" method="POST">
 
         <input type="date" name="DateRencontre" onchange="dateHandler(value);" id="inputDate" required>
         <div id="equipe1" class="hidden">
@@ -68,7 +68,57 @@
                 ?>
             </select>
         </div>
-
+        <div id="lieux">
+            <input type="text" name="lieu" placeholder="lieux de rencontre" id="">
+        </div>
+        <div id="arbitres">
+            <div id="arbitrePrinc">
+            <select id="arbitrePrincSelector" name="ArbitreP" onchange="" required><option value="">Arbitre Principal</option>
+            <?php 
+                    if(isset($arbitres))
+                    {
+                        $index = 1;
+                        foreach($arbitres as $arbitre)
+                        {                           
+                            echo "<option id='arbitrePrincSelector".$index."' value=".$arbitre['IdArbitre'].">".$arbitre['NomArbitre']."</option>";
+                            $index++;
+                        }
+                    }
+                ?>
+            </select>
+            </div>
+            <div id="arbitreAss">
+            <select id="arbitreAssSelector1" name="ArbitreA1" onchange="" required><option value="">Arbitre Assistant 1</option>
+            <?php 
+                    if(isset($arbitres))
+                    {
+                        $index = 1;
+                        foreach($arbitres as $arbitre)
+                        {                           
+                            echo "<option id='arbitrePrincSelector".$index."' value=".$arbitre['IdArbitre'].">".$arbitre['NomArbitre']."</option>";
+                            $index++;
+                        }
+                    }
+                ?>
+            </select>
+            <select id="arbitreAssSelector2" name="ArbitreA2" onchange="" required><option value="">Arbitre Assistant 2</option>
+            <?php 
+                    if(isset($arbitres))
+                    {
+                        $index = 1;
+                        foreach($arbitres as $arbitre)
+                        {                           
+                            echo "<option id='arbitrePrincSelector".$index."' value=".$arbitre['IdArbitre'].">".$arbitre['NomArbitre']."</option>";
+                            $index++;
+                        }
+                    }
+                ?>
+            </select>
+            <input type="checkbox" id="scales" name="scales" unchecked>
+            <label for="scales">Envoyer un mail aux entraineurs concernés</label>
+            <a href = "mailto: abc@example.com">Send Email</a>
+            </div>
+        </div>            
         <input type="submit" value="Valider la feuille de Match">
         </form>
     </div>
