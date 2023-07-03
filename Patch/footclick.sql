@@ -133,8 +133,23 @@ ALTER TABLE `clubs`
 --
 ALTER TABLE `feuilledematch`
   MODIFY `IdFeuille` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-COMMIT;
 
+
+--26/06/2023 OF: Création de la table users pour authentification
+CREATE TABLE `footclick`.`users` (`IdUser` INT NOT NULL AUTO_INCREMENT ,
+                                   `userName` VARCHAR(55) NOT NULL , 
+                                   `hMdp` VARCHAR(255) NOT NULL , 
+                                   `isAdmin` BOOLEAN NOT NULL , 
+                                   `mail` VARCHAR(55) NOT NULL , 
+                                   `nom` VARCHAR(55) NOT NULL , 
+                                   `prenom` VARCHAR(55) NOT NULL , 
+                                   `numTel` VARCHAR(30) NOT NULL , 
+                                   PRIMARY KEY (`IdUser`)) ENGINE = InnoDB;
+
+
+
+
+COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,6 +1,12 @@
 <?php
     require("connectDB.php");
     require("testCrud.php");
+    require("utils.php");
+    init_php_session();
+    if(!is_logged())
+    {
+        header("location: /auth.php");
+    }
     $db = connect();
 
     $matchs = GetMatchs_NonCompletes($db);

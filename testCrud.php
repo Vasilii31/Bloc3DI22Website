@@ -35,4 +35,47 @@ function GetMatchs_NonCompletes($db)
     $res = $db->query($sReq)->fetchAll();
     return $res;
 
-}    
+}
+
+function Create_User($db, $nom, $prenom, $id, $mail, $tel, $hmdp, $isAdmin)
+{
+    //on cherche avant tout dans la table users si le username n'est pas deja pris
+    $sReq = $db->prepare("SELECT userName FROM users WHERE userName = ?");
+    $sReq->execute([$id]);
+    $res = $sReq->fetch();
+    //si on a pas de résultat, le username n'est pas pris
+    //on peut créer l'utilisateur
+    if($res == false)
+    {
+        $sReq = "INSERT INTO users (userName, hmdp, isAdmin, mail, nom, prenom, numtel) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $dbh = $db->prepare($sReq);
+            if($dbh->execute([
+                $id,
+                $hmdp,
+                $isAdmin,
+                $mail,
+                $nom,
+                $prenom,
+                $tel
+            ]) == false)
+            {
+                //l'insert n'a pas marché, on traite l'erreur
+                return "KO";
+            }
+            else//on renvoie un code succes
+                return "OK";
+    }
+    else
+    {
+        //ce nom d'utilisateur est déja pris, on renvoie un code d'erreur
+        //pour avertir l'utilisateur
+        return "USEDNAME";
+    }
+}
+
+function Get_User($db, $username, $isAdmin)
+{
+    $dbh = $db->prepare("SELECT userName, hMdp FROM users WHERE userName = ? AND isAdmin = ?");
+        $dbh->execute([$username, $isAdmin]);
+        return $dbh->fetch();
+}
