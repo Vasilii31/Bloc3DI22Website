@@ -1,67 +1,7 @@
 <?php
-    require "connectDB.php";
-    require "testCrud.php";
+
     require "utils.php";
-
     init_php_session();
-    $db = connect();
-
-    if(isset($_POST["admin"]))
-    {
-        if($_POST["admin"] == "Inscription")
-        {
-            //TODO : Verifier les inputs
-            // on hash le mot de passe :
-            $hmdp = password_hash($_POST['mdp'], PASSWORD_BCRYPT);
-            //et on créé l'utilisateur
-            $res = Create_User($db, $_POST["nom"], $_POST["prenom"],
-            $_POST["identifiant"], $_POST["mail"], $_POST["telephone"], $hmdp, true);
-            if($res == "USEDNAME")
-            {
-                echo "<script>alert(\"Cet identifiant est déjà pris.\")</script>";
-            }
-            else if($res == "KO")
-            {
-                echo "<script>alert(\"Un problème est survenu, veuillez réessayer plus tard.\")</script>";
-            }
-            else
-            {
-                echo "<script>alert(\"Utilisateur créé avec succès. Vous pouvez maintenant vous connecter.\")</script>";
-            }
-        }
-        else if($_POST["admin"] == "Connexion")
-        {
-            //TO DO: Verifier les inputs
-            var_dump($_POST);
-
-            $res = Get_User($db, $_POST["username"], true);
-            if(isset($res))
-            {
-                var_dump($res);
-                var_dump($res["hMdp"]);
-                if(password_verify($_POST["mdp"], $res["hMdp"]))
-                {
-                    init_php_session();
-
-                    $_SESSION['username'] = $_POST['username'];
-                    $_SESSION['isAdmin'] = true;
-                    header("Location: /index.php");
-                }
-                else
-                {
-                    echo "Nom d'utilisateur ou mot de passe invalide.";
-                }
-            }
-            else
-                echo "Nom d'utilisateur ou mot de passe invalide.";
-        }
-                
-    }
-    else if(isset($_POST["entraineur"]))
-    {
-        //TODO Verifier les inputs
-    }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,23 +32,35 @@
                             <div id="forRegister" class="form-header">S'inscrire</div>
                         </div>
                         <div class="card-body" id="formContainer">
-                            <form method="POST" id="loginForm">
+                            <form method="POST" action="processUser.php" id="loginForm">
                                 <input type="text" name="username" class="form-control" placeholder="@utilisateur" required>
                                 <input type="password" name="mdp" class="form-control" placeholder="@Mot de Passe" required>
-                                <input type="submit" name="admin" class="formButton" value="Connexion">
+                                <input type="hidden" id="boolAdminLog" name="admin" value="" />
+                                <input type="hidden" name="logOrSign" value="login" />
+                                <input type="submit" class="formButton" value="Connexion">
                                 
                             </form>
 
-                            <form method="POST" id="registerForm" class="toggleForm">
-                                <input type="text" name="nom" class="form-control" placeholder="Nom" required>
-                                <input type="text" name="prenom" class="form-control" placeholder="Prénom" required>
-                                <input type="text" name="identifiant" class="form-control" placeholder="Identifiant" required>
-                                <input type="text" name="mail" class="form-control" placeholder="Adresse mail" required>
-                                <input type="text" name="telephone"class="form-control" placeholder="Numéro de téléphone" required>
-                                <input type="password" name="mdp" class="form-control" id="mdp" placeholder="@Mot de Passe" required>
-                                <input type="password" name="confirmMdp" class="form-control" id="cmdp" placeholder="@Confirmer Mot de Passe" required>
-                                <input type="submit" name="admin" class="formButton" id="registerButton" value="Inscription">
-                            </form>       
+                            <form method="POST" action="processUser.php" id="registerForm" class="toggleForm">
+                                <p class="errorField" id="fnError" style="display: none">Lettres majuscules et minuscules et "-" uniquement.</p>
+                                <input type="text" id="fnInput" name="nom" class="form-control" placeholder="Nom" required>
+                                <p class="errorField" id="lnError" style="display: none">Lettres majuscules et minuscules et "-" uniquement.</p>
+                                <input type="text" id="lnInput" name="prenom" class="form-control" placeholder="Prénom" required>
+                                <p class="errorField" id="userNameError" style="display: none">Lettres, chiffres et '-_.' uniquement.</p>
+                                <input type="text" id="usernameInput" name="identifiant" class="form-control" placeholder="Identifiant" required>
+                                <p class="errorField" id="mailError" style="display: none">Message d'erreur du mail</p>
+                                <input type="email" id="mailInput" name="mail" class="form-control" placeholder="Adresse mail" required>
+                                <p class="errorField" id="telError" style="display: none">10 chiffres Ex: 0600000000</p>
+                                <input type="tel" id="telInput" name="telephone"class="form-control" placeholder="Numéro de téléphone" required>
+                                <p class="errorField" id="pwdError" style="display: none">Message d'erreur du mot de passe</p>
+                                <input type="password" id="pwd" name="mdp" class="form-control" id="mdp" placeholder="@Mot de Passe" required>
+                                <input type="password" id="cpwd" name="confirmMdp" class="form-control" id="cmdp" placeholder="@Confirmer Mot de Passe" required>
+                                <input style="margin-bottom: 20px;" type="checkbox" onclick="show_Password()">Afficher le mot de passe
+                                <input type="password" id="codeAdmin" name="createAdmin" class="form-control" placeholder="Code de création Administrateur">
+                                <input type="hidden" id="boolAdmin" name="admin" value="" />
+                                <input type="hidden" name="logOrSign" value="signin" />
+                                <input type="submit" class="formButton" id="registerButton">
+                            </form>    
                         </div>
                     </div>
                 </div>

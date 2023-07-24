@@ -1,4 +1,5 @@
 <?php
+
     
     function GetClubs($db)
     {
@@ -76,6 +77,14 @@ function Create_User($db, $nom, $prenom, $id, $mail, $tel, $hmdp, $isAdmin)
 function Get_User($db, $username, $isAdmin)
 {
     $dbh = $db->prepare("SELECT userName, hMdp FROM users WHERE userName = ? AND isAdmin = ?");
-        $dbh->execute([$username, $isAdmin]);
-        return $dbh->fetch();
+    $dbh->execute([$username, $isAdmin]);
+    return $dbh->fetch();
+}
+
+function VerifyAdminCreation($db, $codeAdmin)
+{
+    $dbh = $db->prepare("SELECT CodeAdmin FROM codeadmin");
+    $dbh->execute();
+    $res = $dbh->fetch();
+    return(password_verify($codeAdmin, $res["CodeAdmin"]));
 }

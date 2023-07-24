@@ -1,4 +1,7 @@
 <?php
+
+    require("testCrud.php");
+
     function init_php_session()
     {
         //s'il n'y a pas de session en cours
@@ -74,3 +77,47 @@
             }
         }
     }
+
+    function SignIn($db, $infoArray)
+    {
+        $boolAdmin = ($infoArray["admin"] == "true") ? true : false;
+        var_dump($boolAdmin);
+        if($boolAdmin)
+        {
+            $validCode = VerifyAdminCreation($db, $_POST["createAdmin"]);
+            var_dump($validCode);
+            if(!$validCode)
+                return "INVALIDADMINCODE";
+        }
+        // on hash le mot de passe :
+        $hmdp = password_hash($_POST['mdp'], PASSWORD_BCRYPT);
+        //et on créé l'utilisateur
+        $res = Create_User($db, $_POST["nom"], $_POST["prenom"],
+        $_POST["identifiant"], $_POST["mail"], $_POST["telephone"], $hmdp, $boolAdmin);
+        
+        return $res;
+    }
+
+    function Login($db, $infoArray)
+    {
+        $boolAdmin = ($infoArray["admin"] = "true") ? true : false; 
+
+        $res = Get_User($db, $infoArray["username"], $boolAdmin);
+        if(isset($res))
+        {
+            if(password_verify($infoArray["mdp"], $res["hMdp"]))
+            {
+                init_php_session();
+
+                $_SESSION['username'] = $infoArray['username'];
+                $_SESSION['isAdmin'] = $boolAdmin;
+            }
+            else
+            {
+                return "KOIDPWD";   
+            }
+        }
+        else
+            return "KOIDPWD";
+    }
+

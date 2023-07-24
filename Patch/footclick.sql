@@ -147,7 +147,16 @@ CREATE TABLE `footclick`.`users` (`IdUser` INT NOT NULL AUTO_INCREMENT ,
                                    PRIMARY KEY (`IdUser`)) ENGINE = InnoDB;
 
 
+CREATE TABLE `codeadmin` (
+  `CodeAdmin` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `codeadmin`
+--
+
+INSERT INTO `codeadmin` (`CodeAdmin`) VALUES
+('$2y$10$0Kbau4YRawOR9FPOyxbEAeDEijgecMbAp6B6E8Mkt0Q.HY7TH2xsG');
 
 COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

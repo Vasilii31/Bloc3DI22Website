@@ -164,7 +164,7 @@ form{
 
 .form-control{
     width: 100%;
-    border: none;
+    /*border: none;*/
     border-bottom: 1px solid rgb(236 196 54 / 65%);
     background-color: #817341;
     outline: none;
@@ -176,6 +176,10 @@ form{
 .form-control::placeholder{
     color: rgba(0, 0, 0, 0.65);
     font-weight: bold;
+}
+
+#cpwd{
+    margin-bottom: 3px; 
 }
 
 .formButton{
@@ -192,4 +196,13 @@ form{
 .formButton:hover{
     box-shadow: 3px 5px 15px #C0A33D;
     transform: translateY(-5px);
+}
+
+.errorField{
+    display: none;
+    background:rgba(114, 97, 109, .7);
+    font-style: italic;
+    font-weight: bold; 
+    color:#950C0C;
+    font-size: 0.8em;
 }
