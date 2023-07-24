@@ -1,6 +1,8 @@
 <?php
     require("utils.php");
+    
     init_php_session();
+    
     if(!is_logged())
         header("location: /auth.php");
     if(isset($_GET["admin"]))

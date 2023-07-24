@@ -1,36 +1,60 @@
 <?php
 
-    
-    function GetClubs($db)
+    function Get_Clubs($db)
     {
         $sReq = "SELECT * FROM clubs";
         $res = $db->query($sReq)->fetchAll();
         return $res;
     }
 
-    function GetArbitres($db)
+    function Get_Referees($db)
     {
         $sReq = "SELECT * FROM arbitres";
         $res = $db->query($sReq)->fetchAll();
         return $res;
     }
 
-    function AddFeuilleMatch($db, $date, $lieu, $equi1, $equi2, $arbitreP, $arbitreAss1, $arbitreAss2)
+    // function Add_New_Match_Sheet($db, $date, $lieu, $equi1, $equi2, $arbitreP, $arbitreAss1, $arbitreAss2)
+    // {
+    //     $sReq = "INSERT INTO feuilledematch (DateRencontre, Lieu, IdEquipe1, IdEquipe2, IdArbitrePrinc, IdArbitreAss1, IdArbitreAss2) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    //     $dbh = $db->prepare($sReq);
+    //     $dbh->execute([
+    //         $date,
+    //         $lieu,
+    //         $equi1,
+    //         $equi2,
+    //         $arbitreP,
+    //         $arbitreAss1,
+    //         $arbitreAss2
+    //     ]);
+    // }
+
+    //Doublon, a tester
+    function Add_New_Match_Sheet($db)
     {
-        $sReq = "INSERT INTO feuilledematch (DateRencontre, Lieu, IdEquipe1, IdEquipe2, IdArbitrePrinc, IdArbitreAss1, IdArbitreAss2) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $dbh = $db->prepare($sReq);
-        $dbh->execute([
-            $date,
-            $lieu,
-            $equi1,
-            $equi2,
-            $arbitreP,
-            $arbitreAss1,
-            $arbitreAss2
-        ]);
+        $DateRencontre = $_POST['DateRencontre'];
+        $Stade = $_POST['Stade'];
+        $Equipe1 = $_POST['Equipe1'];
+        $Equipe2 = $_POST['Equipe2'];
+        $ArbitrePrinc = $_POST['ArbitrePrinc'];
+        $ArbitreAss1 = $_POST['ArbitreAss1'];
+        $ArbitreAss2 = $_POST['ArbitreAss2'];
+    
+        $req = "INSERT INTO feuilledematch (DateRencontre, Stade, IdEquipe1, IdEquipe2, IdArbitrePrinc, IdArbitreAss1, IdArbitreAss2) VALUES (:DateRencontre, :Stade, :Equipe1, :Equipe2, :ArbitrePrinc, :ArbitreAss1, :ArbitreAss2)";
+    
+        $insertFeuilleDeMatch = $db -> prepare($req);
+        $insertFeuilleDeMatch -> execute(array(
+            ':DateRencontre' => $DateRencontre,
+            ':Stade' => $Stade,
+            ':Equipe1' => $Equipe1,
+            ':Equipe2' => $Equipe2,
+            'ArbitrePrinc' => $ArbitrePrinc,
+            ':ArbitreAss1' => $ArbitreAss1,
+            ':ArbitreAss2' => $ArbitreAss2
+        ));
     }
 
-function GetMatchs_NonCompletes($db)
+function Get_Pending_Matchs($db)
 {
     $sReq = "SELECT c1.NomClub as NomEquipe1, c2.NomClub as NomEquipe2, DateRencontre, Lieu FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs as c2 on f.IdEquipe2 = c2.IdClub INNER JOIN arbitres as a1 on f.IdArbitrePrinc = a1.IdArbitre INNER JOIN arbitres as a2 on f.IdArbitreAss1 = a2.IdArbitre INNER JOIN arbitres as a3 on f.IdArbitreAss2 = a3.IdArbitre";
     $res = $db->query($sReq)->fetchAll();

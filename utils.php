@@ -1,6 +1,6 @@
 <?php
 
-    require("testCrud.php");
+    require("Crud.php");
 
     function init_php_session()
     {
@@ -100,17 +100,22 @@
 
     function Login($db, $infoArray)
     {
-        $boolAdmin = ($infoArray["admin"] = "true") ? true : false; 
+        $boolAdmin = ($infoArray["admin"] == "true") ? true : false; 
 
+        var_dump($boolAdmin);
         $res = Get_User($db, $infoArray["username"], $boolAdmin);
         if(isset($res))
         {
+            var_dump($infoArray);
+            var_dump($res);
+            var_dump(password_verify($infoArray["mdp"], $res['hMdp'])); 
             if(password_verify($infoArray["mdp"], $res["hMdp"]))
             {
                 init_php_session();
 
                 $_SESSION['username'] = $infoArray['username'];
                 $_SESSION['isAdmin'] = $boolAdmin;
+                return "OK";
             }
             else
             {

@@ -6,31 +6,31 @@
 
     init_php_session();
 
+    var_dump($_POST["logOrSign"]);
     //on vérifie si on doit authentifier ou creer un utilisateur
     if(isset($_POST))
     {
-        switch($_POST["logOrSign"])
+        if($_POST["logOrSign"] == "login")
         {
-            case "login":
-                $res = Login($db, $_POST);
-                //cas particulier de login successfull
-                if($res == "OK")
-                    header("location: /index.php");  
-                break;
-            case "signin":
-                $res = SignIn($db, $_POST);
-                break;
-            default:
-                $res = "KO";
-                break;
+            $res = Login($db, $_POST);
+            //cas particulier de login successfull
+            if($res == "OK")
+                header("location: /index.php"); 
         }
-        //header("location: /DisplayAndRedirect.php?result=".$res);
+        else
+        {
+            $res = SignIn($db, $_POST);
+        }
+        
+        header("location: /DisplayAndRedirect.php?result=".$res);
     }
     else
     {
         $res = "KO";
-        //header("location: /DisplayAndRedirect.php?result=".$res);
+        header("location: /DisplayAndRedirect.php?result=".$res);
     }
+
+    var_dump($res);
         
 
 
