@@ -5,14 +5,14 @@
         $sReq = "SELECT * FROM clubs";
         $res = $db->query($sReq)->fetchAll();
         return $res;
-    }
+    };
 
     function Get_Referees($db)
     {
         $sReq = "SELECT * FROM arbitres";
         $res = $db->query($sReq)->fetchAll();
         return $res;
-    }
+    };
 
     // function Add_New_Match_Sheet($db, $date, $lieu, $equi1, $equi2, $arbitreP, $arbitreAss1, $arbitreAss2)
     // {
