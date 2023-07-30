@@ -100,23 +100,43 @@ function Create_User($db, $nom, $prenom, $id, $mail, $tel, $hmdp, $isAdmin)
 
 function Get_User($db, $username, $isAdmin)
 {
-    $dbh = $db->prepare("SELECT userName, hMdp FROM users WHERE userName = ? AND isAdmin = ?");
-    $dbh->execute([$username, $isAdmin]);
+    $sUsername = filter_var($username, FILTER_SANITIZE_STRING);
+    if($sUsername == false)
+    {
+        return null;
+    }
+    else
+    {
+        $dbh = $db->prepare("SELECT userName, hMdp FROM users WHERE userName = ? AND isAdmin = ?");
+        $dbh->execute([$username, $isAdmin]);
+    }
     return $dbh->fetch();
 }
 
 function VerifyAdminCreation($db, $codeAdmin)
 {
-    $dbh = $db->prepare("SELECT CodeAdmin FROM codeadmin");
-    $dbh->execute();
-    $res = $dbh->fetch();
-    return(password_verify($codeAdmin, $res["CodeAdmin"]));
+    //va chercher le code admin en base de données et compare avec l'input
+    //retourne true si le code est bon
+    //false si code KO
+    $codeAdmin = intval($codeAdmin);
+    if($codeAdmin > 0)
+    {
+        $dbh = $db->prepare("SELECT CodeAdmin FROM codeadmin");
+        $dbh->execute();
+        $res = $dbh->fetch();
+        return(password_verify($codeAdmin, $res["CodeAdmin"]));
+    }
+    return(false);
 }
 
 function Get_Match_infos($db, $idFeuille)
 {
-    $dbh = $db->prepare("SELECT DateRencontre, Lieu, c1.NomClub as Equipe1, c2.NomClub as Equipe2  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs as c2 on f.IdEquipe2 = c2.IdClub WHERE IdFeuille = ?");
-    $dbh->execute([$idFeuille]);
+    $idFeuille = intval($idFeuille);
+    if($idFeuille > 0)
+    {
+        $dbh = $db->prepare("SELECT DateRencontre, Lieu, c1.NomClub as Equipe1, c2.NomClub as Equipe2  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs as c2 on f.IdEquipe2 = c2.IdClub WHERE IdFeuille = ?");
+        $dbh->execute([$idFeuille]);
+    }
     return $dbh->fetch();
 }
 
@@ -124,5 +144,16 @@ function Get_All_Positions($db)
 {
     $sReq = "SELECT * FROM postes";
     $res = $db->query($sReq)->fetchAll();
+    return $res;
+}
+
+function Get_team($db, $idequipe)
+{
+    if(is_int($idequipe))
+    {
+        $dbh = $db->prepare("SELECT IdEquipe, NomEquipe FROM equipes WHERE IdEquipe = ?");
+        $dbh->execute([$idequipe]);
+        $res = $dbh->fetch();
+    }
     return $res;
 }

@@ -3,13 +3,15 @@
     require "Crud.php";
 
     $db = connect();
-    if(isset($_GET["id"]) && is_int($_GET["id"]))
+    if(isset($_GET["id"]))
     {
-        //recupération de l'equipe de l'entraineur
+        $equipe = Get_team($db, $_GET["id"]);
+        if($equipe == null)
+            header("location: /DisplayAndRedirect.php?result=TEAMNOTFOUND");
+
     }
     else
         header("location: /DisplayAndRedirect.php?result=KO");
-    $equipe = "MON EQUIPE PAS ENCORE TROUVE";
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -38,14 +40,14 @@
         <h1>Ajouter un joueur</h1>
 <!-----------------SECTION 1----------------->       
         <div class="football_player_content_section">
-            <h2>Equipe : <?php echo $equipe;?></h2>
+            <h2>Equipe : <?php echo $equipe["NomEquipe"];?></h2>
         </div>       
 <!-----------------SECTION 3----------------->
             <form id="add_player_form" method="POST" action="">
                 <input class="add_player_inputs" id="InputNom" name="nom" type="text" placeholder="Nom" required>
                 <input id="InputPrenom" name="prenom" type="text" placeholder="Prénom" required>
                 <input id="InputNum" name="num" type="number" placeholder="Numéro de maillot" required>
-                <input type="hidden" name="equipe" value=<?php echo "".$equipe."";?>>
+                <input type="hidden" name="equipe" value=<?php echo "".$equipe["IdEquipe"]."";?>>
                 <select name="poste" id="">
                     <option value="">Poste de prédilection</option>
                 </select>

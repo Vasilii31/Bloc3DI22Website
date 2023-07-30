@@ -23,7 +23,7 @@
             $res = SignIn($db, $_POST);
         }
         
-        header("location: /DisplayAndRedirect.php?result=".$res);
+        //header("location: /DisplayAndRedirect.php?result=".$res);
     }
     else
     {
@@ -31,7 +31,7 @@
         header("location: /DisplayAndRedirect.php?result=".$res);
     }
 
-    var_dump($res);
+    //var_dump($res);
         
 
 
