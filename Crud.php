@@ -112,3 +112,17 @@ function VerifyAdminCreation($db, $codeAdmin)
     $res = $dbh->fetch();
     return(password_verify($codeAdmin, $res["CodeAdmin"]));
 }
+
+function Get_Match_infos($db, $idFeuille)
+{
+    $dbh = $db->prepare("SELECT DateRencontre, Lieu, c1.NomClub as Equipe1, c2.NomClub as Equipe2  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs as c2 on f.IdEquipe2 = c2.IdClub WHERE IdFeuille = ?");
+    $dbh->execute([$idFeuille]);
+    return $dbh->fetch();
+}
+
+function Get_All_Positions($db)
+{
+    $sReq = "SELECT * FROM postes";
+    $res = $db->query($sReq)->fetchAll();
+    return $res;
+}

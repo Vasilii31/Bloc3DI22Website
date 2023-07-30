@@ -126,3 +126,13 @@
             return "KOIDPWD";
     }
 
+    function GlobalsInfosMatch($db, $idFeuille)
+    {
+        $dbRes = Get_Match_infos($db, $idFeuille);
+        if($dbRes != null)
+        {
+            $newDate = date("d-m-Y", strtotime($dbRes['DateRencontre']));  
+            $output = "Rencontre du ".$newDate." : ".$dbRes["Equipe1"]." contre ".$dbRes["Equipe2"];
+        }
+        return $output;
+    }

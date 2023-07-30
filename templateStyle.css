@@ -45,6 +45,8 @@ input:placeholder-shown {
     border-radius: 15%;
    }
 
+
+
 /* General title */
 .football_player_content_container h1 {
     text-align: center;
@@ -53,6 +55,22 @@ input:placeholder-shown {
     color: #FFFFFF;
 }
 
+.add_player_container{
+    display: flex;
+    flex-direction: column;
+}
+
+#add_player_form{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.add_player_inputs{
+    padding-bottom: 5px;
+    width: 50%;
+    
+}
 
 /** Sections **/
 .football_player_content_section {

@@ -15,7 +15,8 @@
             $res = Login($db, $_POST);
             //cas particulier de login successfull
             if($res == "OK")
-                header("location: /index.php"); 
+                header("location: /index.php");
+                return; 
         }
         else
         {
