@@ -149,10 +149,11 @@ function Get_All_Positions($db)
 
 function Get_team($db, $idequipe)
 {
-    if(is_int($idequipe))
+    $newId = intval($idequipe);
+    if(is_int($newId) && $newId > 0)
     {
         $dbh = $db->prepare("SELECT IdEquipe, NomEquipe FROM equipes WHERE IdEquipe = ?");
-        $dbh->execute([$idequipe]);
+        $dbh->execute([$newId]);
         $res = $dbh->fetch();
     }
     return $res;

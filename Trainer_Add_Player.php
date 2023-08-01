@@ -46,15 +46,16 @@
             <form id="add_player_form" method="POST" action="">
                 <input class="add_player_inputs" id="InputNom" name="nom" type="text" placeholder="Nom" required>
                 <input id="InputPrenom" name="prenom" type="text" placeholder="Prénom" required>
-                <input id="InputNum" name="num" type="number" placeholder="Numéro de maillot" required>
+                <input id="InputNum" name="num" type="number" min="1" max="44" placeholder="Numéro de maillot" required>
                 <input type="hidden" name="equipe" value=<?php echo "".$equipe["IdEquipe"]."";?>>
                 <select name="poste" id="">
                     <option value="">Poste de prédilection</option>
                 </select>
                 <input type="submit" value="Valider">
             </form>           
-    </div>
-    <!--<script src="acceuilPreConnexion.js"></script>-->
+    </div>   
+    <script src="formVerification.js"></script>
+    <script src="addPlayer.js"></script>
 </body>
 
 <footer>

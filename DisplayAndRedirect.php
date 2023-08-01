@@ -7,7 +7,6 @@
         {
             case "OK":
                 $output = "Utilisateur créé avec succès, vous pouvez maintenant vous connecter.";
-                $buttonName = "Retourner à l'écran de connexion";
                 $href = "auth.php";
                 break;
             case "USEDNAME":
@@ -23,8 +22,9 @@
                 $href = "auth.php";
                 break;
             case "TEAMNOTFOUND":
-                $output = "Erreur : équipe introuvable."
+                $output = "Erreur : équipe introuvable.";
                 $href = "index.php";
+                break;
             default:
                 $output = "Une erreur est survenue. Veuillez réessayer plus tard.";
                 $href = "index.php";

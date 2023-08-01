@@ -80,19 +80,21 @@
 
     function SignIn($db, $infoArray)
     {
+        //string verification ici ?
+        //if(is_string($infoArray["nom"]) == false || is_string($infoArray["prenom"]) == false || )
         $boolAdmin = ($infoArray["admin"] == "true") ? true : false;
         if($boolAdmin)
         {
-            $validCode = VerifyAdminCreation($db, $_POST["createAdmin"]);
+            $validCode = VerifyAdminCreation($db, $infoArray["createAdmin"]);
             if(!$validCode)
                 return "INVALIDADMINCODE";
         }
         // on hash le mot de passe :
-        $hmdp = password_hash($_POST['mdp'], PASSWORD_BCRYPT);
+        $hmdp = password_hash($infoArray['mdp'], PASSWORD_BCRYPT);
         //et on créé l'utilisateur
         //TO DO gerer la creation d'entraineur temporaire a valider par un administrateur
-        $res = Create_User($db, $_POST["nom"], $_POST["prenom"],
-        $_POST["identifiant"], $_POST["mail"], $_POST["telephone"], $hmdp, $boolAdmin);
+        $res = Create_User($db, $infoArray["nom"], $infoArray["prenom"],
+        $infoArray["identifiant"], $infoArray["mail"], $infoArray["telephone"], $hmdp, $boolAdmin);
         
         return $res;
     }
