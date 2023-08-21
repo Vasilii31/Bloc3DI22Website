@@ -1,6 +1,6 @@
 <?php
 
-    require("Crud.php");
+    require_once("Crud.php");
 
     function init_php_session()
     {
@@ -113,7 +113,7 @@
             if(password_verify($infoArray["mdp"], $res["hMdp"]))
             {
                 init_php_session();
-
+                //recuperer l'id user ?
                 $_SESSION['username'] = $infoArray['username'];
                 $_SESSION['isAdmin'] = $boolAdmin;
                 return "OK";
@@ -136,4 +136,13 @@
             $output = "Rencontre du ".$newDate." : ".$dbRes["Equipe1"]." contre ".$dbRes["Equipe2"];
         }
         return $output;
+    }
+
+    //a voir si utile
+    function verif_Access_TrainerToTeam($db, $idequipe, $username)
+    {
+        $idTeamTrainer = Get_Trainer_Team($db, $username);
+        if($idTeamTrainer == $idequipe)
+            return true;
+        return false;
     }

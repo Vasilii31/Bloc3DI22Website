@@ -25,6 +25,10 @@
                 $output = "Erreur : équipe introuvable.";
                 $href = "index.php";
                 break;
+            case "MATCHCREATED":
+                $output = "Le match a été créé avec succès.";
+                $href = "index.php";
+                break;
             default:
                 $output = "Une erreur est survenue. Veuillez réessayer plus tard.";
                 $href = "index.php";

@@ -4,10 +4,10 @@ addPlayerForm.addEventListener("submit", (e) => {
     //on empeche la page de submit le formulaire directement
     e.preventDefault();
 
-    if(!nom_verif() || !prenom_verif())
+    if(!nom_verif() || !prenom_verif() || !poste_verif())
     {
         //on ne submit pas si tout les champs ne sont pas conformes
-        console.log("Nom conforme");
+        console.log("Non conforme");
         return;
     }
     else
@@ -16,34 +16,67 @@ addPlayerForm.addEventListener("submit", (e) => {
     }
   });
 
+function poste_verif()
+{   
+    const posteSelector = document.getElementById("posteSelector");
+    if(posteSelector != null)
+    {       
+        if(posteSelector.value == "")
+        {
+            posteSelector.style = "border: 2px solid red;";
+            return false;
+        }
+        else
+        {
+            posteSelector.style = "border-color: black";
+            return true;
+        }        
+    }
+    else
+        return false;
+}
+
 function nom_verif()
 {
     const nomInput = document.getElementById("InputNom");
-    if(!name_test_regex(nomInput.value) || !script_protection(nomInput.value))
+    if(nomInput != null)
     {
-        nomInput.style = "border: 2px solid red;";
-        return(false);
-    }    
+       if(!name_test_regex(nomInput.value) || !script_protection(nomInput.value))
+        {
+            nomInput.style = "border: 2px solid red;";
+            return(false);
+        }    
+        else
+        {   
+            nomInput.style = "border-color: black";
+            return(true);
+        }  
+    }
     else
     {
-        nomInput.style = "border-color: black";
-        return(true);
-    } 
+        return false;
+    }
+    
 }
 
 function prenom_verif()
 {
     const nomInput = document.getElementById("InputPrenom");
-    if(!name_test_regex(nomInput.value) || !script_protection(nomInput.value))
+    if(nomInput != null)
     {
-        nomInput.style = "border: 2px solid red;";
-        return(false);
-    }    
+        if(!name_test_regex(nomInput.value) || !script_protection(nomInput.value))
+        {
+            nomInput.style = "border: 2px solid red;";
+            return(false);
+        }    
+        else
+        {
+            nomInput.style = "border-color: black";
+            return(true);
+        }
+    }
     else
-    {
-        nomInput.style = "border-color: black";
-        return(true);
-    } 
+        return false;
 }
 
 //Plus nécessaire : le controle front end se fait via l'input type number

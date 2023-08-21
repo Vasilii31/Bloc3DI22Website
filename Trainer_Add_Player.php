@@ -5,9 +5,16 @@
     $db = connect();
     if(isset($_GET["id"]))
     {
+        //On recupere le nom et l'id de l'équipe transmise a la page en GET
         $equipe = Get_team($db, $_GET["id"]);
         if($equipe == null)
+        {
             header("location: /DisplayAndRedirect.php?result=TEAMNOTFOUND");
+            //on recupere les postes en BDD ou on le met en dur dans la page ?
+            //$postes = Get_Postes($db);
+            //if($postes == null)
+                //header("location: /DisplayAndRedirect.php?result=KO");
+        }
 
     }
     else
@@ -43,13 +50,23 @@
             <h2>Equipe : <?php echo $equipe["NomEquipe"];?></h2>
         </div>       
 <!-----------------SECTION 3----------------->
-            <form id="add_player_form" method="POST" action="">
+            <form id="add_player_form" method="POST" action="AddPlayer.php">
                 <input class="add_player_inputs" id="InputNom" name="nom" type="text" placeholder="Nom" required>
                 <input id="InputPrenom" name="prenom" type="text" placeholder="Prénom" required>
                 <input id="InputNum" name="num" type="number" min="1" max="44" placeholder="Numéro de maillot" required>
                 <input type="hidden" name="equipe" value=<?php echo "".$equipe["IdEquipe"]."";?>>
-                <select name="poste" id="">
+                <select name="poste" id="posteSelector">
                     <option value="">Poste de prédilection</option>
+                    <option value="1">Ailier Gauche</option>
+                    <option value="2">Ailier Droit</option>
+                    <option value="3">Avant Centre</option>
+                    <option value="4">Milieu Droit</option>
+                    <option value="5">Milieu Centre</option>
+                    <option value="6">Milieu Gauche</option>
+                    <option value="7">Défenseur Droit</option>
+                    <option value="8">Défenseur Gauche</option>
+                    <option value="9">Défenseur Central</option>
+                    <option value="10">Gardien</option>
                 </select>
                 <input type="submit" value="Valider">
             </form>           

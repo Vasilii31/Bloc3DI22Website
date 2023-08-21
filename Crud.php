@@ -30,28 +30,29 @@
     // }
 
     //Doublon, a tester
-    function Add_New_Match_Sheet($db)
+    function Add_New_Match_Sheet($db, $DateRencontre, $Stade, $Equipe1, $Equipe2, $ArbitrePrinc, $ArbitreAss1, $ArbitreAss2)
     {
-        $DateRencontre = $_POST['DateRencontre'];
-        $Stade = $_POST['Stade'];
-        $Equipe1 = $_POST['Equipe1'];
-        $Equipe2 = $_POST['Equipe2'];
-        $ArbitrePrinc = $_POST['ArbitrePrinc'];
-        $ArbitreAss1 = $_POST['ArbitreAss1'];
-        $ArbitreAss2 = $_POST['ArbitreAss2'];
     
-        $req = "INSERT INTO feuilledematch (DateRencontre, Stade, IdEquipe1, IdEquipe2, IdArbitrePrinc, IdArbitreAss1, IdArbitreAss2) VALUES (:DateRencontre, :Stade, :Equipe1, :Equipe2, :ArbitrePrinc, :ArbitreAss1, :ArbitreAss2)";
+        $req = "INSERT INTO feuilledematch (DateRencontre, Lieu, IdEquipe1, IdEquipe2, IdArbitrePrinc, IdArbitreAss1, IdArbitreAss2) VALUES (:DateRencontre, :Stade, :Equipe1, :Equipe2, :ArbitrePrinc, :ArbitreAss1, :ArbitreAss2)";
     
         $insertFeuilleDeMatch = $db -> prepare($req);
-        $insertFeuilleDeMatch -> execute(array(
+        if($insertFeuilleDeMatch -> execute(array(
             ':DateRencontre' => $DateRencontre,
             ':Stade' => $Stade,
             ':Equipe1' => $Equipe1,
             ':Equipe2' => $Equipe2,
-            'ArbitrePrinc' => $ArbitrePrinc,
+            ':ArbitrePrinc' => $ArbitrePrinc,
             ':ArbitreAss1' => $ArbitreAss1,
             ':ArbitreAss2' => $ArbitreAss2
-        ));
+        )) == false)
+        {
+            $id = -1;
+        }
+        else
+        {
+            $id = $db->lastInsertId();
+        } 
+        return($id);
     }
 
 function Get_Pending_Matchs($db)
@@ -140,13 +141,14 @@ function Get_Match_infos($db, $idFeuille)
     return $dbh->fetch();
 }
 
-function Get_All_Positions($db)
+function Get_All_Postes($db)
 {
     $sReq = "SELECT * FROM postes";
     $res = $db->query($sReq)->fetchAll();
     return $res;
 }
 
+//recupère la team liée à l'idEquipe dans la bdd: table equipes
 function Get_team($db, $idequipe)
 {
     $newId = intval($idequipe);
@@ -158,3 +160,60 @@ function Get_team($db, $idequipe)
     }
     return $res;
 }
+
+//Ajoute un joueur dans la BDD:  table joueurs
+function Create_Player($db, $nom, $prenom, $numMaillot, $idPoste, $equipe)
+{
+    $sReq = "INSERT INTO joueurs (Nom, Prenom, NumeroMaillot, IdEquipe, IdPostePredilection) VALUES (?, ?, ?, ?, ?)";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([
+        $nom,
+        $prenom,
+        $numMaillot,
+        $equipe,
+        $idPoste
+    ]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        return "KO";
+    }
+    else
+        return "OK"; 
+}
+
+function Create_All_Sheets($db, $idFeuille, $idEquipe1, $idEquipe2)
+{
+    $res = "MATCHCREATED";
+    $sReq = "INSERT INTO feuillematchentraineur (Idfeuilledematch, IdEquipe) VALUES (?, ?)";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([
+        $idFeuille,
+        $idEquipe1
+    ]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        $res = "KO";
+    }
+    $sReq = "INSERT INTO feuillematchentraineur (Idfeuilledematch, IdEquipe) VALUES (?, ?)";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([
+        $idFeuille,
+        $idEquipe2
+    ]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        $res = "KO";
+    }
+    return $res;
+}
+
+// function Get_Trainer_Team($db, $username)
+// {
+//     if($username != null && $username != "")
+//     {
+//         $dbh = $db->prepare("SELECT t.IdEquipe FROM users WHERE $username = ? AND ");
+//         $dbh->execute([$newId]);
+//         $res = $dbh->fetch();
+//     }
+//     return $res;
+// }
