@@ -1,0 +1,15 @@
+.trainerLine{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 40em;
+}
+
+.trainerLine p{
+    width: 15em;
+    height: 2em;
+    margin-right: 1px;
+    display: flex;
+    align-items: center;
+}

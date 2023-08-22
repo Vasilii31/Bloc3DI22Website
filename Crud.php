@@ -66,6 +66,7 @@ function Get_Pending_Matchs($db)
 function Create_User($db, $nom, $prenom, $id, $mail, $tel, $hmdp, $isAdmin)
 {
     //on cherche avant tout dans la table users si le username n'est pas deja pris
+    $approuved = $isAdmin ? true : false;
     $sReq = $db->prepare("SELECT userName FROM users WHERE userName = ?");
     $sReq->execute([$id]);
     $res = $sReq->fetch();
@@ -73,12 +74,13 @@ function Create_User($db, $nom, $prenom, $id, $mail, $tel, $hmdp, $isAdmin)
     //on peut créer l'utilisateur
     if($res == false)
     {
-        $sReq = "INSERT INTO users (userName, hmdp, isAdmin, mail, nom, prenom, numtel) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sReq = "INSERT INTO users (userName, hmdp, isAdmin, approuved, mail, nom, prenom, numtel) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $dbh = $db->prepare($sReq);
             if($dbh->execute([
                 $id,
                 $hmdp,
                 $isAdmin,
+                $approuved,
                 $mail,
                 $nom,
                 $prenom,
@@ -207,6 +209,22 @@ function Create_All_Sheets($db, $idFeuille, $idEquipe1, $idEquipe2)
     return $res;
 }
 
+function Get_pending_trainers($db)
+{
+
+    $dbh = $db->prepare("SELECT * FROM users WHERE isAdmin = false AND approuved = false");
+    $dbh->execute();
+    return $dbh->fetchAll();
+}
+
+function Get_All_Players_from_team($db, $idequipe)
+{
+    $dbh = $db->prepare("SELECT * FROM joueurs WHERE IdEquipe = ?");
+    $dbh->execute([$idequipe]);
+    $res = $dbh->fetchAll();
+
+    return $res;
+}
 // function Get_Trainer_Team($db, $username)
 // {
 //     if($username != null && $username != "")
