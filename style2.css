@@ -1,3 +1,37 @@
 .hidden{
     visibility: hidden;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+#headerTop {
+    display: flex;
+    justify-content: center;
+}
+
+.header ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+}
+
+.header li {
+    padding: 0 20px;
+}
+
+.header li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
