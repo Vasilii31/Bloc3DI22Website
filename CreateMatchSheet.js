@@ -38,6 +38,7 @@ function reinitSelector(selectorToModify, reliquatToModify, previousValue)
 {
     reliquatToModify.forEach((reliquat) => 
         {
+            console.log("passage");
             console.log(reliquat);
             if(reliquat.value == previousValue) 
             {

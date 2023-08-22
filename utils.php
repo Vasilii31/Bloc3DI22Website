@@ -1,6 +1,6 @@
 <?php
 
-    require("Crud.php");
+    require_once("Crud.php");
 
     function init_php_session()
     {
@@ -80,20 +80,21 @@
 
     function SignIn($db, $infoArray)
     {
+        //string verification ici ?
+        //if(is_string($infoArray["nom"]) == false || is_string($infoArray["prenom"]) == false || )
         $boolAdmin = ($infoArray["admin"] == "true") ? true : false;
-        var_dump($boolAdmin);
         if($boolAdmin)
         {
-            $validCode = VerifyAdminCreation($db, $_POST["createAdmin"]);
-            var_dump($validCode);
+            $validCode = VerifyAdminCreation($db, $infoArray["createAdmin"]);
             if(!$validCode)
                 return "INVALIDADMINCODE";
         }
         // on hash le mot de passe :
-        $hmdp = password_hash($_POST['mdp'], PASSWORD_BCRYPT);
+        $hmdp = password_hash($infoArray['mdp'], PASSWORD_BCRYPT);
         //et on créé l'utilisateur
-        $res = Create_User($db, $_POST["nom"], $_POST["prenom"],
-        $_POST["identifiant"], $_POST["mail"], $_POST["telephone"], $hmdp, $boolAdmin);
+        //TO DO gerer la creation d'entraineur temporaire a valider par un administrateur
+        $res = Create_User($db, $infoArray["nom"], $infoArray["prenom"],
+        $infoArray["identifiant"], $infoArray["mail"], $infoArray["telephone"], $hmdp, $boolAdmin);
         
         return $res;
     }
@@ -112,7 +113,7 @@
             if(password_verify($infoArray["mdp"], $res["hMdp"]))
             {
                 init_php_session();
-
+                //recuperer l'id user ?
                 $_SESSION['username'] = $infoArray['username'];
                 $_SESSION['isAdmin'] = $boolAdmin;
                 return "OK";
@@ -126,3 +127,22 @@
             return "KOIDPWD";
     }
 
+    function GlobalsInfosMatch($db, $idFeuille)
+    {
+        $dbRes = Get_Match_infos($db, $idFeuille);
+        if($dbRes != null)
+        {
+            $newDate = date("d-m-Y", strtotime($dbRes['DateRencontre']));  
+            $output = "Rencontre du ".$newDate." : ".$dbRes["Equipe1"]." contre ".$dbRes["Equipe2"];
+        }
+        return $output;
+    }
+
+    //a voir si utile
+    function verif_Access_TrainerToTeam($db, $idequipe, $username)
+    {
+        $idTeamTrainer = Get_Trainer_Team($db, $username);
+        if($idTeamTrainer == $idequipe)
+            return true;
+        return false;
+    }

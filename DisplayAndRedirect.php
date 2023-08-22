@@ -7,18 +7,31 @@
         {
             case "OK":
                 $output = "Utilisateur créé avec succès, vous pouvez maintenant vous connecter.";
+                $href = "auth.php";
                 break;
             case "USEDNAME":
                 $output = "Ce nom d'utilisateur est déjà pris.";
+                $href = "auth.php";
                 break;
             case "INVALIDADMINCODE":
                 $output = "Le code de création administrateur est incorrect.";
+                $href = "auth.php";
                 break;
             case "KOIDPWD":
                 $output = "Identifiant ou mot de passe incorrect";
+                $href = "auth.php";
+                break;
+            case "TEAMNOTFOUND":
+                $output = "Erreur : équipe introuvable.";
+                $href = "index.php";
+                break;
+            case "MATCHCREATED":
+                $output = "Le match a été créé avec succès.";
+                $href = "index.php";
                 break;
             default:
                 $output = "Une erreur est survenue. Veuillez réessayer plus tard.";
+                $href = "index.php";
                 break;                
         }
     }
@@ -34,6 +47,6 @@
 </head>
 <body>
     <h1><?php echo $output;?></h1>
-    <a href="auth.php">Retourner à l'écran de connexion</a>
+    <a href=<?php echo $href;?>>Retour</a>
 </body>
 </html>

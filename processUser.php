@@ -15,14 +15,15 @@
             $res = Login($db, $_POST);
             //cas particulier de login successfull
             if($res == "OK")
-                header("location: /index.php"); 
+                header("location: /index.php");
+                return; 
         }
         else
         {
             $res = SignIn($db, $_POST);
         }
         
-        header("location: /DisplayAndRedirect.php?result=".$res);
+        //header("location: /DisplayAndRedirect.php?result=".$res);
     }
     else
     {
@@ -30,7 +31,7 @@
         header("location: /DisplayAndRedirect.php?result=".$res);
     }
 
-    var_dump($res);
+    //var_dump($res);
         
 
 
