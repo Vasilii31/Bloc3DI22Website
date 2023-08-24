@@ -3,13 +3,41 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    width: 40em;
+    width: 30em;
+    gap: 3px;
+    margin-bottom: 5px;
 }
 
 .trainerLine p{
-    width: 15em;
+    height: 2em;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.pnomprenom{
+    width: 5em;
     height: 2em;
     margin-right: 1px;
     display: flex;
     align-items: center;
+}
+
+.mailortel{
+    width: 7em;
+    font-size: smaller;
+    margin-right: 10px;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons a, button{
+    width: 55px;
+}
+
+#deniedUsers{
+    top: 30em;
 }
