@@ -1,16 +1,47 @@
-
-<!-----------------VERIFIER PHP ICI----------------->
 <?php
     require("connectDB.php");
     require("Crud.php");
+    require("utils.php");
+
     $db = connect();
 
-    if(isset($_GET["delete"]))
+    init_php_session();
+
+    var_dump($_SESSION);
+    //si l'utilisateur est connecté, qu'il n'est pas admin et qu'il a bien un IdEntraineur stocké dans la session
+    if(is_logged() && $_SESSION['isAdmin'] == false && $_SESSION['IdEntraineur'] != '')
     {
-        DeletePlayer($db, $_GET["delete"]);
+        $myTeam = Get_IdTeam_FromTrainer($db, $_SESSION['IdEntraineur']);
+        if($myTeam != '')
+        {
+            $myPlayers = Get_My_Players($db,$myTeam);
+        } 
+        else 
+        {
+            var_dump("une erreur BDD est survenue, nous la traitons dans les plus brefs délais");
+            header("location: /DisplayAndRedirect.php?result=KO");
+        }
+        
+    }
+    else
+    {
+        echo "<p> Vous n'êtes pas autorisés à accéder à cette page</p>";
     }
 
-    $liste
+    
+    
+////////A METTRE AILLEURS ????//////
+// If DeleteIdJoueur exists, delete player
+    if(isset($_GET['id']))
+    {
+        $id = intval($_GET['id']);
+        
+        $dbh = $db->prepare("DELETE FROM `joueurs` WHERE `IdJoueur` ='$id'");
+        $dbh->execute();
+    }
+  
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -21,7 +52,7 @@
     <link rel="stylesheet" href="style2.css"/>
     <link rel="stylesheet" href="templateStyle.css"/>
 <!-----------------TITLE A COMPLETER----------------->
-    <title>A COMPLETER</title>
+    <title>Mon équipe</title>
 </head>
 
 <!-- MANQUE HEADER AVEC LOGO FFF -->
@@ -36,70 +67,40 @@
 <!--Container for Football Player's page, here: "TITRE  H1"---------------------->
     <div class="football_player_content_container">
 
-<!-----------------TITLE A COMPLETER----------------->
-        <h1>Titre Page</h1>
+<!-----------------My team----------------->
+        <h1>Mon équipe</h1>
 
 
-<!-----------------SECTION 1----------------->       
-            <div class="football_player_content_section">
-                <h2>Titre Section 1</h2>
+<!-----------------Team Composition-----------------> 
+        <div class="football_player_content_section">
+            <div class="football_player_content_subsection" id="my_team">
+                <!--Show all the players in the team-->
+                <?php 
+                    foreach($myPlayers as $myPlayer)
+                    {
+                        // echo "<table class='table5'><tr>";
+                        // echo "<td class='cell1'>".$myPlayer['Nom']."</br>".$myPlayer['Prenom']."</td>";
+                        // echo "<td class='cell2'> Numéro : ".$myPlayer['NumeroMaillot']."</td>";
+                        // echo "<td class='cell3'> Poste :</br>".$myPlayer['NomPoste']."</td>";
+                        // //Modify the player//
+                        // echo "<td class='cell4'><button class='myTeamButton' >Modifier</button></td>";
+                        // //Delete the player//
+                        // echo "<td class='cell5'><button class='myTeamButton'><a href='myTeam.php?DeleteIdJoueur=".$myPlayer['IdJoueur']."'>Supprimer</a></button></td>";
+                        // echo "</tr></table>";
 
-<!-----------------SOUS SECTION 1.1-----------------> 
-                <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
-                </div>
-
+                        echo "<p>".$myPlayer['Nom']." </p>";
+                        echo "<p>".$myPlayer['Prenom']." - </p>";
+                        echo "<p> Numéro : ".$myPlayer['NumeroMaillot']." - </p>";
+                        echo "<p> Poste : ".$myPlayer['NomPoste']." </p>";
+                        //Modify the player//
+                        echo "<button class='myTeamButton'>Modifier</button> ";
+                        //Delete the player//
+                        echo "<button class='myTeamButton'><a href='myTeam.php?DeleteIdJoueur=".$myPlayer['IdJoueur']."'>Supprimer</a></button></br>";
+                    }
+                ?>
             </div>
+        </div>
 
-<!-----------------SECTION 2-----------------> 
-            <div class="football_player_content_section">
-                <h2>Titre Section 2</h2>
-
-<!-----------------SOUS SECTION 2.1-----------------> 
-                <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
-                </div>
-
-<!-----------------SOUS SECTION 2.2----------------->                  
-                <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
-                </div>
-
-            </div>
-        
-        
-<!-----------------SECTION 3----------------->
-            <div class="football_player_content_section">
-                <h2>Titre Section 3</h2>
-
-<!-----------------SOUS SECTION 3.1-----------------> 
-                <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
-                </div>
-
-<!-----------------SOUS SECTION 3.2----------------->            
-                <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
-                </div>                
-                    
-                <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
-                </div>
-                    
-            </div>
-
-<!--Send email-->
-            <div class="football_player_content_section">
-                <input type="checkbox" id="scales" name="scales" unchecked>
-                <label for="scales">Envoyer un mail aux entraineurs des équipes sélectionnées</label>
-                <a href = "mailto: abc@example.com">Send Email</a>
-            </div>
-
-<!--Submit button-->
-            <input type="submit" value="Valider la feuille de match" class="submit_button">
-            
-
-        </form> 
 
     </div>
     <script src="acceuilPreConnexion.js"></script>

@@ -110,7 +110,7 @@ function Get_User($db, $username, $isAdmin)
     }
     else
     {
-        $dbh = $db->prepare("SELECT IdUser, userName, hMdp FROM users WHERE userName = ? AND isAdmin = ?");
+        $dbh = $db->prepare("SELECT userName, hMdp, IdUser, approved FROM users WHERE userName = ? AND isAdmin = ?");
         $dbh->execute([$username, $isAdmin]);
     }
     return $dbh->fetch();
@@ -225,12 +225,35 @@ function Get_denied_trainers($db)
     return $dbh->fetchAll();
 }
 
-function Get_All_Players_from_team($db, $idequipe)
-{
-    $dbh = $db->prepare("SELECT * FROM joueurs WHERE IdEquipe = ?");
-    $dbh->execute([$idequipe]);
-    $res = $dbh->fetchAll();
 
+
+function Get_My_Players($db, $myTeam)
+{
+    $dbh = $db->prepare("SELECT * FROM `joueurs` JOIN postes ON joueurs.IdPostePredilection = postes.IdPoste WHERE idEquipe = ?");
+    $dbh->execute([$myTeam]);
+    $res = $dbh->fetchAll();
+    return $res;
+}
+
+
+
+function Get_Trainer_ID($db, $boolAdmin, $IdUser){
+        
+    $res = "";
+    if($boolAdmin == false) {
+        $dbh = $db->prepare("SELECT IdEntraineur FROM entraineurs WHERE IdUser = ? ");
+        $res = $dbh->execute([$IdUser]);
+        if($res == false) {
+            $res = "";
+        }
+    } 
+    return $res;
+}
+
+//Get Id Team from an Id Trainer//
+function Get_IdTeam_FromTrainer($db, $idEntraineur){
+    $dbh = $db->prepare("SELECT IdEquipe FROM `equipes` WHERE IdEntraineur = ?");
+    $res = $dbh->execute([$idEntraineur]);
     return $res;
 }
 

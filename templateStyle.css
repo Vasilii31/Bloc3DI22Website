@@ -117,6 +117,26 @@ input:placeholder-shown {
     font-weight: 500;
 }
 
+/* Table */
+td {
+    height: 10%;
+}
+.cell1, .cell2, .cell3 {
+    width: 25%;
+}
+
+.cell4, .cell5 {
+    width: 10%;
+}
+
+td {
+    color: #FFFFFF;
+    font-size: 19px;
+}
+
+
+
+
 
 
 /*** Feuille Match ***/
@@ -127,4 +147,71 @@ input:placeholder-shown {
 
 #equipe2 {
     padding-left: 30px;
+}
+
+
+
+/*** My Team ***/
+
+
+/**Buttons**/
+#my_team a {
+    text-decoration: none;
+    color:#000000;
+}
+
+.myTeamButton {
+    font-size: 20px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 15px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.myTeamButton:hover, #my_team a:hover  {
+    color: #A62C8B;
+    font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***** FOOTER *****/
+
+#footer {
+    width: 100%;
+    height: 35px;
+    background-color: #000000;
+    font-size: 11px;
+    display: grid;
+}
+
+#footer ul {
+    align-self: center;
+    justify-self: center;
+}
+
+#footer ul li {
+    display: inline;
+    margin: 7px;
+    color: #FFFFFF;
+}
+
+#footer a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+#footer a:hover {
+    text-decoration: underline;
 }
