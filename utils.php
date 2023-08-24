@@ -112,11 +112,27 @@
             var_dump(password_verify($infoArray["mdp"], $res['hMdp'])); 
             if(password_verify($infoArray["mdp"], $res["hMdp"]))
             {
-                init_php_session();
-                //recuperer l'id user ?
-                $_SESSION['username'] = $infoArray['username'];
-                $_SESSION['isAdmin'] = $boolAdmin;
-                return "OK";
+                if($res['approved'] == 1){
+
+                    init_php_session();
+                    //recuperer l'id user ?
+                    $_SESSION['username'] = $infoArray['username'];
+                    $_SESSION['isAdmin'] = $boolAdmin;
+                    $_SESSION['IdUser'] = $res['IdUser'];
+                    $_SESSION['IdEntraineur'] = Get_Trainer_ID($db, $boolAdmin, $res['IdUser']);
+
+                    
+
+                    return "OK";
+                } 
+                elseif($res['approved'] == -1) 
+                {
+                    return "KONOTAPPROVED";
+                }
+                else
+                {
+                    return "KOAWAITAPPROVAL";
+                }
             }
             else
             {
@@ -146,3 +162,4 @@
             return true;
         return false;
     }
+

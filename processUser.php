@@ -14,9 +14,14 @@
         {
             $res = Login($db, $_POST);
             //cas particulier de login successfull
-            if($res == "OK")
-                header("location: /index.php");
-                return; 
+            if($res == "OK"){
+                header("location: ./index.php");
+                return;
+            }
+            else 
+            {
+                header("location: ./DisplayAndRedirect.php?result=".$res);
+            } 
         }
         else
         {
@@ -28,7 +33,7 @@
     else
     {
         $res = "KO";
-        header("location: /DisplayAndRedirect.php?result=".$res);
+        header("location: ./DisplayAndRedirect.php?result=".$res);
     }
 
     //var_dump($res);

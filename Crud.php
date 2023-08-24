@@ -57,7 +57,7 @@
 
 function Get_Pending_Matchs($db)
 {
-    $sReq = "SELECT c1.NomClub as NomEquipe1, c2.NomClub as NomEquipe2, DateRencontre, Lieu FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs as c2 on f.IdEquipe2 = c2.IdClub INNER JOIN arbitres as a1 on f.IdArbitrePrinc = a1.IdArbitre INNER JOIN arbitres as a2 on f.IdArbitreAss1 = a2.IdArbitre INNER JOIN arbitres as a3 on f.IdArbitreAss2 = a3.IdArbitre";
+    $sReq = "SELECT c1.NomClub as NomEquipe1, c2.NomClub as NomEquipe2, DateRencontre, Stade FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs as c2 on f.IdEquipe2 = c2.IdClub INNER JOIN arbitres as a1 on f.IdArbitrePrinc = a1.IdArbitre INNER JOIN arbitres as a2 on f.IdArbitreAss1 = a2.IdArbitre INNER JOIN arbitres as a3 on f.IdArbitreAss2 = a3.IdArbitre";
     $res = $db->query($sReq)->fetchAll();
     return $res;
 
@@ -74,7 +74,7 @@ function Create_User($db, $nom, $prenom, $id, $mail, $tel, $hmdp, $isAdmin)
     //on peut créer l'utilisateur
     if($res == false)
     {
-        $sReq = "INSERT INTO users (userName, hmdp, isAdmin, approuved, mail, nom, prenom, numtel) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sReq = "INSERT INTO users (userName, hmdp, isAdmin, approved, mail, nom, prenom, numtel) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $dbh = $db->prepare($sReq);
             if($dbh->execute([
                 $id,
@@ -110,7 +110,7 @@ function Get_User($db, $username, $isAdmin)
     }
     else
     {
-        $dbh = $db->prepare("SELECT userName, hMdp FROM users WHERE userName = ? AND isAdmin = ?");
+        $dbh = $db->prepare("SELECT userName, hMdp, IdUser, approved FROM users WHERE userName = ? AND isAdmin = ?");
         $dbh->execute([$username, $isAdmin]);
     }
     return $dbh->fetch();
@@ -217,14 +217,40 @@ function Get_pending_trainers($db)
     return $dbh->fetchAll();
 }
 
-function Get_All_Players_from_team($db, $idequipe)
-{
-    $dbh = $db->prepare("SELECT * FROM joueurs WHERE IdEquipe = ?");
-    $dbh->execute([$idequipe]);
-    $res = $dbh->fetchAll();
 
+
+function Get_My_Players($db, $myTeam)
+{
+    $dbh = $db->prepare("SELECT * FROM `joueurs` JOIN postes ON joueurs.IdPostePredilection = postes.IdPoste WHERE idEquipe = ?");
+    $dbh->execute([$myTeam]);
+    $res = $dbh->fetchAll();
     return $res;
 }
+
+
+
+function Get_Trainer_ID($db, $boolAdmin, $IdUser){
+        
+    $res = "";
+    if($boolAdmin == false) {
+        $dbh = $db->prepare("SELECT IdEntraineur FROM entraineurs WHERE IdUser = ? ");
+        $res = $dbh->execute([$IdUser]);
+        if($res == false) {
+            $res = "";
+        }
+    } 
+    return $res;
+}
+
+//Get Id Team from an Id Trainer//
+function Get_IdTeam_FromTrainer($db, $idEntraineur){
+    $dbh = $db->prepare("SELECT IdEquipe FROM `equipes` WHERE IdEntraineur = ?");
+    $res = $dbh->execute([$idEntraineur]);
+    return $res;
+}
+
+
+
 // function Get_Trainer_Team($db, $username)
 // {
 //     if($username != null && $username != "")

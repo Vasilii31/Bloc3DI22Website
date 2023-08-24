@@ -29,6 +29,14 @@
                 $output = "Le match a été créé avec succès.";
                 $href = "index.php";
                 break;
+            case "KONOTAPPROVED":
+                $output = "Votre création de profil a été refusé par l'administrateur.";
+                $href = "auth.php";
+                break;
+            case "KOAWAITAPPROVAL":
+                $output = "La validation de votre profil par l'administrateur est encore en attente, veuillez réessayer plus tard.";
+                $href = "auth.php";
+                break;
             default:
                 $output = "Une erreur est survenue. Veuillez réessayer plus tard.";
                 $href = "index.php";
