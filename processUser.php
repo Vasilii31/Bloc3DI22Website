@@ -6,7 +6,6 @@
 
     init_php_session();
 
-    var_dump($_POST["logOrSign"]);
     //on vérifie si on doit authentifier ou creer un utilisateur
     if(isset($_POST))
     {

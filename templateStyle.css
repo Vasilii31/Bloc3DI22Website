@@ -38,7 +38,7 @@ input:placeholder-shown {
 .football_player_content_container {
     position: absolute;
     top: 50px;
-    right: 130px;
+    right: 50px;
     padding: 30px 40px 55px 40px;
     background-color: rgb(50, 48, 48);
     border: solid #A62C8B;
@@ -127,48 +127,4 @@ input:placeholder-shown {
 
 #equipe2 {
     padding-left: 30px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***** FOOTER *****/
-
-#footer {
-    width: 100%;
-    height: 35px;
-    background-color: #000000;
-    font-size: 11px;
-    display: grid;
-}
-
-#footer ul {
-    align-self: center;
-    justify-self: center;
-}
-
-#footer ul li {
-    display: inline;
-    margin: 7px;
-    color: #FFFFFF;
-}
-
-#footer a {
-    text-decoration: none;
-    color: #FFFFFF;
-}
-
-#footer a:hover {
-    text-decoration: underline;
 }

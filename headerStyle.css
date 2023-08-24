@@ -1,0 +1,63 @@
+/***** FOOTER *****/
+
+#header {
+    width: 100vw;
+    height: 45px;
+    background-color: #000000;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#header ul {
+    align-self: center;
+    justify-self: center;
+    padding-right: 20px ;
+}
+
+#header ul li {
+    display: inline;
+    margin: 7px;
+    color: #FFFFFF;
+}
+
+#header a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+#header a:hover {
+    text-decoration: underline;
+}
+
+#Header_Logo{
+    color: #FFFFFF;
+    font-size: 15px;
+    align-self: center;
+    justify-self: center;
+    padding-left: 20px;
+}
+
+#Header_Menu{
+    /*: flex;
+    flex-direction: row;
+    justify-content: space-between;*/
+    color: #FFFFFF;
+    font-size: 15px;
+    align-self: center;
+    justify-self: center;
+    width: 60%;
+}
+
+#Header_Menu ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+ 
+#Header_Menu li{
+    padding-right: 20px;
+}

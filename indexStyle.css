@@ -1,0 +1,83 @@
+body{
+    background-image: url("img/stade-de-foot.jpeg");
+    background-size: cover;
+    height: 100%;
+    width: 100vw;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+/** Sections **/
+.football_player_content_section {
+    padding-bottom: 20px;
+}
+
+.football_player_content_container h2 {
+    padding-bottom: 15px;
+    color: #FFFFFF;
+}
+
+.football_player_content_section p, .football_player_content_section label, .football_player_content_section ul li {
+    color: #FFFFFF;
+    font-size: 19px;
+}
+
+.football_player_content_section input, .football_player_content_section select {
+    font-size: 17px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+/* Subsections */
+.football_player_content_subsection {
+    margin-bottom: 10px;
+}
+
+.football_player_content_subsection p {
+    margin-bottom: 10px;
+    display: inline;
+}
+
+/** Container **/
+.football_player_content_container {
+    /*position: absolute;*/
+    top: 50px;
+    right: 50px;
+    padding: 30px 40px 55px 40px;
+    background-color: rgb(50, 48, 48);
+    border: solid #A62C8B;
+    border-radius: 15%;
+    width: 30em;
+   }
+
+
+
+/* General title */
+.football_player_content_container h1 {
+    text-align: center;
+    margin: 0px 0px 35px 0px;
+
+    color: #FFFFFF;
+}
+
+.indexPage_container{
+    /*width: 70%;*/
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 100px 50px 50px 50px;
+}
+
+.Match {
+    display: flex;
+    flex-direction: row;
+    margin: 15px;
+    padding: 25px;
+    background-color: rgb(70, 69, 69);
+    border: solid #A62C8B;
+    height: 25px;
+    width: 80%;
+    justify-content: space-between;
+   }
