@@ -143,6 +143,25 @@ function Get_Match_infos($db, $idFeuille)
     return $dbh->fetch();
 }
 
+function Get_All_Matches_infos($db)
+{
+        $dbh = $db->prepare("SELECT DateRencontre, Lieu, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch WHERE complete = 1");
+        $dbh->execute();
+
+    return $dbh->fetchAll();
+}
+
+//Récupère les données pour la page detailsMatch
+
+function Get_All_Infos($db)
+{
+        $dbh = $db->prepare("SELECT DateRencontre, Lieu, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch WHERE complete = 1");
+        $dbh->execute();
+
+    return $dbh->fetchAll();
+}
+
+
 function Get_All_Postes($db)
 {
     $sReq = "SELECT * FROM postes";

@@ -2,6 +2,7 @@
     margin: 0px;
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
 }
 
 body {
@@ -34,16 +35,105 @@ input:placeholder-shown {
     font-style: italic;
  } 
 
-/** Container **/
+/** Container page historiqueMatch**/
 .football_player_content_container {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     top: 50px;
-    right: 130px;
-    padding: 30px 40px 55px 40px;
+    right: 50px;
+    padding: 20px 20px 20px 20px;
     background-color: rgb(50, 48, 48);
     border: solid #A62C8B;
-    border-radius: 15%;
+    text-align: center;
+    opacity: 0.9;
    }
+
+   .boxMatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.75;    
+   }
+
+   .Match p {
+    text-align: center;
+    margin-right: 10px;
+    align-items: center;
+    color: #FFFFFF; 
+   }
+
+   .details {
+    display: flex;
+    margin: 15px;
+    padding: 25px;
+    background-color: rgb(70, 69, 69);
+    border: solid #FFFFFF;
+    height: 25px;
+    width: 600px;
+    justify-content: space-between;
+   }
+
+   .Match {
+    display: flex;
+    margin: 15px;
+    padding: 25px;
+    background-color: rgb(70, 69, 69);
+    border: solid #A62C8B;
+    height: 25px;
+    width: 600px;
+    justify-content: space-between;
+   }
+
+   .a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size:large;
+    margin-right: 25px;
+    align-items: center; 
+}
+
+    .score {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+
+    .win {
+        color: rgb(3, 240, 3) !important;
+    }
+
+    .loss {
+        color: rgb(255, 66, 66) !important;
+    }
+
+/** Container page detailsMatch**/
+    .football_details_content_container {
+        height: 900px;
+        width: 600px;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 50px;
+        right: 50px;
+        padding: 20px 20px 20px 20px;
+        background-color: rgb(70, 69, 69);
+        border: solid #A62C8B;
+        text-align: center;
+        opacity: 0.9;
+        color: #FFFFFF;
+       }
+    
+       .boxEvenementsMatch {
+        display: flex;
+        flex-direction: column;
+        border: solid #ffffff;
+        height: 25px; 
+        width: 575px;
+        text-align: center;
+        background: url(../Bloc3DI22Website/img/stade-de-foot.jpeg);
+        opacity: 0.9;
+       }
 
 
 
