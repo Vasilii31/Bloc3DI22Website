@@ -1,16 +1,40 @@
-
 <!-----------------VERIFIER PHP ICI----------------->
 <?php
     require("connectDB.php");
     require("Crud.php");
+    require("utils.php");
+
     $db = connect();
 
-    if(isset($_GET["delete"]))
-    {
-        DeletePlayer($db, $_GET["delete"]);
-    }
+    init_php_session();
 
-    $liste
+    //On verifie la validité de l'idFeuille dans le GET
+    if(isset($_GET["feuille"]) && intval($_GET["feuille"]) != 0)
+    {
+        //on verifie que l'utilisateur est bien authentifié, n'est pas un admin, et 
+        //a un identraineur
+        if(is_logged() && !is_admin() && isset($_SESSION["IdEntraineur"]) && $_SESSION["IdEntraineur"] != "")
+        {
+            //on verifie que l'idEntraineur correspond bien a une des deux équipes en question
+            if(Verify_TrainerAccess_To_MatchSheet($db, $_GET["feuille"] ,$_SESSION["IdEntraineur"]))
+            {
+                //Tout est bon, on peut afficher la page et aller chercher les infos
+                $myPlayers = Get_Players_From_Trainer($db, $_SESSION["IdEntraineur"]);
+            }
+            else
+            {
+                //cet entraineur ne devrait pas avoir accès a cette feuille de match,
+                //On redirige avec DisplayAndRedirect
+            }
+        }
+    }
+    else
+    {
+        //Une erreur est survenue, redirection avec DisplayAndRedirect
+    }
+    
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -21,7 +45,7 @@
     <link rel="stylesheet" href="style2.css"/>
     <link rel="stylesheet" href="templateStyle.css"/>
 <!-----------------TITLE A COMPLETER----------------->
-    <title>A COMPLETER</title>
+    <title>Feuille de Match - Entraineur</title>
 </head>
 
 <!-- MANQUE HEADER AVEC LOGO FFF -->
