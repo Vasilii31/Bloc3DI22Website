@@ -2,7 +2,6 @@
 <?php
     require("connectDB.php");
     require("Crud.php");
-    require("utils.php");
 
     $db = connect();
     /*init_php_session();
