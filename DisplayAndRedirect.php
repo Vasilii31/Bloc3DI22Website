@@ -37,6 +37,14 @@
                 $output = "La validation de votre profil par l'administrateur est encore en attente, veuillez réessayer plus tard.";
                 $href = "auth.php";
                 break;
+            case "KODENIEDACCESS":
+                $output = "Désolé, vous n'avez pas accès à cette page";
+                $href = "index.php";
+                break;
+            case "MATCHCOMPLETE":
+                $output = "La feuille de résultat du match a été complétée avec succès. Vous pouvez la retrouver dans l'écran Historique des Matchs.";
+                $href = "index.php";
+                break;
             default:
                 $output = "Une erreur est survenue. Veuillez réessayer plus tard.";
                 $href = "index.php";

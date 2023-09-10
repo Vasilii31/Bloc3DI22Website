@@ -1,40 +1,35 @@
-<!-----------------VERIFIER PHP ICI----------------->
 <?php
-    require("connectDB.php");
-    require("Crud.php");
-    require("utils.php");
+    require "connectDB.php";
+    require "Crud.php";
+    require "utils.php";
 
     $db = connect();
 
-    init_php_session();
-
-    //On verifie la validité de l'idFeuille dans le GET
-    if(isset($_GET["feuille"]) && intval($_GET["feuille"]) != 0)
+    if(isset($_GET["idFeuille"]))
     {
-        //on verifie que l'utilisateur est bien authentifié, n'est pas un admin, et 
-        //a un identraineur
-        if(is_logged() && !is_admin() && isset($_SESSION["IdEntraineur"]) && $_SESSION["IdEntraineur"] != "")
+        //a remplacer par la récupération identraineur depuis la session
+        $identraineur = 3;
+        $globalsInfos = GlobalsInfosMatch($db, $_GET["idFeuille"]);
+        $idFeuilleEntraineur = Get_Feuille_Entraineur($db, $_GET["idFeuille"], $identraineur);
+        $players = Get_Players_From_Trainer($db, $identraineur);
+        $postes = Get_All_Postes($db);
+        $postesOptions = "<option value=''>poste</option>";
+        if($postes != null)
         {
-            //on verifie que l'idEntraineur correspond bien a une des deux équipes en question
-            if(Verify_TrainerAccess_To_MatchSheet($db, $_GET["feuille"] ,$_SESSION["IdEntraineur"]))
-            {
-                //Tout est bon, on peut afficher la page et aller chercher les infos
-                $myPlayers = Get_Players_From_Trainer($db, $_SESSION["IdEntraineur"]);
+            foreach($postes as $poste)
+            {   
+                $postesOptions = $postesOptions."<option value=".$poste["IdPoste"].">".$poste["NomPoste"]."</option>";
             }
-            else
-            {
-                //cet entraineur ne devrait pas avoir accès a cette feuille de match,
-                //On redirige avec DisplayAndRedirect
+        }
+        if($players != null)
+        {
+            $playersOptions = "<option value=''>Joueur</option>";
+            foreach($players as $player)
+            {   
+                $playersOptions = $playersOptions."<option value=".$player["IdJoueur"].">".$player["Nom"]." ".$player["Prenom"]."</option>";
             }
         }
     }
-    else
-    {
-        //Une erreur est survenue, redirection avec DisplayAndRedirect
-    }
-    
-
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -45,7 +40,7 @@
     <link rel="stylesheet" href="style2.css"/>
     <link rel="stylesheet" href="templateStyle.css"/>
 <!-----------------TITLE A COMPLETER----------------->
-    <title>Feuille de Match - Entraineur</title>
+    <title>Feuille Entraineur</title>
 </head>
 
 <!-- MANQUE HEADER AVEC LOGO FFF -->
@@ -61,64 +56,171 @@
     <div class="football_player_content_container">
 
 <!-----------------TITLE A COMPLETER----------------->
-        <h1>Titre Page</h1>
+        <h1>Feuille Entraineur</h1>
 
 
 <!-----------------SECTION 1----------------->       
             <div class="football_player_content_section">
-                <h2>Titre Section 1</h2>
+                <h2><?php echo $globalsInfos;?></h2>
 
 <!-----------------SOUS SECTION 1.1-----------------> 
                 <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
+                    
                 </div>
 
             </div>
 
+        <form action=<?php echo "updateTrainerSheet.php?idFeuilleM=".$_GET["idFeuille"]."&idFeuilleE=".$idFeuilleEntraineur;?> method="POST" class="PlayersList" >
 <!-----------------SECTION 2-----------------> 
             <div class="football_player_content_section">
-                <h2>Titre Section 2</h2>
+                <h2>Joueurs Titulaires</h2>
 
 <!-----------------SOUS SECTION 2.1-----------------> 
-                <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
-                </div>
-
-<!-----------------SOUS SECTION 2.2----------------->                  
-                <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
-                </div>
+                
+                    <ul>
+                        <li id="player1">
+                            <select id="nom" name="idPlayer1" required>
+                                <?php echo $playersOptions;?>
+                            </select>
+                            <select id="poste1" name="postePlayer1" required>
+                                <?php echo $postesOptions;?>
+                            </select>
+                        </li>
+                        <li id="player2">
+                            <select id="nom" name="idPlayer2" required>
+                            <?php echo $playersOptions;?>
+                            </select>
+                            <select id="poste" name="postePlayer2" required>
+                                <?php echo $postesOptions;?>
+                            </select>
+                        </li>
+                        <li id="player3">
+                            <select id="nom" name="idPlayer3" required>
+                            <?php echo $playersOptions;?>
+                            </select>
+                            <select id="poste" name="postePlayer3" required>
+                                <?php echo $postesOptions;?>
+                            </select>
+                        </li>
+                        <li id="player4">
+                            <select id="nom" name="idPlayer4" required>
+                                <?php echo $playersOptions;?>
+                            </select>
+                            <select id="poste" name="postePlayer4" required>
+                                <?php echo $postesOptions;?>
+                            </select>
+                        </li>
+                        <li id="player5">
+                            <select id="nom" name="idPlayer5" required>
+                                <?php echo $playersOptions;?>
+                            </select>
+                            <select id="poste" name="postePlayer5" required>
+                                <?php echo $postesOptions;?>
+                            </select>
+                        </li>
+                        <li id="player6">
+                            <select id="nom" name="idPlayer6" required>
+                                <?php echo $playersOptions;?>
+                            </select>
+                            <select id="poste" name="postePlayer6" required>
+                                <?php echo $postesOptions;?>
+                            </select>
+                        </li>
+                        <li id="player7">
+                            <select id="nom" name="idPlayer7" required>
+                                <?php echo $playersOptions;?>
+                            </select>
+                            <select id="poste" name="postePlayer7" required>
+                                <?php echo $postesOptions;?>
+                            </select>
+                        </li>
+                        <li id="player8">
+                            <select id="nom" name="idPlayer8" required>
+                                <?php echo $playersOptions;?>
+                            </select>
+                            <select id="poste" name="postePlayer8" required>
+                                <?php echo $postesOptions;?>
+                            </select>
+                        </li>
+                        <li id="player9">
+                            <select id="nom" name="idPlayer9" required>
+                                <?php echo $playersOptions;?>
+                            </select>
+                            <select id="poste" name="postePlayer9" required>
+                                <?php echo $postesOptions;?>
+                            </select>
+                        </li>
+                        <li id="player10">
+                            <select id="nom" name="idPlayer10" required>
+                                <?php echo $playersOptions;?>
+                            </select>
+                            <select id="poste" name="postePlayer10" required>
+                                <?php echo $postesOptions;?>
+                            </select>
+                        </li>
+                        <li id="player11">
+                            <select id="nom" name="idPlayer11" required>
+                                <?php echo $playersOptions;?>
+                            </select>
+                            <select id="poste" name="postePlayer11" required>
+                                <?php echo $postesOptions;?>
+                            </select>
+                        </li>
+                    </ul>
+                
 
             </div>
         
         
 <!-----------------SECTION 3----------------->
             <div class="football_player_content_section">
-                <h2>Titre Section 3</h2>
+                <h2>Joueurs Remplaçants</h2>
 
 <!-----------------SOUS SECTION 3.1-----------------> 
-                <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
-                </div>
-
-<!-----------------SOUS SECTION 3.2----------------->            
-                <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
-                </div>                
-                    
-                <div class="football_player_content_subsection">
-                    <p>Paragraphe</p>
-                </div>
+                <ul>
+                    <li class="substitute">
+                        <select id="substitute1" name="substitute1" required>
+                            <?php echo $playersOptions;?>
+                        </select>
+                    </li>
+                    <li class="substitute">
+                        <select id="substitute2" name="substitute2" required>
+                            <?php echo $playersOptions;?>
+                        </select>
+                    </li>
+                    <li class="substitute">
+                        <select id="substitute3" name="substitute3" required>
+                            <?php echo $playersOptions;?>
+                        </select>
+                    </li>
+                    <li class="substitute">
+                        <select id="substitute4" name="substitute4">
+                            <?php echo $playersOptions;?>
+                        </select>
+                    </li>
+                    <li class="substitute">
+                        <select id="substitute5" name="substitute5">
+                            <?php echo $playersOptions;?>
+                        </select>
+                    </li>
+                    <li class="substitute">
+                        <select id="substitute6" name="substitute6">
+                            <?php echo $playersOptions;?>
+                        </select>
+                    </li>
+                </ul>
                     
             </div>
-
-<!--Send email-->
             <div class="football_player_content_section">
-                <input type="checkbox" id="scales" name="scales" unchecked>
-                <label for="scales">Envoyer un mail aux entraineurs des équipes sélectionnées</label>
-                <a href = "mailto: abc@example.com">Send Email</a>
+                <h2>Capitaine</h2>
+                    <select id="capitaine" name="capitaine" required>
+                        <?php echo $playersOptions;?>
+                    </select>
+                <h2>Suppléant</h2>
+                    <select id="substitute6" name="suppleant" required>
+                        <?php echo $playersOptions;?>
+                    </select>
             </div>
-
 <!--Submit button-->
             <input type="submit" value="Valider la feuille de match" class="submit_button">
             
@@ -126,7 +228,7 @@
         </form> 
 
     </div>
-    <script src="acceuilPreConnexion.js"></script>
+    <!--Pas encore de script !<script src="Match_Players.js"></script>-->
 </body>
 
 <footer>
