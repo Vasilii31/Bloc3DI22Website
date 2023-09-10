@@ -245,7 +245,7 @@ function Get_denied_trainers($db)
 }
 
 
-
+//Get players from Id Trainer//
 function Get_My_Players($db, $myTeam)
 {
     $dbh = $db->prepare("SELECT * FROM `joueurs` JOIN postes ON joueurs.IdPostePredilection = postes.IdPoste WHERE idEquipe = ?");
@@ -258,23 +258,48 @@ function Get_My_Players($db, $myTeam)
 
 function Get_Trainer_ID($db, $boolAdmin, $IdUser){
         
-    $res = "";
+    // $res = "";//
     if($boolAdmin == false) {
         $dbh = $db->prepare("SELECT IdEntraineur FROM entraineurs WHERE IdUser = ? ");
-        $res = $dbh->execute([$IdUser]);
+        $dbh->execute([$IdUser]);
+        $res = $dbh->fetch();
         if($res == false) {
             $res = "";
         }
     } 
-    return $res;
+    return $res['IdEntraineur'];
 }
 
-//Get Id Team from an Id Trainer//
-function Get_IdTeam_FromTrainer($db, $idEntraineur){
-    $dbh = $db->prepare("SELECT IdEquipe FROM `equipes` WHERE IdEntraineur = ?");
-    $res = $dbh->execute([$idEntraineur]);
-    return $res;
+//Get Team from an Id Trainer//
+function Get_IDTeam_FromTrainer($db, $idEntraineur){
+    $dbh = $db->prepare("SELECT IdEquipe FROM equipes WHERE IdEntraineur = ? ");
+    $dbh->execute([$idEntraineur]);
+    $res = $dbh->fetchall();
+    if($res == false) 
+    {
+        return "";
+    }
+    else 
+    {
+        return $res;
+    }
 }
+
+//Get Team from Trainer//
+function Get_Team_FromTrainer($db, $idEntraineur){
+    $dbh = $db->prepare("SELECT * FROM equipes WHERE IdEntraineur = ? ");
+    $dbh->execute([$idEntraineur]);
+    $res = $dbh->fetchall();
+    if($res == false) 
+    {
+        return "";
+    }
+    else 
+    {
+        return $res;
+    }
+}
+    
 
 function Accept_Or_Decline_User($db, $iduser, $approved)
 {
@@ -344,6 +369,7 @@ function Get_Matches_To_Complete($db, $idEntraineur)
 
 }
 
+
 function Get_Players($db, $myTeam)
 {
     $dbh = $db->prepare("SELECT * FROM joueurs JOIN postes ON joueurs.IdPostePredilection = postes.IdPoste WHERE idEquipe = ?");
@@ -351,6 +377,42 @@ function Get_Players($db, $myTeam)
     $res = $dbh->fetchAll();
     return $res;
 }
+
+
+// Delete player from its ID//
+function Delete_Player($db, $idPlayer)
+{
+    $dbh = $db->prepare("DELETE FROM joueurs WHERE IdJoueur = ?");
+    $dbh->execute([$idPlayer]);
+}
+
+
+// Update player from its ID//
+function Update_Player($db, $nom, $prenom, $numMaillot, $equipe, $idPoste, $idJoueur)
+{
+    $sReq = "UPDATE joueurs SET Nom = ?, Prenom = ?, NumeroMaillot = ?, IdEquipe = ?, IdPostePredilection = ? WHERE IdJoueur = ?";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([
+        $nom,
+        $prenom,
+        $numMaillot,
+        $equipe,
+        $idPoste,
+        $idJoueur
+    ]); 
+}
+
+
+function Get_A_Player($db, $idJoueur)
+{
+    $sReq = "SELECT * FROM joueurs WHERE IdJoueur = ?";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([$idJoueur]);
+    $res = $dbh->fetchAll();
+    return $res;
+}
+
+
 
 function Verify_TrainerAccess_To_MatchSheet($db, $idFeuille, $idEntraineur)
 {

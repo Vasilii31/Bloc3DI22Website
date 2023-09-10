@@ -120,7 +120,6 @@
                     $_SESSION['isAdmin'] = $boolAdmin;
                     $_SESSION['IdUser'] = $res['IdUser'];
                     $_SESSION['IdEntraineur'] = Get_Trainer_ID($db, $boolAdmin, $res['IdUser']);
-
                     
 
                     return "OK";
