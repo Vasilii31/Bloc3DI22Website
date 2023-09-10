@@ -47,7 +47,7 @@
                 foreach($matchsAcompleter as $match)
                 {
                     echo '<a href="feuilleMatchEntraineur.php?feuille='.$match["idfeuille"].'"><div class="Match"><p>'.$match["DateRencontre"].'</p>';
-                    echo '<p>'.$match["Lieu"].'</p>';
+                    echo '<p>'.$match["Stade"].'</p>';
                     echo '<p>'.$match["monEquipe"].'</p>';
                     echo '<p>'.$match["equipeAdverse"].'</p></div></a>';
                 }

@@ -7,39 +7,39 @@
 
     init_php_session();
 
-    var_dump($_SESSION);
-    //si l'utilisateur est connecté, qu'il n'est pas admin et qu'il a bien un IdEntraineur stocké dans la session
+
+
+    if(isset($_GET['DeleteIdJoueur']) && !empty($_GET['DeleteIdJoueur']))
+    {
+        Delete_Player($db, intval($_GET['DeleteIdJoueur']));
+        echo "<p>Joueur supprimé avec succès.</p>";
+    }
+    
+
+
+
+    //If user is logged + not admin + Id Trainer exist -> get id team for this trainer and get players from the team
     if(is_logged() && $_SESSION['isAdmin'] == false && $_SESSION['IdEntraineur'] != '')
     {
-        $myTeam = Get_IdTeam_FromTrainer($db, $_SESSION['IdEntraineur']);
+        
+        $myTeam = Get_IDTeam_FromTrainer($db, $_SESSION['IdEntraineur']);
+
         if($myTeam != '')
         {
-            $myPlayers = Get_My_Players($db,$myTeam);
+            $myPlayers = Get_My_Players($db,$myTeam[0][0]);
         } 
         else 
         {
             var_dump("une erreur BDD est survenue, nous la traitons dans les plus brefs délais");
-            header("location: /DisplayAndRedirect.php?result=KO");
+            header("location: ./DisplayAndRedirect.php?result=KO");
         }
-        
+  
     }
     else
     {
-        echo "<p> Vous n'êtes pas autorisés à accéder à cette page</p>";
+        echo "<p>Vous n'êtes pas autorisé à accéder à cette page</p>";
     }
-
     
-    
-////////A METTRE AILLEURS ????//////
-// If DeleteIdJoueur exists, delete player
-    if(isset($_GET['id']))
-    {
-        $id = intval($_GET['id']);
-        
-        $dbh = $db->prepare("DELETE FROM `joueurs` WHERE `IdJoueur` ='$id'");
-        $dbh->execute();
-    }
-  
 
 
 ?>
@@ -78,22 +78,12 @@
                 <?php 
                     foreach($myPlayers as $myPlayer)
                     {
-                        // echo "<table class='table5'><tr>";
-                        // echo "<td class='cell1'>".$myPlayer['Nom']."</br>".$myPlayer['Prenom']."</td>";
-                        // echo "<td class='cell2'> Numéro : ".$myPlayer['NumeroMaillot']."</td>";
-                        // echo "<td class='cell3'> Poste :</br>".$myPlayer['NomPoste']."</td>";
-                        // //Modify the player//
-                        // echo "<td class='cell4'><button class='myTeamButton' >Modifier</button></td>";
-                        // //Delete the player//
-                        // echo "<td class='cell5'><button class='myTeamButton'><a href='myTeam.php?DeleteIdJoueur=".$myPlayer['IdJoueur']."'>Supprimer</a></button></td>";
-                        // echo "</tr></table>";
-
                         echo "<p>".$myPlayer['Nom']." </p>";
                         echo "<p>".$myPlayer['Prenom']." - </p>";
                         echo "<p> Numéro : ".$myPlayer['NumeroMaillot']." - </p>";
                         echo "<p> Poste : ".$myPlayer['NomPoste']." </p>";
                         //Modify the player//
-                        echo "<button class='myTeamButton'>Modifier</button> ";
+                        echo "<button class='myTeamButton'><a href='./TEST_Trainer_Add_Player.php?UpdateIdJoueur=".$myPlayer['IdJoueur']."'>Modifier</a></button>";
                         //Delete the player//
                         echo "<button class='myTeamButton'><a href='myTeam.php?DeleteIdJoueur=".$myPlayer['IdJoueur']."'>Supprimer</a></button></br>";
                     }

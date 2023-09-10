@@ -2,12 +2,19 @@
     margin: 0px;
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
 }
+
 body {
     background-image: url('./img/fond_noir.jpg');
 }
+
+
 /******FOOTBALL PLAYER PAGES******/
+
+
 /*** Football Player Picture ***/
+
 .football_player_image_container {
     width: 600px;
     height: 900px;
@@ -15,69 +22,177 @@ body {
     position: relative;
     padding: 60px;
 }
+
 .football_player_image {
     max-width: 100%;
     max-height: 100%;
 }
+
+
 /*** Football Player Content Container ***/
+
 input:placeholder-shown {
     font-style: italic;
  } 
-/** Container **/
+
+/** Container page historiqueMatch**/
 .football_player_content_container {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     top: 50px;
-    right: 130px;
+    right: 50px;
     padding: 30px 40px 55px 40px;
     background-color: rgb(50, 48, 48);
     border: solid #A62C8B;
-    border-radius: 15%;
+    text-align: center;
+    opacity: 0.9;
    }
+
+   .boxMatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.75;    
+   }
+
+   .Match p {
+    text-align: center;
+    margin-right: 10px;
+    align-items: center;
+    color: #FFFFFF; 
+   }
+
+   .details {
+    display: flex;
+    margin: 15px;
+    padding: 25px;
+    background-color: rgb(70, 69, 69);
+    border: solid #FFFFFF;
+    height: 25px;
+    width: 600px;
+    justify-content: space-between;
+   }
+
+   .Match {
+    display: flex;
+    margin: 15px;
+    padding: 25px;
+    background-color: rgb(70, 69, 69);
+    border: solid #A62C8B;
+    height: 25px;
+    width: 600px;
+    justify-content: space-between;
+   }
+
+   .a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size:large;
+    margin-right: 25px;
+    align-items: center; 
+}
+
+    .score {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+
+    .win {
+        color: rgb(3, 240, 3) !important;
+    }
+
+    .loss {
+        color: rgb(255, 66, 66) !important;
+    }
+
+/** Container page detailsMatch**/
+    .football_details_content_container {
+        height: 900px;
+        width: 600px;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 50px;
+        right: 50px;
+        padding: 20px 20px 20px 20px;
+        background-color: rgb(70, 69, 69);
+        border: solid #A62C8B;
+        text-align: center;
+        opacity: 0.9;
+        color: #FFFFFF;
+       }
+    
+       .boxEvenementsMatch {
+        display: flex;
+        flex-direction: column;
+        border: solid #ffffff;
+        height: 25px; 
+        width: 575px;
+        text-align: center;
+        background: url(../Bloc3DI22Website/img/stade-de-foot.jpeg);
+        opacity: 0.9;
+       }
+
+
+
 /* General title */
 .football_player_content_container h1 {
     text-align: center;
     margin: 25px 0px 35px 0px;
+
     color: #FFFFFF;
 }
+
 .add_player_container{
     display: flex;
     flex-direction: column;
 }
+
 #add_player_form{
     display: flex;
     flex-direction: column;
     text-align: center;
 }
+
 .add_player_inputs{
     padding-bottom: 5px;
     width: 50%;
     
 }
+
 /** Sections **/
 .football_player_content_section {
     padding-bottom: 20px;
 }
+
 .football_player_content_container h2 {
     padding-bottom: 15px;
     color: #FFFFFF;
 }
+
 .football_player_content_section p, .football_player_content_section label, .football_player_content_section ul li {
     color: #FFFFFF;
     font-size: 19px;
 }
+
 .football_player_content_section input, .football_player_content_section select {
     font-size: 17px;
     padding: 5px;
     border-radius: 10px;
 }
+
 /* Subsections */
 .football_player_content_subsection {
     margin-bottom: 10px;
 }
+
 .football_player_content_subsection p {
     margin-bottom: 10px;
     display: inline;
 }
+
 /* Submit Buttons */
 .submit_button {
     font-size: 20px;
@@ -86,6 +201,7 @@ input:placeholder-shown {
     display: block;
     margin: auto;
 }
+
 .submit_button:hover {
     color: #A62C8B;
     font-weight: 500;
@@ -111,11 +227,14 @@ td {
 
 
 
+
+
 /*** Feuille Match ***/
 #teams {
     display: flex;
     flex-direction: row;
 }
+
 #equipe2 {
     padding-left: 30px;
 }
@@ -145,7 +264,20 @@ td {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /***** FOOTER *****/
+
 #footer {
     width: 100%;
     height: 35px;
@@ -153,19 +285,23 @@ td {
     font-size: 11px;
     display: grid;
 }
+
 #footer ul {
     align-self: center;
     justify-self: center;
 }
+
 #footer ul li {
     display: inline;
     margin: 7px;
     color: #FFFFFF;
 }
+
 #footer a {
     text-decoration: none;
     color: #FFFFFF;
 }
+
 #footer a:hover {
     text-decoration: underline;
 }

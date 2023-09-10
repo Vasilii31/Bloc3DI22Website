@@ -3,6 +3,15 @@
     require "Crud.php";
 
     $db = connect();
+
+    /////////////FONCTION POUR RECUPERER ID JOUEUR A MODIFIER + MODIFIER JOUEUR//
+    ////////////IL FAUDRAIT RECUPERER TOUTES LES INFOS DU JOUEUR POUR PRESELECT LES CHAMPS////
+    if(isset($_GET['UpdateIdJoueur']) && !empty( $_GET['UpdateIdJoueur']))
+    {
+        Update_Player($db, $nom, $prenom, $numMaillot, $equipe, $idPoste, intval($_GET['UpdateIdJoueur']));
+    }
+
+
     if(isset($_GET["id"]))
     {
         //On recupere le nom et l'id de l'équipe transmise a la page en GET
