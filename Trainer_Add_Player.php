@@ -3,7 +3,21 @@
     require "Crud.php";
 
     $db = connect();
-    if(isset($_GET["id"]))
+
+    $equipe = Get_team($db, $_GET["id"]);
+    if(isset($_GET['UpdateIdJoueur']))
+    {
+        //on vérifie que ce qu'on a reçu en get est bien un int
+        if(intval($_GET['UpdateIdJoueur']) != 0)
+        {
+            //on va faire une requête à la base de données pour verifier que le joueur existe
+            //si le joueur existe : on stocke ses valeurs dans $joueur, sinon 
+        }
+        
+
+    }
+
+    /*(isset($_GET["id"]))
     {
         //On recupere le nom et l'id de l'équipe transmise a la page en GET
         $equipe = Get_team($db, $_GET["id"]);
@@ -18,7 +32,7 @@
 
     }
     else
-        header("location: /DisplayAndRedirect.php?result=KO");
+        header("location: /DisplayAndRedirect.php?result=KO");*/
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -50,7 +64,7 @@
             <h2>Equipe : <?php echo $equipe["NomEquipe"];?></h2>
         </div>       
 <!-----------------SECTION 3----------------->
-            <form id="add_player_form" method="POST" action="AddPlayer.php">
+            <form id="add_player_form" method="POST" action="AddPlayer.php?modify="<?php if(count($joueur) == 0){echo "";}else{} ?>>
                 <input class="add_player_inputs" id="InputNom" name="nom" type="text" placeholder="Nom" required>
                 <input id="InputPrenom" name="prenom" type="text" placeholder="Prénom" required>
                 <input id="InputNum" name="num" type="number" min="1" max="44" placeholder="Numéro de maillot" required>

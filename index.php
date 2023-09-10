@@ -18,7 +18,7 @@
         //var_dump($matchsAcompleter);
         //$matchsAvenir = Get_Incoming_Matches($db, $_SESSION["IdEntraineur"]);
     //}
-    
+    $ok = 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,19 +40,36 @@
         <div class="football_player_content_container">
 
         <!-----------------TITLE A COMPLETER----------------->
-            <h1>Matchs à compléter</h1>
+            <?php //if(!isAdmin()): 
+                if($ok == 1):  ?>
+            <h1>Prochains matchs de mon équipe à compléter</h1>
 
             <?php
 
                 foreach($matchsAcompleter as $match)
                 {
-                    echo '<a href="feuilleMatchEntraineur.php?feuille='.$match["idfeuille"].'"><div class="Match"><p>'.$match["DateRencontre"].'</p>';
-                    echo '<p>'.$match["Lieu"].'</p>';
+                    echo '<a href="feuilleMatchEntraineur.php?idFeuille='.$match["idfeuille"].'"><div class="Match"><p>'.$match["DateRencontre"].'</p>';
+                    echo '<p>'.$match["Stade"].'</p>';
                     echo '<p>'.$match["monEquipe"].'</p>';
                     echo '<p>'.$match["equipeAdverse"].'</p></div></a>';
                 }
 
             ?>
+            <?php else:?>
+                <h1>Matchs en attente de complétion par les entraineurs</h1>
+
+                <?php
+
+                    /*foreach($matchsAcompleter as $match)
+                    {
+                        echo '<a href="feuilleMatchEntraineur.php?idFeuille='.$match["idfeuille"].'"><div class="Match"><p>'.$match["DateRencontre"].'</p>';
+                        echo '<p>'.$match["Stade"].'</p>';
+                        echo '<p>'.$match["monEquipe"].'</p>';
+                        echo '<p>'.$match["equipeAdverse"].'</p></div></a>';
+                    }*/
+
+                ?>
+            <?php endif;?>
         <!-----------------SECTION 1----------------->       
             <div class="football_player_content_section">
                 <h2>Titre Section 1</h2>
@@ -68,6 +85,24 @@
         <div class="football_player_content_container">
 
         <!-----------------TITLE A COMPLETER----------------->
+        <?php //if(!isAdmin()): 
+                if($ok == 1):  ?> 
+        <h1>Matchs à venir déjà complétés</h1>
+
+
+        <!-----------------SECTION 1----------------->       
+            <div class="football_player_content_section">
+                <h2>Titre Section 1</h2>
+
+        <!-----------------SOUS SECTION 1.1-----------------> 
+                <div class="football_player_content_subsection">
+                    <p>Paragraphe</p>
+                </div>
+
+            </div>
+
+        </div>
+        <?php else:?>
             <h1>Matchs à venir déjà complétés</h1>
 
 
@@ -83,6 +118,7 @@
             </div>
 
         </div>
+        <?php endif;?>
     </div>
     
 </body>
