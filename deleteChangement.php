@@ -2,16 +2,14 @@
 
 require "connectDB.php";
 require "Crud.php";
+require "utils.php";
 
-// if(!init_php_session() || !is_logged())
-// {
-//     header("location: /auth.php");
-//     return;
-// }
+init_php_session();
+grant_access(true);
 
 $db = connect();
 
-if(isset($_GET))
+if(isset($_GET) && intval($_GET["idChangement"]) > 0)
 {
     //var_dump($_POST);
 

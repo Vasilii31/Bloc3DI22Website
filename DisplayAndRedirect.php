@@ -5,8 +5,12 @@
 
         switch($_GET["result"])
         {
-            case "OK":
-                $output = "Utilisateur créé avec succès, vous pouvez maintenant vous connecter.";
+            case "CREATEADMINOK":
+                $output = "Utilisateur Administrateur créé avec succès, vous pouvez maintenant vous connecter.";
+                $href = "index.php";
+                break;
+            case "CREATETRAINEROK":
+                $output = "Votre demande de création d'un profil entraineur a été prise en compte et va être examinée par un Administrateur. Vous pourrez vous connecter lorsqu'elle aura été approuvée.";
                 $href = "auth.php";
                 break;
             case "USEDNAME":

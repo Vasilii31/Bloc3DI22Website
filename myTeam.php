@@ -6,8 +6,7 @@
     $db = connect();
 
     init_php_session();
-
-
+    grant_access(false);
 
     if(isset($_GET['DeleteIdJoueur']) && !empty($_GET['DeleteIdJoueur']))
     {
@@ -15,9 +14,6 @@
         echo "<p>Joueur supprimé avec succès.</p>";
     }
     
-
-
-
     //If user is logged + not admin + Id Trainer exist -> get id team for this trainer and get players from the team
     if(is_logged() && $_SESSION['isAdmin'] == false && $_SESSION['IdEntraineur'] != '')
     {

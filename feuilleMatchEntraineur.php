@@ -3,12 +3,15 @@
     require "Crud.php";
     require "utils.php";
 
+    init_php_session();
+    grant_access(false);
+
     $db = connect();
 
     if(isset($_GET["idFeuille"]))
     {
         //a remplacer par la récupération identraineur depuis la session
-        $identraineur = 3;
+        $identraineur = 1;
         $globalsInfos = GlobalsInfosMatch($db, $_GET["idFeuille"]);
         $idFeuilleEntraineur = Get_Feuille_Entraineur($db, $_GET["idFeuille"], $identraineur);
         $players = Get_Players_From_Trainer($db, $identraineur);
@@ -30,6 +33,9 @@
             }
         }
     }
+    else{
+        header("location: DisplayAndRedirect.php?result=KO");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -44,7 +50,11 @@
 </head>
 
 <!-- MANQUE HEADER AVEC LOGO FFF -->
-
+<header>
+    <?php
+        include("header.php");
+    ?>
+</header>
 <body>
 
 <!--Football Player Image-->

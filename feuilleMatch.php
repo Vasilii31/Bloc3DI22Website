@@ -1,6 +1,11 @@
 <?php
     require("connectDB.php");
     require("Crud.php");
+    require("utils.php");
+
+    init_php_session();
+    grant_access(true);
+
     $db = connect();
     
     $clubs = Get_Clubs($db);
@@ -16,11 +21,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style2.css"/>
     <link rel="stylesheet" href="templateStyle.css"/>
-    <title>Feuille de Match</title>
+    <title>Création de Feuille de Match</title>
 </head>
 
 <!-- MANQUE HEADER AVEC LOGO FFF -->
-
+<header>
+    <?php
+        include("header.php");
+    ?>
+</header>
 <body>
 
 <!--Football Player Image-->

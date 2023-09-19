@@ -4,11 +4,8 @@
     require "Crud.php";
     require "utils.php";
 
-    // if(!init_php_session() || !is_logged())
-    // {
-    //     header("location: /auth.php");
-    //     return;
-    // }
+    init_php_session();
+    grant_access(true);
 
     $db = connect();
 

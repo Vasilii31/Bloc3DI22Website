@@ -110,7 +110,7 @@ function Get_User($db, $username, $isAdmin)
     }
     else
     {
-        $dbh = $db->prepare("SELECT userName, hMdp, IdUser, approved FROM users WHERE userName = ? AND isAdmin = ?");
+        $dbh = $db->prepare("SELECT userName, hMdp, IdUser, approved, nom, prenom  FROM users WHERE userName = ? AND isAdmin = ?");
         $dbh->execute([$username, $isAdmin]);
     }
     return $dbh->fetch();
@@ -370,10 +370,11 @@ function Get_Feuille_Entraineur($db, $idfeuilleMatch, $idEntraineur)
     $dbh = $db->prepare("select fdme.IdFeuilleMatchEntraineur as idFeuilleE from feuillematchentraineur as fdme 
     INNER JOIN feuilledematch as fdm on fdm.IdFeuille = fdme.Idfeuilledematch
     INNER JOIN equipes as e on fdme.IdEquipe = e.IdEquipe
-    Where e.IdEntraineur = ? and fdme.Idfeuilledematch = ?");
-    $dbh->execute([$idEntraineur,
-                $idfeuilleMatch 
-                    ]);
+    Where (e.IdEntraineur = ? OR e.IdEntraineurAdjoint = ?) and fdme.Idfeuilledematch = ?");
+    $dbh->execute([
+                    $idEntraineur,
+                    $idEntraineur,
+                    $idfeuilleMatch]);
     $res = $dbh->fetch();
     return $res['idFeuilleE'];
 }
@@ -651,6 +652,50 @@ function Get_A_Player($db, $idJoueur)
     $dbh->execute([$idJoueur]);
     $res = $dbh->fetchAll();
     return $res;
+}
+
+function InsertArbitre($db, $nom, $nationalite)
+{
+    $sReq = "INSERT INTO arbitres (NomArbitre, Nationalite) VALUES (?, ?)";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([
+        $nom,
+        $nationalite
+    ]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        return "KO";
+    }
+    else
+        return "OK";
+}
+
+function ModifyArbitre($db, $id, $nom, $nationalite)
+{
+    $sReq = "UPDATE arbitres SET NomArbitre = ?, Nationalite = ? WHERE IdArbitre = ?";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([
+        $nom,
+        $nationalite,
+        $id
+    ]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        return "KO";
+    }
+    else
+        return "OK";
+}
+
+function DeleteArbitre($db, $id)
+{
+    $dbh = $db->prepare("DELETE FROM arbitres WHERE IdArbitre = ?");
+    if($dbh->execute([$id]) == false)
+    {
+        return "KO";
+    }
+    else
+        return "OK";
 }
 // function Get_Trainer_Team($db, $username)
 // {

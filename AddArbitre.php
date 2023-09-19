@@ -12,16 +12,34 @@ require "utils.php";
 
 $db = connect();
 
-if(isset($_POST))
+if(isset($_POST) && count($_POST) > 0)
 {
-    /*if(intval($_POST["IdMatch"]) > 0 && intval($_POST["equipe"]) > 0 && intval($_POST["minute"]) > 0 && intval($_POST["joueurSanctionne"]) > 0 && intval($_POST["carton"]) > 0)
-    {
-        $res = Add_Carton($db, $_POST['IdMatch'], $_POST['carton'], $_POST['equipe'], $_POST['joueurSanctionne'], $_POST['minute']);
-    }*/
+    
+    var_dump($_POST);
 
-    /*if($res == "OK")
-        header("location: ResultatsMatch.php?idFeuille=".$_POST['IdMatch']);
+    if($_POST['id'] == "")
+    {
+        $res = InsertArbitre($db, $_POST["Nom"], $_POST["Nationalite"]);
+    }
+    else if(intval($_POST['id']) > 0)
+    {
+        $res = ModifyArbitre($db, $_POST['id'], $_POST["Nom"], $_POST["Nationalite"]);
+    }
+
+    if($res == "OK")
+        header("location: Arbitre.php");
     else
-        header("location: DisplayAndRedirect.php?result=KO");*/
+        header("location: DisplayAndRedirect.php?result=KO");
+}
+else{
+    if(intval($_GET['id']) > 0 && $_GET['delete'] == "true")
+    {
+        $res = DeleteArbitre($db, $_GET['id']);
+        
+        if($res == "OK")
+            header("location: Arbitre.php");
+        else
+            header("location: DisplayAndRedirect.php?result=KO");
+    }
 
 }

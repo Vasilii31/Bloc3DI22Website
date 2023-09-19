@@ -3,10 +3,12 @@
 
 
 <div id="header">
-    <div id="Header_Logo">LOGO</div>
+    <a href="index.php">
+        <div id="Header_Logo">LOGO</div>
+    </a>
+    
     <div id="Header_Menu">
-        <?php //if(!isAdmin()): 
-            if($ok == 2):  ?>
+        <?php if(!is_admin()):  ?>
         <ul>
             <li>
                 <div class="dropdown">
@@ -55,7 +57,7 @@
         <?php endif;?>
     </div>
     <ul>
-        <li>Thierry Machin</li>
+        <li><?php echo $_SESSION["prenom"]." ".$_SESSION["nom"]; ?></li>
         <li>|</li>
         <li><a href="logOut.php">Déconnexion</a></li>
     </ul>

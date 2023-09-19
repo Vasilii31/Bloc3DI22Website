@@ -1,6 +1,11 @@
 <?php
     require("connectDB.php");
     require("Crud.php");
+    require("utils.php");
+
+    init_php_session();
+    grant_access(true);
+
     $db = connect();
 
     if(isset($_GET["approved"]) && isset($_GET["id"]))
@@ -25,7 +30,11 @@
 </head>
 
 <!-- MANQUE HEADER AVEC LOGO FFF -->
-
+<header>
+    <?php
+        include("header.php");
+    ?>
+</header>
 <body>
 <!--Football Player Image-->
     <div class="football_player_image_container">
