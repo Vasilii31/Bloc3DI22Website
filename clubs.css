@@ -1,0 +1,13 @@
+#AjoutClub{
+    display: none;
+}
+
+.clubs{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 30em;
+    gap: 3px;
+    margin-bottom: 5px;
+}

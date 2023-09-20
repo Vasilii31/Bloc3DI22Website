@@ -37,20 +37,24 @@
                     <button onclick="DropDownEquipe()" class="dropbtn">Créer</button>
                         <div id="DropdownEquipe" class="dropdown-content">
                             <a href="Arbitre.php">Créer un arbitre</a>
-                            <a href="#">Créer un club</a>
-                            <a href="#">Créer une équipe</a>
+                            <a href="CreationClub.php">Créer un Club</a>
+                            <a href="CreationEquipe.php">Créer une équipe</a>
                             <a href="feuilleMatch.php">Créer un match</a>
                         </div>
                 </div>
             </li>
             <li>
                 <div class="dropdown">
-                    <a href="historiqueMatch.php"><button onclick="" class="refbtn">Historique des Matchs</button></a>
+                    <button onclick="DropDownGestionEntraineurs()" class="dropbtn">Gestion des Entraineurs</button>
+                    <div id="DropDownGestionEntraineurs" class="dropdown-content">
+                        <a href="inbox.php">Demandes utilisateur</a>
+                        <a href="AttributionEntraineur.php">Attribuer un entraineur à une équipe</a>
+                    </div>
                 </div>
             </li>
             <li>
                 <div class="dropdown">
-                    <a href="inbox.php"><button onclick="" class="refbtn">Demandes utilisateur</button></a>
+                    <a href="historiqueMatch.php"><button onclick="" class="refbtn">Historique des Matchs</button></a>
                 </div>
             </li>
         </ul> 

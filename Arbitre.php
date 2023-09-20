@@ -76,8 +76,8 @@
         
     </div>
 
-    <!--<script src="formVerification.js"></script>
-    <script src="addArbitre.js"></script>-->
+    <script src="formVerification.js"></script>
+    <script src="addArbitre.js"></script>
 </body>
 
 <footer>
