@@ -16,7 +16,7 @@
 
     // function Add_New_Match_Sheet($db, $date, $lieu, $equi1, $equi2, $arbitreP, $arbitreAss1, $arbitreAss2)
     // {
-    //     $sReq = "INSERT INTO feuilledematch (DateRencontre, Lieu, IdEquipe1, IdEquipe2, IdArbitrePrinc, IdArbitreAss1, IdArbitreAss2) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    //     $sReq = "INSERT INTO feuilledematch (DateRencontre, Stade, IdEquipe1, IdEquipe2, IdArbitrePrinc, IdArbitreAss1, IdArbitreAss2) VALUES (?, ?, ?, ?, ?, ?, ?)";
     //     $dbh = $db->prepare($sReq);
     //     $dbh->execute([
     //         $date,
@@ -319,13 +319,13 @@ function Accept_Or_Decline_User($db, $iduser, $approved)
 
 /*function Get_Matches_To_Complete($db, $idEntraineur)
 {
-    $sReq =" SELECT fdm.DateRencontre, fdm.Lieu, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
+    $sReq =" SELECT fdm.DateRencontre, fdm.Stade, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
             from feuilledematch as fdm 
             INNER JOIN equipes as e on fdm.IdEquipe1 = e.IdEquipe 
             INNER JOIN equipes as ea on ea.IdEquipe = fdm.IdEquipe2 
             where (e.IdEntraineur = ? or e.IdEntraineurAdjoint = ?) AND fdm.complete = 0
             UNION
-            SELECT fdm.DateRencontre, fdm.Lieu, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
+            SELECT fdm.DateRencontre, fdm.Stade, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
             from feuilledematch as fdm 
             INNER JOIN equipes as e on fdm.IdEquipe2 = e.IdEquipe 
             INNER JOIN equipes as ea on ea.IdEquipe = fdm.IdEquipe1 

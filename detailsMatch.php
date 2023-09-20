@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="inboxStyle.css"/>
     <link rel="stylesheet" href="templateStyle.css"/>
+    <link rel="stylesheet" href="detailsMatchs.css"/>
     <link rel="stylesheet" href="navBar.css"/>
 <!-----------------TITLE A COMPLETER----------------->
     <title>Détails du matchs</title>
@@ -41,39 +42,58 @@
         <img src="img/Football_player.png" alt="Joueur de foot tirant dans un ballon" class="football_player_image">
     </div>
     
-<!--Container for Football Player's page, here: "TITRE  H1"---------------------->
+<!--Container for Football detais page, here: "TITRE  H1"---------------------->
 
         <div class="football_details_content_container">
             <h2>Détails du match</h2>
-                <div class="boxMatch">
 
-                    <?php 
-                    foreach($historiqueMatch as $feuilledematch)
-                    {
-                        echo '<a href="#"><div class="details">';
-                        echo '<p>'.$feuilledematch["DateRencontre"].'</p>';
-                        echo '<p>'.$feuilledematch["Equipe1"].'</p>';
-                        echo '<p>'.$feuilledematch["Equipe2"].'</p>';
-
-                        if($feuilledematch["MatchNul" == false])
-                        {
-                            echo '<div class="score"><p class="win">'.$feuilledematch["ScoreEquipeGagnante"].'</p><p>-</p>';
-                            echo '<p class="loss">'.$feuilledematch["ScoreEquipePerdante"].'</p></div>';
-                        }
-                        else
-                        {
-                            echo '<div class="score"><p>'.$feuilledematch["ScoreEquipeGagnante"].'</p><p>-</p>';
-                            echo '<p>'.$feuilledematch["ScoreEquipePerdante"].'</p></div>';
-                        }
-                        echo '</div></a>';
-                    }
-                    ?>
+                    <div class="boxResultatsMatch">
+                        Ici sera la date du match
+                        <div class="nomEquipes">
+                            OM - Pau
+                        </div>
+                            <div class="scoreEquipes"> 
+                                3 - 1
+                            </div>
                     </div>
-            
-                </div>
 
-        </div>
+                    <div class="boxEvenementsMatch">Evènements
+                        <div class="boxButs">
+                            <div class="butsEquipeGauche">
+                                10' minutes - But - Papin
+                            </div>
+                            <div class="butsEquipeDroite">
+                                25' minutes - But - Zidane
+                            </div>
+                        </div>
+                        <div class="boxCartons">Cartons
+                            <div class="cartonsEquipeGauche">
+                                30' minutes - Carton jaune - Henry
+                            </div>
+                            <div class="cartonsEquipeDroite">
+                                35' minutes - Carton rouge - Anelka
+                            </div>
+                        </div>
 
+                        <div class="boxFautes">Fautes
+                            <div class="fautesEquipeGauche">
+                                29' minutes - Faute - Henry
+                            </div>
+                            <div class="fautesEquipeDroite">
+                                67' minutes - Faute - Pires
+                            </div>
+                        </div>
+
+                        <div class="boxRemplacements">Remplacements
+                            <div class="remplacementsEquipeGauche">
+                                60' minutes - Remplacement - Petit par Trezeguet
+                            </div>
+                            <div class="remplacementsEquipeDroite">
+                                60' minutes - Remplacement - Barthez par Lloris
+                            </div>
+                        </div>
+                    </div>
+      
 </div>
 
 
