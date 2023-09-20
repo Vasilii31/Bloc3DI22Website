@@ -4,7 +4,7 @@ const InputId = document.getElementById("InputId");
 const submitbutton = document.getElementById("submitbtn"); 
 const formClub = document.getElementById("AjoutClub");
 
-function show_Club_Form()
+/*function show_Club_Form()
 {
 
     InputId.setAttribute("value", "");
@@ -12,7 +12,7 @@ function show_Club_Form()
     addArbitreForm.reset();
     submitbutton.setAttribute("value", "Ajouter");
     formClub.style = "display:flex;"
-}
+}*/
 
 function To_Modify_Club_Form(idClub)
 {
