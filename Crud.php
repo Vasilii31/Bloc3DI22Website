@@ -16,7 +16,7 @@
 
     // function Add_New_Match_Sheet($db, $date, $lieu, $equi1, $equi2, $arbitreP, $arbitreAss1, $arbitreAss2)
     // {
-    //     $sReq = "INSERT INTO feuilledematch (DateRencontre, Lieu, IdEquipe1, IdEquipe2, IdArbitrePrinc, IdArbitreAss1, IdArbitreAss2) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    //     $sReq = "INSERT INTO feuilledematch (DateRencontre, Stade, IdEquipe1, IdEquipe2, IdArbitrePrinc, IdArbitreAss1, IdArbitreAss2) VALUES (?, ?, ?, ?, ?, ?, ?)";
     //     $dbh = $db->prepare($sReq);
     //     $dbh->execute([
     //         $date,
@@ -33,7 +33,7 @@
     function Add_New_Match_Sheet($db, $DateRencontre, $Stade, $Equipe1, $Equipe2, $ArbitrePrinc, $ArbitreAss1, $ArbitreAss2)
     {
     
-        $req = "INSERT INTO feuilledematch (DateRencontre, Lieu, IdEquipe1, IdEquipe2, IdArbitrePrinc, IdArbitreAss1, IdArbitreAss2) VALUES (:DateRencontre, :Stade, :Equipe1, :Equipe2, :ArbitrePrinc, :ArbitreAss1, :ArbitreAss2)";
+        $req = "INSERT INTO feuilledematch (DateRencontre, Stade, IdEquipe1, IdEquipe2, IdArbitrePrinc, IdArbitreAss1, IdArbitreAss2) VALUES (:DateRencontre, :Stade, :Equipe1, :Equipe2, :ArbitrePrinc, :ArbitreAss1, :ArbitreAss2)";
     
         $insertFeuilleDeMatch = $db -> prepare($req);
         if($insertFeuilleDeMatch -> execute(array(
@@ -137,7 +137,7 @@ function Get_Match_infos($db, $idFeuille)
     $idFeuille = intval($idFeuille);
     if($idFeuille > 0)
     {
-        $dbh = $db->prepare("SELECT DateRencontre, Lieu, c1.NomClub as Equipe1, c2.NomClub as Equipe2  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs as c2 on f.IdEquipe2 = c2.IdClub WHERE IdFeuille = ?");
+        $dbh = $db->prepare("SELECT DateRencontre, Stade, c1.NomClub as Equipe1, c2.NomClub as Equipe2  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs as c2 on f.IdEquipe2 = c2.IdClub WHERE IdFeuille = ?");
         $dbh->execute([$idFeuille]);
     }
     return $dbh->fetch();
@@ -145,7 +145,7 @@ function Get_Match_infos($db, $idFeuille)
 
 function Get_All_Matches_infos($db)
 {
-        $dbh = $db->prepare("SELECT DateRencontre, Lieu, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch WHERE complete = 1");
+        $dbh = $db->prepare("SELECT DateRencontre, Stade, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch WHERE complete = 1");
         $dbh->execute();
 
     return $dbh->fetchAll();
@@ -155,7 +155,7 @@ function Get_All_Matches_infos($db)
 
 function Get_All_Infos($db)
 {
-        $dbh = $db->prepare("SELECT DateRencontre, Lieu, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch WHERE complete = 1");
+        $dbh = $db->prepare("SELECT DateRencontre, Stade, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch WHERE complete = 1");
         $dbh->execute();
 
     return $dbh->fetchAll();
@@ -296,13 +296,13 @@ function Accept_Or_Decline_User($db, $iduser, $approved)
 
 /*function Get_Matches_To_Complete($db, $idEntraineur)
 {
-    $sReq =" SELECT fdm.DateRencontre, fdm.Lieu, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
+    $sReq =" SELECT fdm.DateRencontre, fdm.Stade, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
             from feuilledematch as fdm 
             INNER JOIN equipes as e on fdm.IdEquipe1 = e.IdEquipe 
             INNER JOIN equipes as ea on ea.IdEquipe = fdm.IdEquipe2 
             where (e.IdEntraineur = ? or e.IdEntraineurAdjoint = ?) AND fdm.complete = 0
             UNION
-            SELECT fdm.DateRencontre, fdm.Lieu, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
+            SELECT fdm.DateRencontre, fdm.Stade, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
             from feuilledematch as fdm 
             INNER JOIN equipes as e on fdm.IdEquipe2 = e.IdEquipe 
             INNER JOIN equipes as ea on ea.IdEquipe = fdm.IdEquipe1 
@@ -320,13 +320,13 @@ function Accept_Or_Decline_User($db, $iduser, $approved)
 
 function Get_Matches_To_Complete($db, $idEntraineur)
 {
-    $sReq = "SELECT fdm.idfeuille, fdm.DateRencontre, fdm.Lieu, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
+    $sReq = "SELECT fdm.idfeuille, fdm.DateRencontre, fdm.Stade, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
             from feuilledematch as fdm 
             INNER JOIN equipes as e on fdm.IdEquipe1 = e.IdEquipe 
             INNER JOIN equipes as ea on ea.IdEquipe = fdm.IdEquipe2 
             where (e.IdEntraineur = ? or e.IdEntraineurAdjoint = ?) AND fdm.complete = 0 AND fdme.complete = 0
             UNION
-            SELECT fdm.idfeuille, fdm.DateRencontre, fdm.Lieu, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
+            SELECT fdm.idfeuille, fdm.DateRencontre, fdm.Stade, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
             from feuilledematch as fdm 
             INNER JOIN equipes as e on fdm.IdEquipe2 = e.IdEquipe 
             INNER JOIN equipes as ea on ea.IdEquipe = fdm.IdEquipe1 

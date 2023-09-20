@@ -1,0 +1,320 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+}
+
+body {
+    background-image: url('./img/fond_noir.jpg');
+}
+
+
+/******FOOTBALL PLAYER PAGES******/
+
+
+/*** Football Player Picture ***/
+
+.football_player_image_container {
+    width: 600px;
+    height: 900px;
+    left: 50px;
+    position: relative;
+    padding: 60px;
+}
+
+.football_player_image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+/*** Football Player Content Container ***/
+
+input:placeholder-shown {
+    font-style: italic;
+ } 
+
+/** Container page historiqueMatch**/
+.football_player_content_container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 50px;
+    right: 50px;
+    padding: 30px 40px 55px 40px;
+    background: url(../Bloc3DI22Website/img/stade-de-foot.jpeg);
+    border: solid #A62C8B;
+    text-align: center;
+    opacity: 0.9;
+   }
+
+   .boxMatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.75;    
+   }
+
+   .Match p {
+    text-align: center;
+    margin-right: 10px;
+    align-items: center;
+    color: #FFFFFF; 
+   }
+
+   .details {
+    display: flex;
+    margin: 15px;
+    padding: 25px;
+    background-color: rgb(70, 69, 69);
+    border: solid #FFFFFF;
+    height: 25px;
+    width: 600px;
+    justify-content: space-between;
+   }
+
+   .Match {
+    display: flex;
+    margin: 15px;
+    padding: 25px;
+    background-color: #144279;
+    border: solid #A62C8B;
+    height: 25px;
+    width: 600px;
+    justify-content: space-between;
+   }
+
+   .Match:hover {
+    background-color: #6e91c0; /* Changement de couleur d'arrière-plan */
+}
+
+   .a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size:large;
+    margin-right: 25px;
+    align-items: center; 
+}
+
+    .score {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+
+    .win {
+        color: rgb(3, 240, 3) !important;
+    }
+
+    .loss {
+        color: rgb(255, 66, 66) !important;
+    }
+
+/** Container page detailsMatch**/
+    .football_details_content_container {
+        height: 600px;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 50px;
+        right: 50px;
+        padding: 20px 20px 20px 20px;
+        background: url(../Bloc3DI22Website/img/stade-de-foot.jpeg);
+        border: solid #A62C8B;
+        text-align: center;
+        opacity: 0.9;
+        color: #FFFFFF;
+       }
+    
+       .boxEvenementsMatch {
+        display: flex;
+        flex-direction: column;
+        border: solid #A62C8B;
+        width: 575px;
+        margin: 15px;
+        padding: 15px;
+        align-items: center;
+        background-color: #144179d1;
+       }
+
+       .boxButs {
+        display: flex;
+        flex-direction: row;
+        border: solid #A62C8B;
+        width: 575px;
+        margin: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: center;
+        justify-content: space-around;
+        background-color: #6e92c085;
+       }
+
+       .boxCartons {
+        display: flex;
+        flex-direction: column;
+        border: solid #A62C8B; 
+        width: 575px;
+        margin: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: center;
+        justify-content: space-around;
+        background-color: #6e92c085;
+       } 
+       
+       .boxFautes {
+        display: flex;
+        flex-direction: column;
+        border: solid #A62C8B; 
+        width: 575px;
+        margin: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: center;
+        justify-content: space-around;
+        background-color: #6e92c085;
+       }
+
+       .boxRemplacements {
+        display: flex;
+        flex-direction: column;
+        border: solid #A62C8B;
+        width: 575px;
+        margin: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: center;
+        justify-content: space-around;
+        background-color: #6e92c085;
+       }
+
+
+
+
+/* General title */
+.football_player_content_container h1 {
+    text-align: center;
+    margin: 25px 0px 35px 0px;
+
+    color: #FFFFFF;
+}
+
+.add_player_container{
+    display: flex;
+    flex-direction: column;
+}
+
+#add_player_form{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.add_player_inputs{
+    padding-bottom: 5px;
+    width: 50%;
+    
+}
+
+/** Sections **/
+.football_player_content_section {
+    padding-bottom: 20px;
+}
+
+.football_player_content_container h2 {
+    padding-bottom: 15px;
+    color: #FFFFFF;
+}
+
+.football_player_content_section p, .football_player_content_section label, .football_player_content_section ul li {
+    color: #FFFFFF;
+    font-size: 19px;
+}
+
+.football_player_content_section input, .football_player_content_section select {
+    font-size: 17px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+/* Subsections */
+.football_player_content_subsection {
+    margin-bottom: 10px;
+}
+
+.football_player_content_subsection p {
+    margin-bottom: 10px;
+    display: inline;
+}
+
+/* Submit Buttons */
+.submit_button {
+    font-size: 20px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 15px;
+    display: block;
+    margin: auto;
+}
+
+.submit_button:hover {
+    color: #A62C8B;
+    font-weight: 500;
+}
+
+/* Table */
+td {
+    height: 10%;
+}
+.cell1, .cell2, .cell3 {
+    width: 25%;
+}
+
+.cell4, .cell5 {
+    width: 10%;
+}
+
+td {
+    color: #FFFFFF;
+    font-size: 19px;
+}
+
+
+
+
+
+
+/*** Feuille Match ***/
+#teams {
+    display: flex;
+    flex-direction: row;
+}
+
+#equipe2 {
+    padding-left: 30px;
+}
+
+
+
+/*** My Team ***/
+
+
+/**Buttons**/
+#my_team a {
+    text-decoration: none;
+    color:#000000;
+}
+
+.myTeamButton {
+    font-size: 20px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 15px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.myTeamButton:hover, #my_team a:hover  {
+    color: #A62C8B;
+    font-weight: 500;
+}

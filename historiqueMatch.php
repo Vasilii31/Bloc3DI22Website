@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="inboxStyle.css"/>
     <link rel="stylesheet" href="templateStyle.css"/>
+    <link rel="stylesheet" href="detailsMatchs.css"/>
     <link rel="stylesheet" href="navBar.css"/>
 <!-----------------TITLE A COMPLETER----------------->
     <title>Historique des matchs</title>
