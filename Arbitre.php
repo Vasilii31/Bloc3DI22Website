@@ -1,14 +1,12 @@
 <?php
     require("connectDB.php");
     require("Crud.php");
+    require("utils.php");
+
+    init_php_session();
+    grant_access(true);
 
     $db = connect();
-    /*init_php_session();
-
-    if(!islogged() || !isAdmin())
-    {
-        header("location: auth.php");
-    }*/
 
     $arbitres = Get_Referees($db);
 
@@ -26,7 +24,11 @@
 </head>
 
 <!-- MANQUE HEADER AVEC LOGO FFF -->
-
+<header>
+    <?php
+        include("header.php");
+    ?>
+</header>
 <body>
 
 <!--Football Player Image-->
@@ -73,12 +75,10 @@
                     </form>
                 </div>
 
-            </div>
+        </div>
         
-        
-
-
     </div>
+
     <script src="formVerification.js"></script>
     <script src="addArbitre.js"></script>
 </body>

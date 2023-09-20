@@ -110,7 +110,7 @@ function Get_User($db, $username, $isAdmin)
     }
     else
     {
-        $dbh = $db->prepare("SELECT userName, hMdp, IdUser, approved FROM users WHERE userName = ? AND isAdmin = ?");
+        $dbh = $db->prepare("SELECT userName, hMdp, IdUser, approved, nom, prenom  FROM users WHERE userName = ? AND isAdmin = ?");
         $dbh->execute([$username, $isAdmin]);
     }
     return $dbh->fetch();
@@ -393,10 +393,11 @@ function Get_Feuille_Entraineur($db, $idfeuilleMatch, $idEntraineur)
     $dbh = $db->prepare("select fdme.IdFeuilleMatchEntraineur as idFeuilleE from feuillematchentraineur as fdme 
     INNER JOIN feuilledematch as fdm on fdm.IdFeuille = fdme.Idfeuilledematch
     INNER JOIN equipes as e on fdme.IdEquipe = e.IdEquipe
-    Where e.IdEntraineur = ? and fdme.Idfeuilledematch = ?");
-    $dbh->execute([$idEntraineur,
-                $idfeuilleMatch 
-                    ]);
+    Where (e.IdEntraineur = ? OR e.IdEntraineurAdjoint = ?) and fdme.Idfeuilledematch = ?");
+    $dbh->execute([
+                    $idEntraineur,
+                    $idEntraineur,
+                    $idfeuilleMatch]);
     $res = $dbh->fetch();
     return $res['idFeuilleE'];
 }
@@ -675,6 +676,146 @@ function Get_A_Player($db, $idJoueur)
     $dbh->execute([$idJoueur]);
     $res = $dbh->fetch();
     return $res;
+}
+
+function InsertArbitre($db, $nom, $nationalite)
+{
+    $sReq = "INSERT INTO arbitres (NomArbitre, Nationalite) VALUES (?, ?)";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([
+        $nom,
+        $nationalite
+    ]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        return "KO";
+    }
+    else
+        return "OK";
+}
+
+function ModifyArbitre($db, $id, $nom, $nationalite)
+{
+    $sReq = "UPDATE arbitres SET NomArbitre = ?, Nationalite = ? WHERE IdArbitre = ?";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([
+        $nom,
+        $nationalite,
+        $id
+    ]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        return "KO";
+    }
+    else
+        return "OK";
+}
+
+function DeleteArbitre($db, $id)
+{
+    $dbh = $db->prepare("DELETE FROM arbitres WHERE IdArbitre = ?");
+    if($dbh->execute([$id]) == false)
+    {
+        return "KO";
+    }
+    else
+        return "OK";
+}
+
+function InsertClub($db, $nom)
+{
+    $sReq = "INSERT INTO clubs (NomClub) VALUES (?)";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([$nom]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        return "KO";
+    }
+    else
+        return "OK";
+}
+
+function ModifyClub($db, $id, $nom)
+{
+    $sReq = "UPDATE clubs SET NomClub = ? WHERE IdClub = ?";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([
+        $nom,
+        $id
+    ]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        return "KO";
+    }
+    else
+        return "OK";
+}
+
+function Get_Equipes_And_Clubs($db)
+{
+    $sReq = "SELECT * FROM equipes as e 
+            INNER JOIN clubs as c on e.IdClub = c.IdClub";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([]);
+    $res = $dbh->fetchAll();
+    return $res;
+}
+
+function InsertEquipe($db, $idclub, $nom)
+{
+    $sReq = "INSERT INTO equipes (IdClub, NomEquipe) VALUES (?, ?)";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([
+        $idclub,
+        $nom
+        ]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        return "KO";
+    }
+    else
+        return "OK";
+}
+
+function Get_All_Trainers($db)
+{
+    $sReq = "SELECT * FROM entraineurs as e INNER JOIN users as u on e.IdUser = u.IdUser";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([]);
+    $res = $dbh->fetchAll();
+    return $res;
+}
+
+function Update_Team_Trainer($db, $idequipe, $idEntraineur)
+{
+    $sReq = "UPDATE equipes SET IdEntraineur = ? WHERE IdEquipe = ?";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([
+        $idEntraineur,
+        $idequipe
+    ]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        return "KO";
+    }
+    else
+        return "OK";
+}
+
+function Update_Team_TrainerAdjoint($db, $idequipe, $idEntraineur)
+{
+    $sReq = "UPDATE equipes SET IdEntraineurAdjoint = ? WHERE IdEquipe = ?";
+    $dbh = $db->prepare($sReq);
+    if($dbh->execute([
+        $idEntraineur,
+        $idequipe
+    ]) == false)
+    {
+        //l'insert n'a pas marché, on traite l'erreur
+        return "KO";
+    }
+    else
+        return "OK";
 }
 // function Get_Trainer_Team($db, $username)
 // {

@@ -4,6 +4,9 @@
     require("Crud.php");
     require("utils.php");
 
+    init_php_session();
+    grant_access(true);
+
     $db = connect();
 
     if(isset($_GET['idFeuille']) && intval($_GET['idFeuille']))
@@ -51,11 +54,15 @@
     <link rel="stylesheet" href="style2.css"/>
     <link rel="stylesheet" href="ResultatsMatch.css"/>
 <!-----------------TITLE A COMPLETER----------------->
-    <title>Resultats du Match</title>
+    <title>Insertion des Resultats du Match</title>
 </head>
 
 <!-- MANQUE HEADER AVEC LOGO FFF -->
-
+<header>
+    <?php
+        include("header.php");
+    ?>
+</header>
 <body>
 <script>
     var players = <?php echo json_encode($joueurs);?>;
@@ -246,7 +253,6 @@
         <input type="hidden" name="IdMatch" value=<?php echo $_GET['idFeuille'];?>>
         <input type="submit" value="Valider la feuille de match" class="submit_button">
         </form> 
-        <button class="addButton" onclick="window.print()">Imprimer la page</button>
     </div>
     <script src="resultatsMatch.js"></script>
 </body>

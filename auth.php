@@ -2,6 +2,11 @@
 
     require "utils.php";
     init_php_session();
+
+    if(is_logged())
+    {
+        header("location: index.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +53,7 @@
                                 <input type="text" id="lnInput" name="prenom" class="form-control" placeholder="Prénom" required>
                                 <p class="errorField" id="userNameError" style="display: none">Lettres, chiffres et '-_.' uniquement.</p>
                                 <input type="text" id="usernameInput" name="identifiant" class="form-control" placeholder="Identifiant" required>
-                                <p class="errorField" id="mailError" style="display: none">Message d'erreur du mail</p>
+                                <p class="errorField" id="mailError" style="display: none">Adresse mail invalide</p>
                                 <input type="email" id="mailInput" name="mail" class="form-control" placeholder="Adresse mail" required>
                                 <p class="errorField" id="telError" style="display: none">10 chiffres Ex: 0600000000</p>
                                 <input type="tel" id="telInput" name="telephone"class="form-control" placeholder="Numéro de téléphone" required>
@@ -56,7 +61,7 @@
                                 <input type="password" id="pwd" name="mdp" class="form-control" id="mdp" placeholder="@Mot de Passe" required>
                                 <input type="password" id="cpwd" name="confirmMdp" class="form-control" id="cmdp" placeholder="@Confirmer Mot de Passe" required>
                                 <input style="margin-bottom: 20px;" type="checkbox" onclick="show_Password()">Afficher le mot de passe
-                                <input type="password" id="codeAdmin" name="createAdmin" class="form-control" placeholder="Code de création Administrateur">
+                                <input type="password" id="codeAdmin" name="createAdmin" class="form-control" placeholder="Code de création Administrateur" required>
                                 <input type="hidden" id="boolAdmin" name="admin" value="" />
                                 <input type="hidden" name="logOrSign" value="signin" />
                                 <input type="submit" class="formButton" id="registerButton">

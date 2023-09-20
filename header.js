@@ -1,9 +1,15 @@
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function DropDownEquipe() {
+
     document.getElementById("DropdownEquipe").classList.toggle("show");
   }
   
+  function DropDownGestionEntraineurs() {
+
+    document.getElementById("DropDownGestionEntraineurs").classList.toggle("show");
+  }
+
 
 function DropDownMatchsEntraineur() {
     document.getElementById("DropdownMatchEntraineur").classList.toggle("show");

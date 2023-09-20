@@ -2,6 +2,10 @@
 
     require("connectDB.php");
     require("Crud.php");
+    require("utils.php");
+
+    init_php_session();
+    grant_access(true);
 
     $db = connect();
 

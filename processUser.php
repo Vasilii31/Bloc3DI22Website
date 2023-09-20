@@ -27,7 +27,7 @@
             $res = SignIn($db, $_POST);
         }
         
-        //header("location: /DisplayAndRedirect.php?result=".$res);
+        header("location: /DisplayAndRedirect.php?result=".$res);
     }
     else
     {

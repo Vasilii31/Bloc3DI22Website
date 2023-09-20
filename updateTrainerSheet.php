@@ -2,8 +2,13 @@
 
 require("connectDB.php");
 require("Crud.php");
+require("utils.php");
+
+init_php_session();
+grant_access(false);
 
 $db = connect();
+
 
 if(isset($_GET['idFeuilleE']) && intval($_GET['idFeuilleE']) > 0
     && isset($_GET['idFeuilleM']) && intval($_GET['idFeuilleM']) > 0)

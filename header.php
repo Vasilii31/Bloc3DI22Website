@@ -3,10 +3,12 @@
 
 
 <div id="header">
-    <div id="Header_Logo">LOGO</div>
+    <a href="index.php">
+        <div id="Header_Logo">LOGO</div>
+    </a>
+    
     <div id="Header_Menu">
-        <?php //if(!isAdmin()): 
-            if($ok == 2):  ?>
+        <?php if(!is_admin()):  ?>
         <ul>
             <li>
                 <div class="dropdown">
@@ -35,10 +37,19 @@
                     <button onclick="DropDownEquipe()" class="dropbtn">Créer</button>
                         <div id="DropdownEquipe" class="dropdown-content">
                             <a href="Arbitre.php">Créer un arbitre</a>
-                            <a href="#">Créer un club</a>
-                            <a href="#">Créer une équipe</a>
+                            <a href="CreationClub.php">Créer un Club</a>
+                            <a href="CreationEquipe.php">Créer une équipe</a>
                             <a href="feuilleMatch.php">Créer un match</a>
                         </div>
+                </div>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <button onclick="DropDownGestionEntraineurs()" class="dropbtn">Gestion des Entraineurs</button>
+                    <div id="DropDownGestionEntraineurs" class="dropdown-content">
+                        <a href="inbox.php">Demandes utilisateur</a>
+                        <a href="AttributionEntraineur.php">Attribuer un entraineur à une équipe</a>
+                    </div>
                 </div>
             </li>
             <li>
@@ -46,16 +57,11 @@
                     <a href="historiqueMatch.php"><button onclick="" class="refbtn">Historique des Matchs</button></a>
                 </div>
             </li>
-            <li>
-                <div class="dropdown">
-                    <a href="inbox.php"><button onclick="" class="refbtn">Demandes utilisateur</button></a>
-                </div>
-            </li>
         </ul> 
         <?php endif;?>
     </div>
     <ul>
-        <li>Thierry Machin</li>
+        <li><?php echo $_SESSION["prenom"]." ".$_SESSION["nom"]; ?></li>
         <li>|</li>
         <li><a href="logOut.php">Déconnexion</a></li>
     </ul>

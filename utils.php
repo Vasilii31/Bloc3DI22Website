@@ -58,6 +58,7 @@
         if(!is_logged())
         {
             header("location: /auth.php");
+            return;
         }
 
         if($admin == true)
@@ -97,6 +98,15 @@
         $infoArray["identifiant"], $infoArray["mail"], $infoArray["telephone"], $hmdp, $boolAdmin);
         
         return $res;
+        if($res == "OK")
+        {
+            if($boolAdmin)
+                return "CREATEADMINOK";
+            else
+                return "CREATETRAINEROK";
+        }
+        else
+            return($res);
     }
 
     function Login($db, $infoArray)
@@ -116,11 +126,12 @@
                     init_php_session();
                     //recuperer l'id user ?
                     $_SESSION['username'] = $infoArray['username'];
+                    $_SESSION['nom'] = $res['nom'];
+                    $_SESSION['prenom'] = $res['prenom'];
                     $_SESSION['isAdmin'] = $boolAdmin;
                     $_SESSION['IdUser'] = $res['IdUser'];
                     $_SESSION['IdEntraineur'] = Get_Trainer_ID($db, $boolAdmin, $res['IdUser']);
                     
-
                     return "OK";
                 } 
                 elseif($res['approved'] == -1) 

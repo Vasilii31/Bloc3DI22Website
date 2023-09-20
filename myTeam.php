@@ -6,8 +6,7 @@
     $db = connect();
 
     init_php_session();
-
-
+    grant_access(false);
 
     if(isset($_GET['DeleteIdJoueur']) && !empty($_GET['DeleteIdJoueur']))
     {

@@ -48,7 +48,7 @@ registerForm.addEventListener("submit", (e) => {
 
     if(!text_validation("fnInput", "fnError") || !text_validation("lnInput", "lnError") || !userName_validation() || !email_validation() || !phone_validation() || !password_validation())
     {
-        alert("INVALID INPUTS");
+        return;
     }
     else
     {

@@ -1,6 +1,8 @@
 /***** FOOTER *****/
 
 #header {
+    position : relative;
+    z-index:  1;
     width: 100vw;
     height: 50px;
     background-color: #000000;
@@ -82,7 +84,7 @@
 }
   
   /* Dropdown button on hover & focus */
-  .dropbtn:hover, .dropbtn:focus {
+  .dropbtn:hover, .dropbtn:focus, .refbtn:hover{
     background-color: #2980B9;
   }
   
