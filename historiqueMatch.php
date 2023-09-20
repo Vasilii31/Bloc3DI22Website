@@ -41,15 +41,14 @@
 
         <div class="football_player_content_container">
             <h2>Résultats des derniers matchs</h2>
-                <div class="boxMatch">
+                <div class="football_player_content_section">
 
                     <?php 
                     foreach($historiqueMatch as $feuilledematch)
                     {
                         echo '<a href="#"><div class="Match">';
-                        echo '<p>'.$feuilledematch["DateRencontre"].'</p>';
-                        echo '<p>'.$feuilledematch["Equipe1"].'</p>';
-                        echo '<p>'.$feuilledematch["Equipe2"].'</p>';
+                        echo '<p>Le : '.$feuilledematch["DateRencontre"].'</p>';
+                        echo '<p>'.$feuilledematch["Equipe1"].' contre '.$feuilledematch["Equipe2"].'</p>';
 
                         if($feuilledematch["MatchNul" == false])
                         {

@@ -103,7 +103,6 @@
     {
         $boolAdmin = ($infoArray["admin"] == "true") ? true : false; 
 
-        var_dump($boolAdmin);
         $res = Get_User($db, $infoArray["username"], $boolAdmin);
         if(isset($res))
         {

@@ -258,24 +258,47 @@ function Get_My_Players($db, $myTeam)
 
 function Get_Trainer_ID($db, $boolAdmin, $IdUser){
         
-    $res = "";
+    // $res = "";//
     if($boolAdmin == false) {
         $dbh = $db->prepare("SELECT IdEntraineur FROM entraineurs WHERE IdUser = ? ");
-        $res = $dbh->execute([$IdUser]);
+        $dbh->execute([$IdUser]);
+        $res = $dbh->fetch();
         if($res == false) {
             $res = "";
         }
     } 
-    return $res;
+    return $res['IdEntraineur'];
 }
 
-//Get Id Team from an Id Trainer//
-function Get_IdTeam_FromTrainer($db, $idEntraineur){
-    $dbh = $db->prepare("SELECT IdEquipe FROM `equipes` WHERE IdEntraineur = ?");
-    $res = $dbh->execute([$idEntraineur]);
-    return $res;
+//Get ID Team from an Id Trainer//
+function Get_IDTeam_FromTrainer($db, $idEntraineur){
+    $dbh = $db->prepare("SELECT IdEquipe FROM equipes WHERE IdEntraineur = ? ");
+    $dbh->execute([$idEntraineur]);
+    $res = $dbh->fetch();
+    if($res == false) 
+    {
+        return "";
+    }
+    else 
+    {
+        return $res['IdEquipe'];
+    }
 }
 
+//Get Team from an Id Trainer//
+function Get_Team_FromTrainer($db, $idEntraineur){
+    $dbh = $db->prepare("SELECT * FROM equipes WHERE IdEntraineur = ? ");
+    $dbh->execute([$idEntraineur]);
+    $res = $dbh->fetch();
+    if($res == false) 
+    {
+        return "";
+    }
+    else 
+    {
+        return $res;
+    }
+}
 function Accept_Or_Decline_User($db, $iduser, $approved)
 {
     $approvedNbr = ($approved == "true" ? 1 : -1);
@@ -634,7 +657,7 @@ function Update_Player($db, $nom, $prenom, $numMaillot, $equipe, $idPoste, $idJo
 {
     $sReq = "UPDATE joueurs SET Nom = ?, Prenom = ?, NumeroMaillot = ?, IdEquipe = ?, IdPostePredilection = ? WHERE IdJoueur = ?";
     $dbh = $db->prepare($sReq);
-    $dbh->execute([
+    $res= $dbh->execute([
         $nom,
         $prenom,
         $numMaillot,
@@ -642,14 +665,15 @@ function Update_Player($db, $nom, $prenom, $numMaillot, $equipe, $idPoste, $idJo
         $idPoste,
         $idJoueur
     ]); 
+    return $res;
 }
 
 function Get_A_Player($db, $idJoueur)
 {
-    $sReq = "SELECT * FROM joueurs WHERE IdJoueur = ?";
+    $sReq = "SELECT * FROM joueurs JOIN postes on joueurs.IdPostePredilection = postes.IdPoste WHERE IdJoueur = ?";
     $dbh = $db->prepare($sReq);
     $dbh->execute([$idJoueur]);
-    $res = $dbh->fetchAll();
+    $res = $dbh->fetch();
     return $res;
 }
 // function Get_Trainer_Team($db, $username)

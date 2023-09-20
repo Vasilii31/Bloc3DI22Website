@@ -16,22 +16,21 @@
     }
     
 
-
-
     //If user is logged + not admin + Id Trainer exist -> get id team for this trainer and get players from the team
-    if(is_logged() && $_SESSION['isAdmin'] == false && $_SESSION['IdEntraineur'] != '')
+    if(is_logged() && $_SESSION['isAdmin'] == false && $_SESSION['IdEntraineur']!= '')
+   
     {
         
-        $myTeam = Get_IDTeam_FromTrainer($db, $_SESSION['IdEntraineur']);
+        $myTeam = Get_IdTeam_FromTrainer($db, $_SESSION['IdEntraineur']);
 
-        if($myTeam != '')
+        if(intval($myTeam) > 0)
         {
-            $myPlayers = Get_My_Players($db,$myTeam[0][0]);
+            $myPlayers = Get_My_Players($db,$myTeam);
         } 
         else 
         {
             var_dump("une erreur BDD est survenue, nous la traitons dans les plus brefs délais");
-            header("location: ./DisplayAndRedirect.php?result=KO");
+            // header("location: ./DisplayAndRedirect.php?result=KO");
         }
   
     }
@@ -83,9 +82,9 @@
                         echo "<p> Numéro : ".$myPlayer['NumeroMaillot']." - </p>";
                         echo "<p> Poste : ".$myPlayer['NomPoste']." </p>";
                         //Modify the player//
-                        echo "<button class='myTeamButton'><a href='./TEST_Trainer_Add_Player.php?UpdateIdJoueur=".$myPlayer['IdJoueur']."'>Modifier</a></button>";
+                        echo "<button class='myTeamButton'><a href='./Trainer_Add_Player.php?UpdateIdJoueur=".$myPlayer['IdJoueur']."'>Modifier</a></button> ";
                         //Delete the player//
-                        echo "<button class='myTeamButton'><a href='myTeam.php?DeleteIdJoueur=".$myPlayer['IdJoueur']."'>Supprimer</a></button></br>";
+                        echo "<button class='myTeamButton'><a href='myTeam.php?DeleteIdJoueur=".$myPlayer['IdJoueur']."'>Supprimer</a></button> </br></br>";
                     }
                 ?>
             </div>

@@ -78,6 +78,7 @@ input:placeholder-shown {
     margin-bottom: 10px;
     display: inline;
 }
+
 /* Submit Buttons */
 .submit_button {
     font-size: 20px;
@@ -87,6 +88,24 @@ input:placeholder-shown {
     margin: auto;
 }
 .submit_button:hover {
+    color: #A62C8B;
+    font-weight: 500;
+}
+
+/**Buttons**/
+button a {
+    text-decoration: none;
+    color:#000000;
+}
+
+button {
+    font-size: 20px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 15px;
+    margin: auto;
+}
+
+button:hover, #my_team a:hover  {
     color: #A62C8B;
     font-weight: 500;
 }
@@ -122,27 +141,8 @@ td {
 
 
 
-/*** My Team ***/
 
 
-/**Buttons**/
-#my_team a {
-    text-decoration: none;
-    color:#000000;
-}
-
-.myTeamButton {
-    font-size: 20px;
-    padding: 5px 10px 5px 10px;
-    border-radius: 15px;
-    margin: auto;
-    margin-bottom: 10px;
-}
-
-.myTeamButton:hover, #my_team a:hover  {
-    color: #A62C8B;
-    font-weight: 500;
-}
 
 
 /***** FOOTER *****/

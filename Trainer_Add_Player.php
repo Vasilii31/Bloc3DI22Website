@@ -1,38 +1,30 @@
 <?php
-    require "connectDB.php";
-    require "Crud.php";
+    require("connectDB.php");
+    require("Crud.php");
+    require("utils.php");
 
     $db = connect();
 
-    $equipe = Get_team($db, $_GET["id"]);
-    if(isset($_GET['UpdateIdJoueur']))
-    {
-        //on vérifie que ce qu'on a reçu en get est bien un int
-        if(intval($_GET['UpdateIdJoueur']) != 0)
-        {
-            //on va faire une requête à la base de données pour verifier que le joueur existe
-            //si le joueur existe : on stocke ses valeurs dans $joueur, sinon 
-        }
-        
+    init_php_session();
 
+    $equipe = Get_Team_FromTrainer($db, $_SESSION['IdEntraineur']);
+
+    
+    if (isset($_GET['UpdateIdJoueur']) && !empty($_GET['UpdateIdJoueur'])) {
+        $updateIdJoueur = intval($_GET['UpdateIdJoueur']);
+
+        if($updateIdJoueur > 0) {
+            $joueur = Get_A_Player($db, $updateIdJoueur); 
+
+            if($joueur != false) {
+                $nom = $joueur['Nom'];
+                $prenom = $joueur['Prenom'];
+                $numeroMaillot = $joueur['NumeroMaillot'];
+                $PostePredilection = $joueur['IdPostePredilection'];
+            }
+        } //////REDIRECTION DISPLAY AND REDIRECT
     }
 
-    /*(isset($_GET["id"]))
-    {
-        //On recupere le nom et l'id de l'équipe transmise a la page en GET
-        $equipe = Get_team($db, $_GET["id"]);
-        if($equipe == null)
-        {
-            header("location: /DisplayAndRedirect.php?result=TEAMNOTFOUND");
-            //on recupere les postes en BDD ou on le met en dur dans la page ?
-            //$postes = Get_Postes($db);
-            //if($postes == null)
-                //header("location: /DisplayAndRedirect.php?result=KO");
-        }
-
-    }
-    else
-        header("location: /DisplayAndRedirect.php?result=KO");*/
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -56,15 +48,47 @@
     </div>
 
 <!--Container for Football Player's page, here: "TITRE  H1"---------------------->
-    <div class="football_player_content_container">
-<!-----------------TITLE A COMPLETER----------------->
-        <h1>Ajouter un joueur</h1>
+    <div class="football_player_content_container">  
+            <?php
+                if(isset($_GET['UpdateIdJoueur'])):?>
+
+<!-----------------MODIFIER UN JOUEUR----------------->
+<h1>Modifier un joueur</h1>
 <!-----------------SECTION 1----------------->       
         <div class="football_player_content_section">
             <h2>Equipe : <?php echo $equipe["NomEquipe"];?></h2>
         </div>       
 <!-----------------SECTION 3----------------->
-            <form id="add_player_form" method="POST" action="AddPlayer.php?modify="<?php if(count($joueur) == 0){echo "";}else{} ?>>
+            <form id="add_player_form" method="POST" action="AddPlayer.php?UpdateIdJoueur=<?php echo ''.$updateIdJoueur;?>">
+                <input class="add_player_inputs" id="InputNom" name="nom" type="text" value="<?php echo $joueur['Nom']?>" required>
+                <input id="InputPrenom" name="prenom" type="text" value="<?php echo $joueur['Prenom']?>" required>
+                <input id="InputNum" name="num" type="number" min="1" max="44" value="<?php echo $joueur['NumeroMaillot']?>" required>
+                <input type="hidden" name="equipe" value=<?php echo "".$equipe["IdEquipe"]."";?>>
+                <select name="poste" id="posteSelector">
+                    <option value="<?php echo $joueur['IdPostePredilection']?>"><?php echo $joueur['NomPoste']?></option>
+                    <option value="1">Ailier Gauche</option>
+                    <option value="2">Ailier Droit</option>
+                    <option value="3">Avant Centre</option>
+                    <option value="4">Milieu Droit</option>
+                    <option value="5">Milieu Centre</option>
+                    <option value="6">Milieu Gauche</option>
+                    <option value="7">Défenseur Droit</option>
+                    <option value="8">Défenseur Gauche</option>
+                    <option value="9">Défenseur Central</option>
+                    <option value="10">Gardien</option>
+                </select>
+                <input type="submit" value="Modifier">
+            </form>
+            <?php
+                else:?>
+<!-----------------AJOUTER UN JOUEUR----------------->
+<h1>Ajouter un joueur</h1>
+<!-----------------SECTION 1----------------->       
+        <div class="football_player_content_section">
+            <h2>Equipe : <?php echo $equipe["NomEquipe"];?></h2>
+        </div>       
+<!-----------------SECTION 3----------------->
+            <form id="add_player_form" method="POST" action="AddPlayer.php">
                 <input class="add_player_inputs" id="InputNom" name="nom" type="text" placeholder="Nom" required>
                 <input id="InputPrenom" name="prenom" type="text" placeholder="Prénom" required>
                 <input id="InputNum" name="num" type="number" min="1" max="44" placeholder="Numéro de maillot" required>
@@ -83,7 +107,13 @@
                     <option value="10">Gardien</option>
                 </select>
                 <input type="submit" value="Valider">
-            </form>           
+            </form>
+            <?php endif; ?>
+            
+            
+            
+
+
     </div>   
     <script src="formVerification.js"></script>
     <script src="addPlayer.js"></script>

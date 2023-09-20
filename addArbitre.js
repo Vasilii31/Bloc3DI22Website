@@ -4,6 +4,7 @@ const InputNationalite = document.getElementById("InputNationalite");
 const InputId = document.getElementById("InputId");
 const submitbutton = document.getElementById("submitbtn"); 
 const formArbitre = document.getElementById("AjoutArbitre");
+const addButton = document.getElementById("add-button");
 
 function show_Arbitre_Form()
 {
@@ -23,7 +24,13 @@ function To_Modify_Arbitre_Form(idArbitre)
     InputNationalite.setAttribute("value", nationalite);
     submitbutton.setAttribute("value", "Modifier");
     formArbitre.style = "display:flex;";
+    
+    InputNom.style = "font-size: 17px; padding: 5px; border-radius: 10px;";
+    InputNationalite.style = "font-size: 17px; padding: 5px; border-radius: 10px;";
+    addButton.style.display = "none";
 }
+
+
 
 addArbitreForm.addEventListener("submit", (e) => {
     //on empeche la page de submit le formulaire directement

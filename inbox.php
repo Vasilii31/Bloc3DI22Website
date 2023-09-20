@@ -20,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="inboxStyle.css"/>
     <link rel="stylesheet" href="templateStyle.css"/>
-<!-----------------TITLE A COMPLETER----------------->
+<!-----------------INBOX ADMINISTRATEURS----------------->
     <title>Inbox</title>
 </head>
 
@@ -31,21 +31,23 @@
     <div class="football_player_image_container">
         <img src="img/Football_player.png" alt="Joueur de foot tirant dans un ballon" class="football_player_image">
     </div>
-<!--Container for Football Player's page, here: "TITRE  H1"---------------------->
+<!--INBOX-->
         <div class="football_player_content_container">
             <h1>Demandes de validation en attente</h1>
-            <?php 
-                foreach($applying as $applyance)
-                {
-                    echo '<div class="trainerLine">';
-                    echo '<p class="pnomprenom">'.$applyance["nom"].'</p>';
-                    echo '<p class="pnomprenom">'.$applyance["prenom"].'</p>';
-                    echo '<p class="mailortel">'.$applyance["mail"].'</p>';
-                    echo '<p>'.$applyance["numTel"].'</p>';
-                    echo '<div class="buttons"><a href="inbox.php?approved=true&id='.$applyance["IdUser"].'" ><button ">Valider</button></a>';
-                    echo '<a href="inbox.php?approved=false&id='.$applyance["IdUser"].'" ><button ">Refuser</button></a></div></div>';
-                }                
-            ?>
+            <div class="football_player_content_subsection">
+                <?php 
+                    foreach($applying as $applyance)
+                    {
+                        // echo '<div class="trainerLine">';
+                        echo '<p>'.$applyance["nom"].'</p>';
+                        echo '<p>'.$applyance["prenom"].'</p>';
+                        echo '<p>'.$applyance["mail"].'</p>';
+                        echo '<p>'.$applyance["numTel"].'</p>';
+                        echo '<div class="buttons"><a href="inbox.php?approved=true&id='.$applyance["IdUser"].'" ><button ">Valider</button></a>';
+                        echo '<a href="inbox.php?approved=false&id='.$applyance["IdUser"].'" ><button ">Refuser</button></a></div>';
+                    }                
+                ?>
+            </div>
 
         </div>
         <div class="football_player_content_container" id="deniedUsers">
