@@ -17,8 +17,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="arbitre.css"/>
-    <link rel="stylesheet" href="templateStyle.css"/>
+    <link rel="stylesheet" href="./css/arbitre.css"/>
+    <link rel="stylesheet" href="./css/templateStyle.css"/>
 <!-----------------GESTION DES ARBITRES----------------->
     <title>Gestion des Arbitres</title>
 </head>

@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" href="headerStyle.css"/>
+<link rel="stylesheet" href="./css/headerStyle.css"/>
 
 
 <div id="header">

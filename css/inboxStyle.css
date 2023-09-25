@@ -1,4 +1,4 @@
-.trainerLine{
+/* .trainerLine{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -36,8 +36,18 @@
 
 .buttons a, button{
     width: 55px;
-}
+} 
 
 #deniedUsers{
     top: 30em;
+}*/
+
+#waitingOrDenied {
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+}
+
+#awaitingApprovals, #deniedUsers {
+    align-content: space-around;
 }

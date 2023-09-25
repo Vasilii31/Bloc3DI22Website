@@ -4,7 +4,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 body {
-    background-image: url('./img/fond_noir.jpg');
+    background-image: url('../img/fond_noir.jpg');
 }
 /******FOOTBALL PLAYER PAGES******/
 /*** Football Player Picture ***/
@@ -77,6 +77,8 @@ input:placeholder-shown {
 .football_player_content_subsection p {
     margin-bottom: 10px;
     display: inline;
+    color: #FFFFFF;
+    font-size: 19px;
 }
 
 /* Submit Buttons */

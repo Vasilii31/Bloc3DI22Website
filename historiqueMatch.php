@@ -11,10 +11,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="inboxStyle.css"/>
-    <link rel="stylesheet" href="templateStyle.css"/>
-    <link rel="stylesheet" href="detailsMatchs.css"/>
-    <link rel="stylesheet" href="navBar.css"/>
+    <link rel="stylesheet" href="./css/inboxStyle.css"/>
+    <link rel="stylesheet" href="./css/templateStyle.css"/>
+    <link rel="stylesheet" href="./css/detailsMatchs.css"/>
+    <link rel="stylesheet" href="./css/navBar.css"/>
 <!-----------------TITLE A COMPLETER----------------->
     <title>Historique des matchs</title>
 </head>

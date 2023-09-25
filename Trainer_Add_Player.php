@@ -32,8 +32,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style2.css"/>
-    <link rel="stylesheet" href="templateStyle.css"/>
+    <link rel="stylesheet" href="./css/style2.css"/>
+    <link rel="stylesheet" href="./css/templateStyle.css"/>
 <!-----------------TITLE A COMPLETER----------------->
     <title>Ajouter un joueur</title>
 </head>
@@ -47,18 +47,19 @@
         <img src="img/Football_player.png" alt="Joueur de foot tirant dans un ballon" class="football_player_image">
     </div>
 
-<!--Container for Football Player's page, here: "TITRE  H1"---------------------->
+
     <div class="football_player_content_container">  
             <?php
                 if(isset($_GET['UpdateIdJoueur'])):?>
 
 <!-----------------MODIFIER UN JOUEUR----------------->
-<h1>Modifier un joueur</h1>
-<!-----------------SECTION 1----------------->       
+        <h1>Modifier un joueur</h1>
+    
         <div class="football_player_content_section">
             <h2>Equipe : <?php echo $equipe["NomEquipe"];?></h2>
         </div>       
-<!-----------------SECTION 3----------------->
+
+                
             <form id="add_player_form" method="POST" action="AddPlayer.php?UpdateIdJoueur=<?php echo ''.$updateIdJoueur;?>">
                 <input class="add_player_inputs" id="InputNom" name="nom" type="text" value="<?php echo $joueur['Nom']?>" required>
                 <input id="InputPrenom" name="prenom" type="text" value="<?php echo $joueur['Prenom']?>" required>
@@ -77,17 +78,17 @@
                     <option value="9">Défenseur Central</option>
                     <option value="10">Gardien</option>
                 </select>
-                <input type="submit" value="Modifier">
+                <input type="submit" class="submit_button" value="Modifier">
             </form>
             <?php
                 else:?>
 <!-----------------AJOUTER UN JOUEUR----------------->
-<h1>Ajouter un joueur</h1>
-<!-----------------SECTION 1----------------->       
+        <h1>Ajouter un joueur</h1>
+       
         <div class="football_player_content_section">
             <h2>Equipe : <?php echo $equipe["NomEquipe"];?></h2>
         </div>       
-<!-----------------SECTION 3----------------->
+
             <form id="add_player_form" method="POST" action="AddPlayer.php">
                 <input class="add_player_inputs" id="InputNom" name="nom" type="text" placeholder="Nom" required>
                 <input id="InputPrenom" name="prenom" type="text" placeholder="Prénom" required>
@@ -106,7 +107,7 @@
                     <option value="9">Défenseur Central</option>
                     <option value="10">Gardien</option>
                 </select>
-                <input type="submit" value="Valider">
+                <input type="submit" class="submit_button" value="Valider">
             </form>
             <?php endif; ?>
             

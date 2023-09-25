@@ -18,8 +18,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="clubs.css"/>
-    <link rel="stylesheet" href="templateStyle.css"/>
+    <link rel="stylesheet" href="./css/clubs.css"/>
+    <link rel="stylesheet" href="./css/templateStyle.css"/>
 <!-----------------TITLE A COMPLETER----------------->
     <title>Gestion des Clubs</title>
 </head>

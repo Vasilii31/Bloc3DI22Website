@@ -97,7 +97,6 @@
         $res = Create_User($db, $infoArray["nom"], $infoArray["prenom"],
         $infoArray["identifiant"], $infoArray["mail"], $infoArray["telephone"], $hmdp, $boolAdmin);
         
-        return $res;
         if($res == "OK")
         {
             if($boolAdmin)
