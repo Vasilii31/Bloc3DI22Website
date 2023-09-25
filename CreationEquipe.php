@@ -22,7 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/equipes.css"/>
     <link rel="stylesheet" href="./css/templateStyle.css"/>
-<!-----------------TITLE A COMPLETER----------------->
+
     <title>Gestion des Equipes</title>
 </head>
 <header>
@@ -38,14 +38,11 @@
         <img src="img/Football_player.png" alt="Joueur de foot tirant dans un ballon" class="football_player_image">
     </div>
 
-<!--Container for Football Player's page, here: "TITRE  H1"---------------------->
     <div class="football_player_content_container">
 
-<!-----------------TITLE A COMPLETER----------------->
         <h1>Equipes existantes</h1>
 
 
-<!-----------------SECTION 1----------------->       
             <div class="football_player_content_section">
                 <?php 
                     if(count($equipes) > 0)
@@ -82,7 +79,7 @@
                     </select>
                     <input id="InputNom" type="text" name="Nom" placeholder="Nom" required>
                     <!--<input id="InputId" type="hidden" name="id" value="">-->
-                    <input type="submit" id="submitbtn" value="Ajouter">
+                    <input type="submit" id="submitbtn" class="submit_button" value="Ajouter">
                 </form>
             </div>
             <p id="clubSelectWarning"><br>Veuillez selectionner un club à laquelle appartient l'équipe que vous souhaitez créer.<br>

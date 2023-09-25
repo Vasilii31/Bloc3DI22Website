@@ -4,7 +4,9 @@
 
 <div id="header">
     <a href="index.php">
-        <div id="Header_Logo">LOGO</div>
+        <div id="Header_Logo">
+            <img src="./img/logo.png">
+        </div>
     </a>
     
     <div id="Header_Menu">

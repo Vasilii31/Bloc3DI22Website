@@ -31,8 +31,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="indexStyle.css"/>
-    <title>FootClick - Acceuil</title>
+    <link rel="stylesheet" href="./css/indexStyle.css"/>
+    <title>FootClick - Accueil</title>
 </head>
 <header>
     <?php
@@ -57,10 +57,10 @@
                 {
                     foreach($matchsAcompleter as $match)
                     {
-                        echo '<a href="feuilleMatchEntraineur.php?idFeuille='.$match["idfeuille"].'"><div class="Match"><p>'.$match["DateRencontre"].'</p>';
+                        echo '<a class="Match" href="feuilleMatchEntraineur.php?idFeuille='.$match["idfeuille"].'"><p>'.$match["DateRencontre"].'</p>';
                         echo '<p>'.$match["Stade"].'</p>';
                         echo '<p>'.$match["monEquipe"].'</p>';
-                        echo '<p>'.$match["equipeAdverse"].'</p></div></a>';
+                        echo '<p>'.$match["equipeAdverse"].'</p></a>';
                     }
                 }
                 

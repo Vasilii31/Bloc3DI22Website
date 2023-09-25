@@ -35,12 +35,18 @@
     text-decoration: underline;
 }
 
-#Header_Logo{
+/* #Header_Logo{
     color: #FFFFFF;
     font-size: 15px;
     align-self: center;
     justify-self: center;
     padding-left: 20px;
+} */
+
+#Header_Logo img {
+  height: 35px;
+  width: 40px;
+  padding: 7px;
 }
 
 #Header_Menu{
@@ -117,3 +123,5 @@
   
   /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
   .show {display:block;}
+
+

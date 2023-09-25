@@ -68,14 +68,15 @@ input:placeholder-shown {
 .football_player_content_section input, .football_player_content_section select {
     font-size: 17px;
     padding: 5px;
+    margin-bottom: 5px;
     border-radius: 10px;
 }
 /* Subsections */
 .football_player_content_subsection {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 .football_player_content_subsection p {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     display: inline;
     color: #FFFFFF;
     font-size: 19px;
@@ -93,6 +94,7 @@ input:placeholder-shown {
     color: #A62C8B;
     font-weight: 500;
 }
+
 
 /**Buttons**/
 button a {

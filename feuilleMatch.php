@@ -177,11 +177,11 @@
             </div>
 
 <!--Send email-->
-            <div class="football_player_content_section">
+            <!-- <div class="football_player_content_section">
                 <input type="checkbox" id="scales" name="scales" unchecked>
                 <label for="scales">Envoyer un mail aux entraineurs des équipes sélectionnées</label>
                 <a href = "mailto: abc@example.com">Send Email</a>
-            </div>
+            </div> -->
 
 <!--Submit button-->
             <input type="submit" value="Valider la feuille de match" class="submit_button" name="submit_button">
