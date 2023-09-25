@@ -97,7 +97,6 @@
         $res = Create_User($db, $infoArray["nom"], $infoArray["prenom"],
         $infoArray["identifiant"], $infoArray["mail"], $infoArray["telephone"], $hmdp, $boolAdmin);
         
-        return $res;
         if($res == "OK")
         {
             if($boolAdmin)
@@ -130,7 +129,11 @@
                     $_SESSION['prenom'] = $res['prenom'];
                     $_SESSION['isAdmin'] = $boolAdmin;
                     $_SESSION['IdUser'] = $res['IdUser'];
-                    $_SESSION['IdEntraineur'] = Get_Trainer_ID($db, $boolAdmin, $res['IdUser']);
+                    if(!$boolAdmin)
+                    {
+                        $_SESSION['IdEntraineur'] = Get_Trainer_ID($db, $boolAdmin, $res['IdUser']);
+                    }    
+                    
                     
                     return "OK";
                 } 
@@ -171,4 +174,5 @@
             return true;
         return false;
     }
+
 

@@ -11,7 +11,6 @@
 
     if(isset($_POST))
     {
-        var_dump($_POST);
         if(isset($_GET['update']))
         {
             
@@ -28,12 +27,18 @@
                     if($_GET['update'] == "0")
                     {
                         $res = Insert_ResultatsMatch($db, $equipeGagnante, $scoreEquipeGagnante, $scoreEquipePerdante, $dureeMatch, $_POST['idFeuille']);
-                        var_dump($res);
                     }
                     else
                     {
                         $res = Update_ResultatsMatch($db, $equipeGagnante, $scoreEquipeGagnante, $scoreEquipePerdante, $dureeMatch, $_POST['idFeuille'], $_GET['update']);
-                        var_dump($res);
+                    }
+
+                    if($res = "OK")
+                    {
+                        header("location: ResultatsMatch.php?idFeuille=".$_POST['idFeuille']);
+                    }
+                    else{
+                        header("location: DisplayAndRedirect?result=KO");
                     }
                     
                 }

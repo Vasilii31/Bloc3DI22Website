@@ -7,7 +7,7 @@
         {
             case "CREATEADMINOK":
                 $output = "Utilisateur Administrateur créé avec succès, vous pouvez maintenant vous connecter.";
-                $href = "index.php";
+                $href = "auth.php";
                 break;
             case "CREATETRAINEROK":
                 $output = "Votre demande de création d'un profil entraineur a été prise en compte et va être examinée par un Administrateur. Vous pourrez vous connecter lorsqu'elle aura été approuvée.";
@@ -47,6 +47,10 @@
                 break;
             case "MATCHCOMPLETE":
                 $output = "La feuille de résultat du match a été complétée avec succès. Vous pouvez la retrouver dans l'écran Historique des Matchs.";
+                $href = "index.php";
+                break;
+            case "MATCHCOMPLETE":
+                $output = "La feuille de match entraineur a été complétée avec succès. Vous pouvez la retrouver dans l'écran Historique des Matchs.";
                 $href = "index.php";
                 break;
             default:

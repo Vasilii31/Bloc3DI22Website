@@ -299,6 +299,7 @@ function Get_Team_FromTrainer($db, $idEntraineur){
         return $res;
     }
 }
+
 function Accept_Or_Decline_User($db, $iduser, $approved)
 {
     $approvedNbr = ($approved == "true" ? 1 : -1);
@@ -669,6 +670,8 @@ function Update_Player($db, $nom, $prenom, $numMaillot, $equipe, $idPoste, $idJo
     return $res;
 }
 
+
+
 function Get_A_Player($db, $idJoueur)
 {
     $sReq = "SELECT * FROM joueurs JOIN postes on joueurs.IdPostePredilection = postes.IdPoste WHERE IdJoueur = ?";
@@ -816,6 +819,109 @@ function Update_Team_TrainerAdjoint($db, $idequipe, $idEntraineur)
     }
     else
         return "OK";
+}
+
+function Get_Matchs_Attente_Entraineurs($db)
+{
+    $sReq = "SELECT fdm.IdFeuille, fdm.DateRencontre, fdm.Stade, e1.NomEquipe as equipe1, e2.NomEquipe as equipe2 from feuilledematch as fdm
+                INNER JOIN feuillematchentraineur as fdme on fdm.IdEquipe1 = fdme.IdEquipe
+                INNER JOIN equipes as e1 on fdm.IdEquipe1 = e1.IdEquipe
+                INNER JOIN equipes as e2 on fdm.IdEquipe2 = e2.IdEquipe
+                where fdme.complete = 0 and fdme.Idfeuilledematch = fdm.IdFeuille and fdm.complete = 0
+                UNION
+                SELECT fdm.IdFeuille, fdm.DateRencontre, fdm.Stade, e1.NomEquipe as equipe1, e2.NomEquipe as equipe2 from feuilledematch as fdm
+                INNER JOIN feuillematchentraineur as fdme on fdm.IdEquipe2 = fdme.IdEquipe
+                INNER JOIN equipes as e1 on fdm.IdEquipe1 = e1.IdEquipe
+                INNER JOIN equipes as e2 on fdm.IdEquipe2 = e2.IdEquipe
+                where fdme.complete = 0 and fdme.Idfeuilledematch = fdm.IdFeuille and fdm.complete = 0
+                GROUP by IdFeuille";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([]);
+    $res = $dbh->fetchAll();
+    return $res;
+}
+
+
+function Get_Matchs_Attente_Resultats($db)
+{
+    $sReq = "SELECT fdm.IdFeuille, fdm.DateRencontre, fdm.Stade, e1.NomEquipe as equipe1, e2.NomEquipe as equipe2 from feuilledematch as fdm
+        INNER JOIN equipes as e1 on fdm.IdEquipe1 = e1.IdEquipe
+        INNER JOIN equipes as e2 on fdm.IdEquipe2 = e2.IdEquipe
+        WHERE DateRencontre <= CURRENT_DATE() and complete = 0";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([]);
+    $res = $dbh->fetchAll();
+    return $res;
+}
+
+function Get_Historiques_Team_Matches($db, $idEntraineur)
+{
+    $sReq = "SELECT f.IdFeuille, DateRencontre, Stade, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  
+        FROM feuilledematch AS f 
+        INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub 
+        INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub 
+        INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch 
+        INNER JOIN equipes as e on f.IdEquipe1 = e.IdEquipe
+        WHERE complete = 1 AND (e.IdEntraineur = ? or e.IdEntraineurAdjoint = ?)
+        UNION
+        SELECT f.IdFeuille, DateRencontre, Stade, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  
+        FROM feuilledematch AS f 
+        INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub 
+        INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub 
+        INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch 
+        INNER JOIN equipes as e on f.IdEquipe2 = e.IdEquipe
+        WHERE complete = 1 AND (e.IdEntraineur = ? or e.IdEntraineurAdjoint = ?)
+        GROUP BY f.IdFeuille";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([
+        $idEntraineur,
+        $idEntraineur,
+        $idEntraineur,
+        $idEntraineur
+    ]);
+    $res = $dbh->fetchAll();
+    return $res;
+}
+
+function Get_Details_Match_Termine($db, $idFeuille)
+{
+    $sReq = "SELECT f.IdFeuille, DateRencontre, Stade, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  
+        FROM feuilledematch AS f 
+        INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub 
+        INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub 
+        INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch 
+        INNER JOIN equipes as e on f.IdEquipe1 = e.IdEquipe
+        WHERE complete = 1 AND f.idFeuille = ?
+        UNION
+        SELECT f.IdFeuille, DateRencontre, Stade, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  
+        FROM feuilledematch AS f 
+        INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub 
+        INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub 
+        INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch 
+        INNER JOIN equipes as e on f.IdEquipe2 = e.IdEquipe
+        WHERE complete = 1 AND f.idFeuille = ?
+        GROUP BY f.IdFeuille";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([
+        $idFeuille,
+        $idFeuille
+    ]);
+    $res = $dbh->fetch();
+    return $res;
+}
+
+function Get_IdTeam_From_Player($db, $idplayer){
+    $dbh = $db->prepare("SELECT IdEquipe from joueurs where IdJoueur = ?");
+    $dbh->execute([$idplayer]);
+    $res = $dbh->fetch();
+    if($res == false) 
+    {
+        return "KO";
+    }
+    else 
+    {
+        return $res;
+    }
 }
 // function Get_Trainer_Team($db, $username)
 // {

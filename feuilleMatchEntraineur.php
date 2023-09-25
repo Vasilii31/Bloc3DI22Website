@@ -11,7 +11,7 @@
     if(isset($_GET["idFeuille"]))
     {
         //a remplacer par la récupération identraineur depuis la session
-        $identraineur = 1;
+        $identraineur = $_SESSION["IdEntraineur"];
         $globalsInfos = GlobalsInfosMatch($db, $_GET["idFeuille"]);
         $idFeuilleEntraineur = Get_Feuille_Entraineur($db, $_GET["idFeuille"], $identraineur);
         $players = Get_Players_From_Trainer($db, $identraineur);
