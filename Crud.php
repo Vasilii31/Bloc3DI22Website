@@ -841,7 +841,7 @@ function Get_Matchs_Attente_Entraineurs($db)
     return $res;
 }
 
-
+ 
 function Get_Matchs_Attente_Resultats($db)
 {
     $sReq = "SELECT fdm.IdFeuille, fdm.DateRencontre, fdm.Stade, e1.NomEquipe as equipe1, e2.NomEquipe as equipe2 from feuilledematch as fdm
@@ -891,7 +891,7 @@ function Get_Details_Match_Termine($db, $idFeuille)
         INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub 
         INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch 
         INNER JOIN equipes as e on f.IdEquipe1 = e.IdEquipe
-        WHERE complete = 1 AND f.idFeuille = ?
+        WHERE f.complete = 1 AND f.idFeuille = ?
         UNION
         SELECT f.IdFeuille, DateRencontre, Stade, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  
         FROM feuilledematch AS f 
@@ -899,7 +899,7 @@ function Get_Details_Match_Termine($db, $idFeuille)
         INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub 
         INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch 
         INNER JOIN equipes as e on f.IdEquipe2 = e.IdEquipe
-        WHERE complete = 1 AND f.idFeuille = ?
+        WHERE f.complete = 1 AND f.idFeuille = ?
         GROUP BY f.IdFeuille";
     $dbh = $db->prepare($sReq);
     $dbh->execute([
