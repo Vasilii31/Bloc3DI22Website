@@ -53,8 +53,11 @@
     <title>Mon équipe</title>
 </head>
 
-<!-- MANQUE HEADER AVEC LOGO FFF -->
-
+<header>
+    <?php
+        include("header.php");
+    ?>
+</header>
 <body>
 
 <!--Football Player Image-->
@@ -86,6 +89,7 @@
                         echo "<button class='myTeamButton'><a href='myTeam.php?DeleteIdJoueur=".$myPlayer['IdJoueur']."'>Supprimer</a></button> </br></br>";
                     }
                 ?>
+                <button class='myTeamButton'><a href="Trainer_Add_Player.php">Ajouter un Joueur</a></button>
             </div>
         </div>
 

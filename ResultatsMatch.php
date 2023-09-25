@@ -57,7 +57,7 @@
     <title>Insertion des Resultats du Match</title>
 </head>
 
-<!-- MANQUE HEADER AVEC LOGO FFF -->
+
 <header>
     <?php
         include("header.php");

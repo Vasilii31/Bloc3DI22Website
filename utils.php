@@ -129,7 +129,11 @@
                     $_SESSION['prenom'] = $res['prenom'];
                     $_SESSION['isAdmin'] = $boolAdmin;
                     $_SESSION['IdUser'] = $res['IdUser'];
-                    $_SESSION['IdEntraineur'] = Get_Trainer_ID($db, $boolAdmin, $res['IdUser']);
+                    if(!$boolAdmin)
+                    {
+                        $_SESSION['IdEntraineur'] = Get_Trainer_ID($db, $boolAdmin, $res['IdUser']);
+                    }    
+                    
                     
                     return "OK";
                 } 
@@ -170,4 +174,5 @@
             return true;
         return false;
     }
+
 

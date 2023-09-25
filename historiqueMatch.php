@@ -1,6 +1,14 @@
 <?php
     require("connectDB.php");
     require("Crud.php");
+    require("utils.php");
+
+    init_php_session();
+    if(!is_logged())
+    {
+        header("location: auth.php");
+        return;
+    }
     $db = connect();
     $historiqueMatch = Get_All_Matches_infos($db);
 ?>
@@ -18,20 +26,12 @@
 <!-----------------TITLE A COMPLETER----------------->
     <title>Historique des matchs</title>
 </head>
-
-<!-- MANQUE HEADER AVEC LOGO FFF -->
+<header>
+    <?php
+        include("header.php");
+    ?>
+</header>
 <body>
-
-    <!-- Barre de navigation -->
-    <nav>
-      <ul>
-        <li><a href="#">Accueil</a></li>
-        <li><a href="#">Profil</a></li>
-        <li><a href="#">Paramètres</a></li>
-        <li><a href="#">Déconnexion</a></li>
-      </ul>
-    </nav>
-  </header>
 
 <!--Football Player Image-->
     <div class="football_player_image_container">

@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="./css/headerStyle.css"/>
 
 
-<div id="header">
+<div id="header"  >
     <a href="index.php">
         <div id="Header_Logo">
             <img src="./img/logo.png">

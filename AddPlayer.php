@@ -3,11 +3,8 @@ require "connectDB.php";
 require "Crud.php";
 require "utils.php";
 
-// if(!init_php_session() || !is_logged())
-// {
-//     header("location: /auth.php");
-//     return;
-// }
+init_php_session();
+grant_access(false);
 
 $db = connect();
 
@@ -50,10 +47,12 @@ if(isset($_POST))
                 $result = Create_Player($db, $nom, $prenom, $numMaillot, $idPoste, $equipe);
                 if($result == "OK")
                 {
-                    //on redirige vers la page de display de la team
-                    //header("location :");
-                    var_dump("result de addPlayer : ");
-                    var_dump($result);
+                    header("location: myTeam.php");
+                    return;
+                }
+                else
+                {
+                    header("location: DisplayAndRedirect.php?result=KO");
                     return;
                 }
                     

@@ -38,7 +38,11 @@
     <title>Ajouter un joueur</title>
 </head>
 
-<!-- MANQUE HEADER AVEC LOGO FFF -->
+<header>
+    <?php
+        include("header.php");
+    ?>
+</header>
 
 <body>
 
