@@ -21,7 +21,11 @@
 <body>
     <div class="container">
         <nav id="navbar">
-            <a href="./img/tmplogo.png" class="logo">logo</a>
+            <div id="Header_Logo">
+                <img src="./img/logo.png">
+                <p>Footclick</p>
+            </div>
+            
             <ul>
                 <li><button class="btn" id="displayForm">Espace Organisateur</button></li>
                 <li><button class="btn" id="displayFormTrainer">Espace Entraineur</button></li>
@@ -77,4 +81,13 @@
         
     <script src="../jsScripts/authentification.js"></script>
 </body>
+
+<footer>
+    <?php
+        include("footer.html")
+    ?>
+</footer>
+
+
+
 </html>
