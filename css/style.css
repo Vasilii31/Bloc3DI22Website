@@ -30,6 +30,25 @@
     padding: 5px 0;
 }
 
+#Header_Logo{
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    display: flex;
+}
+
+#Header_Logo p {
+    margin: auto;
+    padding-left: 5px;
+}
+  
+#Header_Logo img {
+    height: 45px;
+    width: 50px;
+    padding: 7px;
+}
+
 #navbar .logo{
     width: 120px;
     cursor: pointer;
@@ -81,8 +100,6 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 50px 0;
-    
 }
 
 #sec-container{

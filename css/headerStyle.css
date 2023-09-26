@@ -1,4 +1,7 @@
 /***** FOOTER *****/
+* {
+  font-family: 'system-ui', sans-serif;
+}
 
 #header {
     position : relative;
@@ -7,7 +10,7 @@
     height: 50px;
     background-color: #000000;
     font-size: 15px;
-    display: flex;
+    display: flex; 
     justify-content: space-between;
     position: fixed;
     top: 0;
@@ -35,13 +38,17 @@
     text-decoration: underline;
 }
 
-/* #Header_Logo{
+#Header_Logo{
     color: #FFFFFF;
-    font-size: 15px;
-    align-self: center;
-    justify-self: center;
-    padding-left: 20px;
-} */
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    display: flex;
+}
+
+#Header_Logo p {
+  margin: auto;
+}
 
 #Header_Logo img {
   height: 35px;
