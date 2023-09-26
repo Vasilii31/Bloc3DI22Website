@@ -1,8 +1,8 @@
 <!-----------------VERIFIER PHP ICI----------------->
 <?php
-    require("connectDB.php");
-    require("Crud.php");
-    require("utils.php");
+    require("./Librairies/connectDB.php");
+    require("./Librairies/Crud.php");
+    require("./Librairies/utils.php");
 
     init_php_session();
     grant_access(true);
@@ -15,7 +15,7 @@
         $infosMatchs = Get_Match_infos($db, $_GET['idFeuille']);
         //On cherche dans la table de resultats de match si on a une 
         //feuille de resultats avec pour IdFeuilledeMatch notre $get
-        $Resultats = Get_Feuille_Resultats($db, $_GET['idFeuille']);
+        $Resultxats = Get_Feuille_Resultats($db, $_GET['idFeuille']);
         //si on a une feuille de résultats, alors on stocke son Id dans Update,
         $update = (count($Resultats) == 0 ? "0" : $Resultats[0]['IdResultatMatch']);
         //On récupère les évenements dans 3 tableaux différents
