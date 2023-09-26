@@ -8,6 +8,10 @@
 
     $db = connect();
 
+    if(isset($_GET["id"]) && intval($_GET["id"]) > 0)
+    {
+        delete_Arbitre($db, $_GET["id"]);
+    }
     $arbitres = Get_Referees($db);
 
 ?>
@@ -53,7 +57,7 @@
                             //Modify the referee//
                             echo '<p><button onclick="To_Modify_Arbitre_Form('.$arbitre['IdArbitre'].')">Modifier</button> </p> ';
                             //Delete the referee//
-                            echo "<p><button class=''><a href=''>Supprimer</a></button> </p></br></br>";
+                            echo "<p><button class=''><a href='../Views/Arbitre.php?id=".$arbitre['IdArbitre']."'>Supprimer</a></button> </p></br></br>";
                         }
                     }
                     

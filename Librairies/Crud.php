@@ -923,6 +923,12 @@ function Get_IdTeam_From_Player($db, $idplayer){
         return $res;
     }
 }
+
+function delete_Arbitre($db, $idArbitre)
+{
+    $dbh = $db->prepare("DELETE FROM arbitres WHERE IdArbitre = ?");
+    $dbh->execute([$idArbitre]);
+}
 // function Get_Trainer_Team($db, $username)
 // {
 //     if($username != null && $username != "")
