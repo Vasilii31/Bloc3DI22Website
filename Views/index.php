@@ -59,8 +59,8 @@
                     {
                         echo '<a class="Match" href="feuilleMatchEntraineur.php?idFeuille='.$match["idfeuille"].'"><p>'.$match["DateRencontre"].'</p>';
                         echo '<p>'.$match["Stade"].'</p>';
-                        echo '<p>'.$match["monEquipe"].'</p>';
-                        echo '<p>'.$match["equipeAdverse"].'</p></a>';
+                        echo '<p>'.$match["Equipe1"].'</p>';
+                        echo '<p>'.$match["Equipe2"].'</p></a>';
                     }
                 }
                 

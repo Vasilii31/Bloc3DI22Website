@@ -63,7 +63,7 @@
                 <div class="football_player_content_subsection">
                     <h2>Equipe : <?php echo $equipe["NomEquipe"];?></h2>
                     
-                    <form id="add_player_form" method="POST" action="AddPlayer.php?UpdateIdJoueur=<?php echo ''.$updateIdJoueur;?>">
+                    <form id="add_player_form" method="POST" action="../Back/AddPlayer.php?UpdateIdJoueur=<?php echo ''.$updateIdJoueur;?>">
                         <input class="add_player_inputs" id="InputNom" name="nom" type="text" value="<?php echo $joueur['Nom']?>" required>
                         <input id="InputPrenom" name="prenom" type="text" value="<?php echo $joueur['Prenom']?>" required>
                         <input id="InputNum" name="num" type="number" min="1" max="44" value="<?php echo $joueur['NumeroMaillot']?>" required>

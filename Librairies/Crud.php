@@ -344,14 +344,14 @@ function Accept_Or_Decline_User($db, $iduser, $approved)
 
 function Get_Matches_To_Complete($db, $idEntraineur)
 {
-    $sReq = "SELECT fdm.idfeuille, fdm.DateRencontre, fdm.Stade, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
+    $sReq = "SELECT fdm.idfeuille, fdm.DateRencontre, fdm.Stade, e.NomEquipe as Equipe1, ea.NomEquipe as Equipe2, fdme.IdFeuilleMatchEntraineur 
             from feuilledematch as fdm 
             INNER JOIN equipes as e on fdm.IdEquipe1 = e.IdEquipe 
             INNER JOIN equipes as ea on ea.IdEquipe = fdm.IdEquipe2
             INNER JOIN feuillematchentraineur as fdme on fdme.idfeuilledematch = fdm.idfeuille 
             where (e.IdEntraineur = ? or e.IdEntraineurAdjoint = ?) AND fdm.complete = 0 AND fdme.complete = 0
             UNION
-            SELECT fdm.idfeuille, fdm.DateRencontre, fdm.Stade, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse 
+            SELECT fdm.idfeuille, fdm.DateRencontre, fdm.Stade, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse, fdme.IdFeuilleMatchEntraineur 
             from feuilledematch as fdm 
             INNER JOIN equipes as e on fdm.IdEquipe2 = e.IdEquipe 
             INNER JOIN equipes as ea on ea.IdEquipe = fdm.IdEquipe1
@@ -928,6 +928,20 @@ function delete_Arbitre($db, $idArbitre)
 {
     $dbh = $db->prepare("DELETE FROM arbitres WHERE IdArbitre = ?");
     $dbh->execute([$idArbitre]);
+}
+
+function Get_Matches_Completed_by_Trainer($db, $idEntraineur)
+{
+    $sReq = "SELECT f.IdFeuille, f.DateRencontre, f.Stade, fe.IdFeuilleMatchEntraineur, e1.NomEquipe as Equipe1, e2.NomEquipe as Equipe2
+                FROM feuilledematch as f 
+                INNER JOIN feuillematchentraineur as fe on f.IdFeuille = fe.Idfeuilledematch
+                INNER JOIN equipes as e on fe.IdEquipe = e.IdEquipe
+                INNER JOIN equipes as e1 on f.IdEquipe1 = e1.IdEquipe
+                INNER JOIN equipes as e2 on f.IdEquipe1 = e2.IdEquipe
+                WHERE f.complete = 0 AND fe.complete = 1 and f.DateRencontre >= CURRENT_DATE() AND e.IdEntraineur = ?";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([$idEntraineur]);
+    $res = $dbh->fetchAll();
 }
 // function Get_Trainer_Team($db, $username)
 // {
