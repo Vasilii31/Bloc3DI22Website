@@ -26,9 +26,9 @@
                 <div class="dropdown">
                     <button onclick="DropDownMatchsEntraineur()" class="dropbtn">Mes Matchs</button>
                         <div id="DropdownMatchEntraineur" class="dropdown-content">
-                            <a href="#">Matchs à compléter</a>
-                            <a href="#">Matchs complétés à venir</a>
-                            <a href="#">Historique des matchs</a>
+                            <a href="ConsultMatchsEntraineurs.php?matchs=tocomplete">Matchs à compléter</a>
+                            <a href="ConsultMatchsEntraineurs.php?matchs=completedIncoming">Matchs complétés à venir</a>
+                            <a href="ConsultMatchsEntraineurs.php?matchs=archived">Historique des matchs</a>
                         </div>
                 </div>
             </li>
