@@ -20,7 +20,7 @@
 #header ul {
     align-self: center;
     justify-self: center;
-    /*padding-right: 20px ;*/
+    padding-right: 20px ;
 }
 
 #header ul li {
@@ -132,3 +132,20 @@
   .show {display:block;}
 
 
+/**Buttons**/
+button a {
+  text-decoration: none;
+  color:#000000;
+}
+
+button {
+  font-size: 20px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 15px;
+  margin: auto;
+}
+
+button:hover, #my_team a:hover  {
+  color: #A62C8B;
+  font-weight: 500;
+}

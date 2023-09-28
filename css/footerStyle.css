@@ -6,9 +6,9 @@
     background-color: #000000;
     font-size: 11px;
     display: grid;
-    position: relative;
-    bottom: 0;
-    left: 0;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
 }
 
 #footer ul {

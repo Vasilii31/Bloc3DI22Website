@@ -22,7 +22,7 @@
     <div class="container">
         <nav id="navbar">
             <div id="Header_Logo">
-                <img src="./img/logo.png">
+                <img src="../img/logo.png">
                 <p>Footclick</p>
             </div>
             
@@ -66,7 +66,7 @@
                                 <input type="password" id="pwd" name="mdp" class="form-control" id="mdp" placeholder="@Mot de Passe" required>
                                 <input type="password" id="cpwd" name="confirmMdp" class="form-control" id="cmdp" placeholder="@Confirmer Mot de Passe" required>
                                 <input style="margin-bottom: 20px;" type="checkbox" onclick="show_Password()">Afficher le mot de passe
-                                <input type="password" id="codeAdmin" name="createAdmin" class="form-control" placeholder="Code de création Administrateur" required>
+                                <input type="password" id="codeAdmin" name="createAdmin" class="form-control" placeholder="Code de création Administrateur">
                                 <input type="hidden" id="boolAdmin" name="admin" value="" />
                                 <input type="hidden" name="logOrSign" value="signin" />
                                 <input type="submit" class="formButton" id="registerButton">
