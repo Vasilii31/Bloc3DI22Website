@@ -1,7 +1,0 @@
-{
-  "name": "AppFootConsult",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react-vite"
-}
