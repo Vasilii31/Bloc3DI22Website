@@ -58,7 +58,7 @@
                             foreach($matchsAcompleter as $match)
                             {
                                 echo '<div class="Match"> 
-                                <p>Le : '.date('d-m-Y', strtotime($match["DateRencontre"])).' à '.$match["Stade"].' &bull; '.$match["monEquipe"].' contre '.$match["equipeAdverse"].'</p>
+                                <p>Le : '.date('d-m-Y', strtotime($match["DateRencontre"])).' à '.$match["Stade"].' &bull; '.$match["Equipe1"].' contre '.$match["Equipe2"].'</p>
                                 <button><a href="feuilleMatchEntraineur.php?idFeuille='.$match["idfeuille"].'" class="bouton">Compléter</a></button>
                                 </div>';
                                 // echo '<p>'.$match["Stade"].'</p>';
