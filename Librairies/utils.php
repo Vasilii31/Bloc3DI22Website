@@ -1,6 +1,6 @@
 <?php
 
-    require_once("Crud.php");
+    require_once("../Librairies/Crud.php");
 
     function init_php_session()
     {
@@ -57,7 +57,7 @@
     {
         if(!is_logged())
         {
-            header("location: /auth.php");
+            header("location: ../Views/auth.php");
             return;
         }
 
@@ -66,7 +66,7 @@
             if(!is_admin())
             {
                 //pour l'instant on a pas de page d'erreur 
-                header("location: /deniedAccess.php?admin=false");  
+                header("location: ../Views/deniedAccess.php?admin=false");  
             }       
         }
         else
@@ -74,7 +74,7 @@
             if(is_admin())
             {
                 //pour l'instant on a pas de page d'erreur 
-                header("location: /deniedAccess.php?admin=true");
+                header("location: ../Views/deniedAccess.php?admin=true");
             }
         }
     }
