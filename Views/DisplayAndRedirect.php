@@ -1,7 +1,7 @@
 <?php
     if(isset($_GET))
     {
-        var_dump($_GET);
+        // var_dump($_GET);
 
         switch($_GET["result"])
         {
@@ -67,10 +67,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/DisplayAndRedirect.css"/>
     <title>Document</title>
 </head>
 <body>
-    <h1><?php echo $output;?></h1>
-    <a href=<?php echo $href;?>>Retour</a>
+    <div class="display">
+        <p><?php echo $output;?></p>
+        <button><a href=<?php echo $href;?> id="retour">Retour</a></button>
+    </div>
 </body>
 </html>

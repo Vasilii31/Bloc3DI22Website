@@ -5,7 +5,7 @@
 <div id="header"  >
     <a href="index.php">
         <div id="Header_Logo">
-            <img src="./img/logo.png">
+            <img src="../img/logo.png">
             <p>Footclick</p>
         </div>
     </a>
