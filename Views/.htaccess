@@ -1,0 +1,14 @@
+Options +FollowSymlinks
+
+RewriteEngine On
+#RewriteCond %{HTTP_HOST} ^footclick.com/Views/index.php$ [NC]
+#RewriteRule ^(.*) http://footclick.com/Views/index.php [L,R]
+
+
+#RewriteRule ^/index$ /Views/index.php
+
+RewriteRule ^Arbitre$ ../Views/Arbitre/oui
+RewriteRule ^index$ ../Views/index.php
+#RewriteRule "^(.+)\.php" "$ "
+
+#RewriteRule "^Views/(.+)\.php" "views/$1.png"
