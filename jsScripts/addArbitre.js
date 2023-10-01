@@ -14,6 +14,7 @@ function show_Arbitre_Form()
     addArbitreForm.reset();
     submitbutton.setAttribute("value", "Ajouter");
     formArbitre.style = "display:flex;"
+    addButton.style.display = "none";
 }
 
 function To_Modify_Arbitre_Form(idArbitre)

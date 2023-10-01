@@ -113,7 +113,7 @@
         $boolAdmin = ($infoArray["admin"] == "true") ? true : false; 
 
         $res = Get_User($db, $infoArray["username"], $boolAdmin);
-        if(isset($res))
+        if($res != false)
         {
             var_dump($infoArray);
             var_dump($res);
@@ -161,7 +161,7 @@
         if($dbRes != null)
         {
             $newDate = date("d-m-Y", strtotime($dbRes['DateRencontre']));  
-            $output = "Rencontre du ".$newDate." : ".$dbRes["Equipe1"]." contre ".$dbRes["Equipe2"];
+            $output = "Rencontre du ".$newDate." :</br>".$dbRes["Equipe1"]." contre ".$dbRes["Equipe2"];
         }
         return $output;
     }

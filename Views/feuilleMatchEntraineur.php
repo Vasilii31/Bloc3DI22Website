@@ -45,7 +45,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style2.css"/>
     <link rel="stylesheet" href="../css/templateStyle.css"/>
-<!-----------------TITLE A COMPLETER----------------->
+
     <title>Feuille Entraineur</title>
 </head>
 
@@ -62,18 +62,18 @@
         <img src="../img/Football_player.png" alt="Joueur de foot tirant dans un ballon" class="football_player_image">
     </div>
 
-<!--Container for Football Player's page, here: "TITRE  H1"---------------------->
+
     <div class="football_player_content_container">
 
-<!-----------------TITLE A COMPLETER----------------->
+
         <h1>Feuille Entraineur</h1>
 
 
-<!-----------------SECTION 1----------------->       
+    
             <div class="football_player_content_section">
                 <h2><?php echo $globalsInfos;?></h2>
 
-<!-----------------SOUS SECTION 1.1-----------------> 
+ 
                 <div class="football_player_content_subsection">
                     
                 </div>
@@ -81,11 +81,11 @@
             </div>
 
         <form action=<?php echo "../Back/updateTrainerSheet.php?idFeuilleM=".$_GET["idFeuille"]."&idFeuilleE=".$idFeuilleEntraineur;?> method="POST" class="PlayersList" >
-<!-----------------SECTION 2-----------------> 
+
             <div class="football_player_content_section">
                 <h2>Joueurs Titulaires</h2>
 
-<!-----------------SOUS SECTION 2.1-----------------> 
+ 
                 
                     <ul>
                         <li id="player1">
@@ -181,12 +181,11 @@
 
             </div>
         
-        
-<!-----------------SECTION 3----------------->
+
             <div class="football_player_content_section">
                 <h2>Joueurs Remplaçants</h2>
 
-<!-----------------SOUS SECTION 3.1-----------------> 
+
                 <ul>
                     <li class="substitute">
                         <select id="substitute1" name="substitute1" required>

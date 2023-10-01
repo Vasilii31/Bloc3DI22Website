@@ -272,8 +272,8 @@ function Get_Trainer_ID($db, $boolAdmin, $IdUser){
 
 //Get ID Team from an Id Trainer//
 function Get_IDTeam_FromTrainer($db, $idEntraineur){
-    $dbh = $db->prepare("SELECT IdEquipe FROM equipes WHERE IdEntraineur = ? ");
-    $dbh->execute([$idEntraineur]);
+    $dbh = $db->prepare("SELECT IdEquipe FROM equipes WHERE IdEntraineur = ? OR IdEntraineurAdjoint = ?");
+    $dbh->execute([$idEntraineur, $idEntraineur]);
     $res = $dbh->fetch();
     if($res == false) 
     {
@@ -287,8 +287,8 @@ function Get_IDTeam_FromTrainer($db, $idEntraineur){
 
 //Get Team from an Id Trainer//
 function Get_Team_FromTrainer($db, $idEntraineur){
-    $dbh = $db->prepare("SELECT * FROM equipes WHERE IdEntraineur = ? ");
-    $dbh->execute([$idEntraineur]);
+    $dbh = $db->prepare("SELECT * FROM equipes WHERE IdEntraineur = ? OR IdEntraineurAdjoint = ?");
+    $dbh->execute([$idEntraineur, $idEntraineur]);
     $res = $dbh->fetch();
     if($res == false) 
     {
@@ -344,25 +344,17 @@ function Accept_Or_Decline_User($db, $iduser, $approved)
 
 function Get_Matches_To_Complete($db, $idEntraineur)
 {
-    $sReq = "SELECT fdm.idfeuille, fdm.DateRencontre, fdm.Stade, e.NomEquipe as Equipe1, ea.NomEquipe as Equipe2, fdme.IdFeuilleMatchEntraineur 
-            from feuilledematch as fdm 
-            INNER JOIN equipes as e on fdm.IdEquipe1 = e.IdEquipe 
-            INNER JOIN equipes as ea on ea.IdEquipe = fdm.IdEquipe2
-            INNER JOIN feuillematchentraineur as fdme on fdme.idfeuilledematch = fdm.idfeuille 
-            where (e.IdEntraineur = ? or e.IdEntraineurAdjoint = ?) AND fdm.complete = 0 AND fdme.complete = 0
-            UNION
-            SELECT fdm.idfeuille, fdm.DateRencontre, fdm.Stade, e.NomEquipe as monEquipe, ea.NomEquipe as equipeAdverse, fdme.IdFeuilleMatchEntraineur 
-            from feuilledematch as fdm 
-            INNER JOIN equipes as e on fdm.IdEquipe2 = e.IdEquipe 
-            INNER JOIN equipes as ea on ea.IdEquipe = fdm.IdEquipe1
-            INNER JOIN feuillematchentraineur as fdme on fdme.idfeuilledematch = fdm.idfeuille 
-            where (e.IdEntraineur = ? or e.IdEntraineurAdjoint = ?) AND fdm.complete = 0 AND fdme.complete = 0";
+    $sReq = "SELECT fdme.IdFeuilleMatchEntraineur, f.IdFeuille, f.DateRencontre, f.Stade, e1.NomEquipe AS Equipe1, e2.NomEquipe AS Equipe2 FROM feuilledematch AS f 
+            INNER JOIN feuillematchentraineur AS fdme ON f.IdFeuille = fdme.Idfeuilledematch
+            INNER JOIN equipes AS e ON fdme.IdEquipe = e.IdEquipe
+            INNER JOIN equipes AS e1 ON e1.IdEquipe = f.IdEquipe1
+            INNER JOIN equipes AS e2 ON e2.IdEquipe = f.IdEquipe2
+            WHERE (e.IdEntraineur = ? OR e.IdEntraineurAdjoint = ?)
+            AND fdme.complete = 0";
     $dbh = $db->prepare($sReq);
     $dbh->execute([
             $idEntraineur,
-            $idEntraineur,
-            $idEntraineur,
-            $idEntraineur           
+            $idEntraineur,          
         ]);
     return $dbh->fetchAll();
 
@@ -951,6 +943,33 @@ function Get_Matches_Completed_by_Trainer($db, $idEntraineur)
 //         $dbh->execute([$newId]);
 //         $res = $dbh->fetch();
 //     }
+//     return $res;
+// }
+
+// function get_WinnerTeam($db, $IdFeuilledeMatch)
+// {
+//     $sReq = "SELECT * FROM `equipes` INNER JOIN resultatmatch ON equipes.IdEquipe = resultatmatch.IdEquipeGagnante WHERE Idfeuilledematch = ?";
+//     $dbh = $db->prepare($sReq);
+//     $dbh->execute([$IdFeuilledeMatch]);
+//     $res = $dbh->fetchAll();
+//     return $res;
+// }
+
+// function get_Equipe1($db, $IdFeuilledeMatch)
+// {
+//     $sReq = "SELECT * FROM equipes JOIN feuilledematch ON equipes.IdEquipe = feuilledematch.IdEquipe1 WHERE Idfeuille = ?";
+//     $dbh = $db->prepare($sReq);
+//     $dbh->execute([$IdFeuilledeMatch]);
+//     $res = $dbh->fetchAll();
+//     return $res;
+// }
+
+// function get_Equipe2($db, $IdFeuilledeMatch)
+// {
+//     $sReq = "SELECT * FROM equipes JOIN feuilledematch ON equipes.IdEquipe = feuilledematch.IdEquipe2 WHERE Idfeuille = ?";
+//     $dbh = $db->prepare($sReq);
+//     $dbh->execute([$IdFeuilledeMatch]);
+//     $res = $dbh->fetchAll();
 //     return $res;
 // }
 

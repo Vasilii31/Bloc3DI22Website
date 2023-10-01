@@ -71,7 +71,9 @@
 
                     <div id="equipe1">
                         <label for="equip1selector">Equipe 1 :</label>
-                        <select id="equip1selector" name="Equipe1" onchange="equip1Handler(value);" required><option value="">Equipe N°1</option>
+                        <!-- <select id="equip1selector" name="Equipe1" onchange="equip1Handler(value);" required><option value="">Equipe N°1</option> -->
+                        <select id="equip1selector" name="Equipe1" required><option value="">Equipe N°1</option>
+
                             <?php 
                                 if(isset($clubs))
                                 {
@@ -88,7 +90,8 @@
 
                     <div id="equipe2">
                         <label for="equip2selector">Equipe 2 :</label>
-                        <select id="equip2selector" name="Equipe2" onchange="equip2Handler(value);" required><option value="">Equipe N°2</option>
+                        <!-- <select id="equip2selector" name="Equipe2" onchange="equip2Handler(value);" required><option value="">Equipe N°2</option> -->
+                        <select id="equip2selector" name="Equipe2" required><option value="">Equipe N°2</option>    
                             <?php 
                                 if(isset($clubs))
                                 {
