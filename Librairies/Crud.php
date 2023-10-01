@@ -929,11 +929,12 @@ function Get_Matches_Completed_by_Trainer($db, $idEntraineur)
                 INNER JOIN feuillematchentraineur as fe on f.IdFeuille = fe.Idfeuilledematch
                 INNER JOIN equipes as e on fe.IdEquipe = e.IdEquipe
                 INNER JOIN equipes as e1 on f.IdEquipe1 = e1.IdEquipe
-                INNER JOIN equipes as e2 on f.IdEquipe1 = e2.IdEquipe
+                INNER JOIN equipes as e2 on f.IdEquipe2 = e2.IdEquipe
                 WHERE f.complete = 0 AND fe.complete = 1 and f.DateRencontre >= CURRENT_DATE() AND e.IdEntraineur = ?";
     $dbh = $db->prepare($sReq);
     $dbh->execute([$idEntraineur]);
     $res = $dbh->fetchAll();
+    return $res;
 }
 // function Get_Trainer_Team($db, $username)
 // {
