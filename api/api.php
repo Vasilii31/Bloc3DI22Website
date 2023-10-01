@@ -5,6 +5,7 @@
     require_once("./Models/But.php");
     require_once("./Models/Faute.php");
     require_once("./Models/Changement.php");
+    require_once("./Models/SeasonStats.php");
     require("../Librairies/connectDB.php");
     require("../Librairies/Crud.php");
     require("../Librairies/utils.php");
@@ -16,9 +17,16 @@
         switch($_GET["f"])
         {
             case "infosMatch":
-                if(intval($_GET["idmatch"] > 0))
+                if(isset($_GET["idmatch"]) && intval($_GET["idmatch"] > 0))
                 {
                     $res = CreateMatchObject($db, $_GET["idmatch"]);
+                }
+                break;
+            case "statsEquipe":
+                if(isset($_GET["idequipe"]) && intval($_GET["idequipe"]) > 0 
+                    && isset($_GET["season"]) && intval($_GET["season"]) > 0)
+                {
+                    $res = CreateStatsEquipe($db, $_GET["idequipe"], $_GET["season"]);
                 }
                 break;
 
@@ -64,4 +72,39 @@
         }
         http_response_code(404);
         return "Not Found";
+    }
+
+    function CreateStatsEquipe($db, $idequipe, $season)
+    {
+        $team = Get_team($db, $idequipe);
+        if($team != false)
+        {
+            
+            $winrate = Get_Team_MatchesStats($db, $idequipe, $season);
+            if(intval($winrate["MatchesPlayed"]) != 0)
+            {
+            
+                $butsMarques = Get_Team_Buts_Marques_Stats($db, $idequipe, $season);
+                $butsEncaisses = Get_Team_Buts_Encaisses_Stats($db, $idequipe, $season);
+                $cartonsAttribues = Get_Team_CartonsStats($db, $idequipe, $season);
+                $meilleursButeurs = Get_Best_Team_Buteurs($db, $idequipe, $season);
+                $meilleurMatch = Get_Best_Team_MatchSaison($db, $idequipe, $season);
+                $pireMatch = Get_Worst_Team_MatchSaison($db, $idequipe, $season);
+                $statsEquipeSaison = new SeasonStats($idequipe, $team["NomEquipe"], $season, $winrate["MatchesPlayed"], $winrate["MatchesWon"], $butsMarques["nombreDeButsMarques"],
+                                            $butsEncaisses["nombreDeButsEncaisses"], $cartonsAttribues["nombreDeCartons"], $meilleursButeurs, $meilleurMatch, $pireMatch);
+
+                http_response_code(200);
+                return $statsEquipeSaison->jsonSerialize();
+            }
+            else
+            {
+                http_response_code(404);
+                return "not found";
+            }
+        }
+        else
+        {
+            http_response_code(404);
+            return "not found";
+        }   
     }

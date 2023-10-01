@@ -996,6 +996,126 @@ function Get_Infos_Equipes($db, $idmatch)
     $res = $dbh->fetch();
     return $res;
 }
+
+function Get_Team_MatchesStats($db, $idequipe, $season)
+{
+    $sReq = "SELECT count(*) as MatchesPlayed, 
+                (select count(*)
+                FROM feuilledematch as f INNER JOIN resultatmatch as rm on rm.Idfeuilledematch = f.IdFeuille
+                WHERE YEAR(f.DateRencontre) = ? and f.complete = 1 AND f.DateRencontre <= CURRENT_DATE() 
+                AND (f.IdEquipe1 = ? or f.IdEquipe2 = ?) and rm.IdEquipeGagnante = ?) as MatchesWon
+    FROM feuilledematch as f INNER JOIN resultatmatch as rm on rm.Idfeuilledematch = f.IdFeuille
+    WHERE YEAR(f.DateRencontre) = ? and f.complete = 1 AND f.DateRencontre <= CURRENT_DATE() 
+    AND (f.IdEquipe1 = ? or f.IdEquipe2 = ?)";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([
+            $season,
+            $idequipe,
+            $idequipe,
+            $idequipe,
+            $season,
+            $idequipe,
+            $idequipe]);
+    $res = $dbh->fetch();
+    return $res;
+}
+
+function Get_Team_Buts_Marques_Stats($db, $idequipe, $season)
+{
+    $sReq = "SELECT count(*) as nombreDeButsMarques
+    FROM feuilledematch as f 
+    INNER join buts as b on b.IdMatch = f.IdFeuille
+    where b.IdEquipe = ?  and YEAR(f.DateRencontre) = ?";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([
+            $idequipe,
+            $season]);
+    $res = $dbh->fetch();
+    return $res;
+}
+
+function Get_Team_CartonsStats($db, $idequipe, $season)
+{
+    $sReq = "SELECT count(*) as nombreDeCartons
+    FROM feuilledematch as f 
+    INNER join cartons as c on c.IdMatch = f.IdFeuille
+    where c.IdEquipe = ?  and YEAR(f.DateRencontre) = ?";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([
+            $idequipe,
+            $season]);
+    $res = $dbh->fetch();
+    return $res;
+}
+
+function Get_Team_Buts_Encaisses_Stats($db, $idequipe, $season)
+{
+    $sReq = "SELECT count(*) as nombreDeButsEncaisses FROM buts as b 
+        INNER JOIN feuilledematch as f on f.IdFeuille = b.IdMatch
+        Where (f.IdEquipe1 = ? or f.IdEquipe2 = ?) and b.IdEquipe != ? 
+        and b.IdMatch = f.IdFeuille and YEAR(f.DateRencontre) = ? And b.contreSonCamp = 0";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([
+            $idequipe,
+            $idequipe,
+            $idequipe,
+            $season]);
+    $res = $dbh->fetch();
+    return $res;
+}
+
+function Get_Best_Team_Buteurs($db, $idequipe, $season)
+{
+    $sReq = "SELECT  j.IdJoueur, j.Nom, j.Prenom, 
+                (SELECT COUNT(*) 
+                FROM buts as b1 
+                INNER JOIN feuilledematch as f on b1.IdMatch = f.IdFeuille 
+                WHERE IdButeur = j.IdJoueur AND YEAR(f.DateRencontre) = ?) as butsMarques 	
+            FROM joueurs as j  INNER JOIN buts as b on j.IdJoueur = b.IdButeur
+	        WHERE j.IdEquipe = ? GROUP by j.IdJoueur ORDER by butsMarques DESC LIMIT 5";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([
+            $season,
+            $idequipe]);
+    $res = $dbh->fetchAll();
+    return $res;
+}
+
+function Get_Best_Team_MatchSaison($db, $idequipe, $season)
+{
+    $sReq = "SELECT max(scoreDiff) as scoreDifference, t.* from (
+        SELECT f.IdFeuille, (rm.ScoreEquipeGagnante - rm.ScoreEquipePerdante) as scoreDiff, f.DateRencontre, e1.NomEquipe as nomEquipe1, e2.NomEquipe as NomEquipe2
+        FROM resultatmatch as rm 
+        INNER JOIN feuilledematch as f on f.IdFeuille = rm.Idfeuilledematch
+        INNER JOIN equipes as e1 on f.IdEquipe1 = e1.IdEquipe
+        INNER JOIN equipes as e2 on f.IdEquipe2 = e2.IdEquipe
+        where rm.IdEquipeGagnante = ? and YEAR(f.DateRencontre) = ?) as t";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([
+            $idequipe,
+            $season]);
+    $res = $dbh->fetch();
+    return $res;
+}
+
+function Get_Worst_Team_MatchSaison($db, $idequipe, $season)
+{
+    $sReq = "SELECT max(scoreDiff) as scoreDifference, t.* from (
+        SELECT f.IdFeuille, (rm.ScoreEquipeGagnante - rm.ScoreEquipePerdante) as scoreDiff, f.DateRencontre, e1.NomEquipe as nomEquipe1, e2.NomEquipe as NomEquipe2
+        FROM resultatmatch as rm 
+        INNER JOIN feuilledematch as f on f.IdFeuille = rm.Idfeuilledematch
+        INNER JOIN equipes as e1 on f.IdEquipe1 = e1.IdEquipe
+        INNER JOIN equipes as e2 on f.IdEquipe2 = e2.IdEquipe
+        where (f.IdEquipe1 = ? or f.IdEquipe2 = ?) and rm.IdEquipeGagnante != ? and YEAR(f.DateRencontre) = ?) as t";
+    $dbh = $db->prepare($sReq);
+    $dbh->execute([
+            $idequipe,
+            $idequipe,
+            $idequipe,
+            $season]);
+    $res = $dbh->fetch();
+    return $res;
+}
 /*function Get_Match_General_infos($db, $idFeuille)
 {
     $idFeuille = intval($idFeuille);
