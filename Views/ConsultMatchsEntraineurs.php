@@ -32,7 +32,7 @@
             $none = "Aucun match en historique pour cette équipe";
             break;                   
     }
-    var_dump($matchs);
+    
 
 ?>
 

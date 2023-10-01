@@ -69,7 +69,7 @@
                 <button id='add-button' onclick="show_Arbitre_Form()">Ajouter un arbitre</button>
                 </br>
                 <div id="AjoutArbitre">
-                    <form id="formArbitre" action="/Back/AddArbitre.php" method="POST">
+                    <form id="formArbitre" action="../Back/AddArbitre.php" method="POST">
                         <input id="InputNom" type="text" name="Nom" placeholder="Nom" required>
                         <input id="InputNationalite" type="text" name="Nationalite" placeholder="Nationalité" required>
                         <input id="InputId" type="hidden" name="id" value="">

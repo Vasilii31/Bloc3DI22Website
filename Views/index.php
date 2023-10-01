@@ -24,8 +24,9 @@
         $attenteEntraineurs = Get_Matchs_Attente_Entraineurs($db);
         $attenteResultats = Get_Matchs_Attente_Resultats($db);
     }
-    
-?>
+
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -38,10 +39,9 @@
         <?php
             include("header.php");
         ?>
-    </header>
+    </header> 
     <body>
 
-    
         <div class="indexPage_container">
             <div class="football_player_content_container">
                 <!--AFFICHAGE ENTRAINEUR-->
@@ -59,13 +59,14 @@
                             {
                                 echo '<div class="Match"> 
                                 <p>Le : '.date('d-m-Y', strtotime($match["DateRencontre"])).' à '.$match["Stade"].' &bull; '.$match["Equipe1"].' contre '.$match["Equipe2"].'</p>
-                                <button><a href="feuilleMatchEntraineur.php?idFeuille='.$match["idfeuille"].'" class="bouton">Compléter</a></button>
+                                <button><a href="feuilleMatchEntraineur.php?idFeuille='.$match["IdFeuille"].'" class="bouton">Compléter</a></button>
                                 </div>';
                                 // echo '<p>'.$match["Stade"].'</p>';
                                 // echo '<p>'.$match["monEquipe"].'</p>';
                                 // echo '<p>'.$match["equipeAdverse"].'</p></a>';
                             }
                         }
+
                     
                     ?>
                 <!--AFFICHAGE ADMINISTRATEUR-->
@@ -127,12 +128,12 @@
                             foreach($historiqueMatch as $feuilledematch)
                             {
                                 echo '<div class="Match">';
+                                
                                 echo '<p>Le : '.$feuilledematch["DateRencontre"].' &bull; '.$feuilledematch["Equipe1"].' contre '.$feuilledematch["Equipe2"].'</p>';
                                 
                                 if($feuilledematch["MatchNul" == false])
                                 {
                                     echo '<div class="score"><p class="win">'.$feuilledematch["ScoreEquipeGagnante"].'</p><p> - </p><p class="loss">'.$feuilledematch["ScoreEquipePerdante"].'</p></div>';
-                                    
                                 }
                                 else
                                 {

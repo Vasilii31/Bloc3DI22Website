@@ -3,6 +3,8 @@ const InputNom = document.getElementById("InputNom");
 const InputId = document.getElementById("InputId");
 const submitbutton = document.getElementById("submitbtn"); 
 const formClub = document.getElementById("AjoutClub");
+const addButton = document.getElementById("add-button");
+
 
 function show_Club_Form()
 {
@@ -12,6 +14,7 @@ function show_Club_Form()
     addClubForm.reset();
     submitbutton.setAttribute("value", "Ajouter");
     formClub.style = "display:flex;"
+    addButton.style.display = "none";
 }
 
 function To_Modify_Club_Form(idClub)

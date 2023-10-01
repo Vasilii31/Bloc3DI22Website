@@ -9,6 +9,7 @@
     
     $db = connect();
 
+
     //recuperer les clubs existants
     $clubs = Get_Clubs($db);
 ?>
@@ -20,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/clubs.css"/>
     <link rel="stylesheet" href="../css/templateStyle.css"/>
-<!-----------------TITLE A COMPLETER----------------->
+
     <title>Gestion des Clubs</title>
 </head>
 <header>
@@ -44,31 +45,28 @@
 
 
 <!-----------------SECTION 1----------------->       
-            <!--<div class="football_player_content_section">
+            <div class="football_player_content_section">
                 <?php 
-                    /*if(count($clubs) > 0)
+                    if(count($clubs) > 0)
                     {
                         foreach($clubs as $club)
                         {
-                            echo "<div class='club'>'<p id='nomClub".$club['IdClub']."'>".$club['NomClub']." </p>";
-                            //Modify the club//
-                            echo '<button onclick="To_Modify_Club_Form('.$club['IdClub'].')">Modifier</button></div>';
-                            //Delete the club// ON AUTORISE PAS SANS SYSTEME D'HISTORIQUE
-                            //echo "<button class=''><a href='AddArbitre.php?id=".$arbitre['IdArbitre']."&delete=true'>Supprimer</a></button></br></div>";
+                            echo "<div class='club'><p id='nomClub".$club['IdClub']."'>".$club['NomClub']." </p></br>";
+                            
                         }
-                    }*/
+                    }
                     
                 ?>
 
-            </div>-->
+            </div>
 
             <div class="football_player_content_section">
-            <button id="" onclick="show_Club_Form()">Créer un Club</button>
+            <button id='add-button' onclick="show_Club_Form()">Créer un Club</button>
             <div id="AjoutClub">
                 <form id="formClub" action="../Back/AddClub.php" method="POST">
                     <input id="InputNom" type="text" name="Nom" placeholder="Nom" required>
                     <input id="InputId" type="hidden" name="id" value="">
-                    <input type="submit" id="submitbtn" value="Valider">
+                    <input type="submit" id="submitbtn" class="submit_button" value="Valider">
                 </form>
             </div>
 
