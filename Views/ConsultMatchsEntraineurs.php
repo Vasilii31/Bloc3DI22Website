@@ -13,7 +13,6 @@
         header("./DisplayAndRedirect.php?result=KO");
         return;
     }
-    var_dump($_SESSION["IdEntraineur"]);
     switch($_GET["matchs"])
     {
         case "tocomplete":
@@ -25,7 +24,6 @@
             $matchs = Get_Matches_Completed_by_Trainer($db, $_SESSION["IdEntraineur"]);
             $title = "Matchs complétés à venir";
             $none = "Aucun match complété à venir.";
-            var_dump($matchs);
             break;
         case "archived":
             $matchs =  Get_Historiques_Team_Matches($db, $_SESSION["IdEntraineur"]);
