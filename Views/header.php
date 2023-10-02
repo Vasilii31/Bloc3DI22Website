@@ -39,7 +39,7 @@
                 <div class="dropdown">
                     <button onclick="DropDownEquipe()" class="dropbtn">Créer</button>
                         <div id="DropdownEquipe" class="dropdown-content">
-                            <a href="./Arbitre.php">Créer un arbitre</a>
+                            <a href="Arbitre">Créer un arbitre</a>
                             <a href="./CreationClub.php">Créer un Club</a>
                             <a href="./CreationEquipe.php">Créer une équipe</a>
                             <a href="./feuilleMatch.php">Créer un match</a>
