@@ -7,6 +7,13 @@
         return $res;
     };
 
+    function Get_teams($db)
+    {
+        $sReq = "SELECT IdEquipe, NomEquipe  FROM equipes";
+        $res = $db->query($sReq)->fetchAll();
+        return $res;
+    }
+
     function Get_Referees($db)
     {
         $sReq = "SELECT * FROM arbitres";
@@ -145,7 +152,7 @@ function Get_Match_infos($db, $idFeuille)
 
 function Get_All_Matches_infos($db)
 {
-        $dbh = $db->prepare("SELECT f.IdFeuille, DateRencontre, Stade, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch WHERE complete = 1");
+        $dbh = $db->prepare("SELECT f.IdFeuille, DateRencontre, Stade, c1.NomClub as Equipe1, c2.NomClub as Equipe2, rm.ScoreEquipeGagnante, rm.ScoreEquipePerdante  FROM feuilledematch AS f INNER JOIN clubs AS c1 ON f.IdEquipe1 = c1.IdClub INNER JOIN clubs AS c2 on f.IdEquipe2 = c2.IdClub INNER JOIN resultatmatch AS rm ON f.IdFeuille = Idfeuilledematch WHERE complete = 1 ORDER BY DateRencontre DESC");
         $dbh->execute();
 
     return $dbh->fetchAll();
@@ -1077,13 +1084,12 @@ function Get_Best_Team_Buteurs($db, $idequipe, $season)
 
 function Get_Best_Team_MatchSaison($db, $idequipe, $season)
 {
-    $sReq = "SELECT max(scoreDiff) as scoreDifference, t.* from (
-        SELECT f.IdFeuille, (rm.ScoreEquipeGagnante - rm.ScoreEquipePerdante) as scoreDiff, f.DateRencontre, e1.NomEquipe as nomEquipe1, e2.NomEquipe as NomEquipe2
+    $sReq = "SELECT f.IdFeuille, max((rm.ScoreEquipeGagnante - rm.ScoreEquipePerdante)) as scoreDiff, f.DateRencontre, e1.NomEquipe as nomEquipe1, e2.NomEquipe as nomEquipe2
         FROM resultatmatch as rm 
         INNER JOIN feuilledematch as f on f.IdFeuille = rm.Idfeuilledematch
         INNER JOIN equipes as e1 on f.IdEquipe1 = e1.IdEquipe
         INNER JOIN equipes as e2 on f.IdEquipe2 = e2.IdEquipe
-        where rm.IdEquipeGagnante = ? and YEAR(f.DateRencontre) = ?) as t";
+        where rm.IdEquipeGagnante = ? and YEAR(f.DateRencontre) = ?";
     $dbh = $db->prepare($sReq);
     $dbh->execute([
             $idequipe,
@@ -1095,7 +1101,7 @@ function Get_Best_Team_MatchSaison($db, $idequipe, $season)
 function Get_Worst_Team_MatchSaison($db, $idequipe, $season)
 {
     $sReq = "SELECT max(scoreDiff) as scoreDifference, t.* from (
-        SELECT f.IdFeuille, (rm.ScoreEquipeGagnante - rm.ScoreEquipePerdante) as scoreDiff, f.DateRencontre, e1.NomEquipe as nomEquipe1, e2.NomEquipe as NomEquipe2
+        SELECT f.IdFeuille, (rm.ScoreEquipeGagnante - rm.ScoreEquipePerdante) as scoreDiff, f.DateRencontre, e1.NomEquipe as nomEquipe1, e2.NomEquipe as nomEquipe2
         FROM resultatmatch as rm 
         INNER JOIN feuilledematch as f on f.IdFeuille = rm.Idfeuilledematch
         INNER JOIN equipes as e1 on f.IdEquipe1 = e1.IdEquipe

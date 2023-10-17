@@ -10,7 +10,7 @@ class SeasonStats extends ModelObjects{
     private $nbMatchsJoues = 0;
     private $nbMatchsGagnes = 0;
     private $nbMatchsPerdus = 0;
-    private $tauxDeVictoires = 0.0;
+    private $tauxDeVictoires = 0;
     private $nbButsMarques = 0;
     private $nbButsEncaisses = 0;
     private $nbCartonsAttribues = 0;
@@ -68,7 +68,7 @@ class SeasonStats extends ModelObjects{
 
     public function SettauxDeVictoires($nbMatchsJoues, $nbMatchsGagnes)
     {
-            $this->tauxDeVictoires = fdiv($nbMatchsGagnes , $nbMatchsJoues);
+            $this->tauxDeVictoires = fdiv($nbMatchsGagnes , $nbMatchsJoues) * 100;
     }
 
     public function SetnbButsMarques($nb)

@@ -16,6 +16,12 @@
     {
         switch($_GET["f"])
         {
+            case "equipes":
+                $res = createEquipes($db);
+                break;
+            case "matchs":
+                $res = createMatchs($db);
+                break;
             case "infosMatch":
                 if(isset($_GET["idmatch"]) && intval($_GET["idmatch"] > 0))
                 {
@@ -35,6 +41,17 @@
         echo json_encode($res, JSON_UNESCAPED_UNICODE);
     }
 
+    function createMatchs($db)
+    {
+        $res = Get_All_Matches_infos($db);
+        return $res;
+    }
+
+    function createEquipes($db)
+    {
+        $res = Get_teams($db);
+        return $res;
+    }
 
     function CreateMatchObject($db, $idmatch)
     {
